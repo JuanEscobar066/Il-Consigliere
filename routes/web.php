@@ -31,14 +31,6 @@ Route::get('fotos', function(){
 
 Donde, en la carpeta resources/views, existirá un archivo que se llame fotos.blade.php. No es necesario ponerle
 blade.php, el asume que es un archivo así.
-
-Otro ejemplo, puede ser esto:
-
-Route::get('miembro/update/{parameter}',
-        ['as'=> 'update', 'uses'=>'MiembroController@edit']
-);
-
-Está más abajo, lo que tiene diferente esto, es que permite pasarle un parámetro a la ruta.
 */
 
 Route::get('/', function () {
