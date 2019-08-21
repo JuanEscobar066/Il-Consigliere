@@ -10,11 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/AnnadirUsuario','UserController@view page'); 
+//Route::get('/AnnadirUsuario','UserController@view page');
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
 
 Route::get('/', function () {
 // Redirect::to('/miembro/show');
