@@ -1,3 +1,8 @@
+<!--
+Esta es la plantilla donde se encuentra el calendario, surge un error al intentar crear un consejo en X fecha y al
+presionar "Cancelar", igualmente lo crea pero con hora y fecha incorrectas.
+Esto no debería de ni siquiera pasar.
+-->
 @extends('layouts.app')
 
 @section('content')
@@ -10,7 +15,7 @@
 </head>
 <body>
 <div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">              
+    <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Sesiones de consejo</h4>
@@ -18,7 +23,7 @@
                 Lista de sesiones de consejo programadas
                 </p>
                 @if (\Session::has('puntos'))
-                        
+
                         <div class="alert alert-danger">
                             El consejo no tiene puntos.
                         </div>
@@ -67,7 +72,7 @@
                                         <td>
                                             {{$sesion->lugar}}
                                         </td>
-                                        @if(Auth::permisoIniciarSesion())  
+                                        @if(Auth::permisoIniciarSesion())
                                             @if($sesion->estaactivo==0)
                                                 <td class="center" >
                                                     <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}"><strong>Iniciar</strong></a>
@@ -80,8 +85,8 @@
 
                                             <td class="center">
                                                 <a href="{{action('SesionController@edit',$sesion->id)}}"><strong style="color:green">Editar</strong></a>
-                                            </td>                                          
-                                                        
+                                            </td>
+
                                             <td class="center">
                                                 <a href="" data-target="#modal-delete-{{$sesion->id}}" data-toggle="modal"><strong style="color:red">Eliminar</strong></a>
                                             </td>
@@ -97,21 +102,21 @@
                                 @endif
                             @include('sesion.modal')
                             @endforeach
-                            
-                            
+
+
                         </tbody>
                     </table>
-                    
+
 
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Sesiones   
+                Sesiones
             </div>
             <div class="panel-body" >
                 {!! $calendar->calendar() !!}
@@ -119,31 +124,31 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 <script>
-    
+
     var tags = document.getElementsByClassName('fc-day');
-    
+
     function inicio() {
-        
+
         function eventos()
-        {        
+        {
             //var fecha = this.getAttribute("data-date");
             //alert(fecha);
-            
+
             window.location.href = "/sesion/create";
             //console.log("hola");
         }
-        
+
         for(i = 0; tags.length; i++){
             tags[i].onclick = eventos;
         }
-        
+
     }
 
     window.addEventListener('click', inicio, false);
-        
+
 </script>
 </body>
 </html>
