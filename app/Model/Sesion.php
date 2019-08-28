@@ -40,11 +40,12 @@ class Sesion extends Model
     public function insertar($tipo_sesion, $hora, $lugar){
         $sesion = new Sesion();
 
-        $fecha = '2019-06-24';
-
         $sesion->lugar = $lugar;
         $sesion->hora = $hora;
-        $sesion->fecha = $fecha;
+
+        // Obtiene la fecha del JavaScript. 
+        $sesion->fecha = $_GET["fecha"];
+        
         $sesion->tipo_sesion = $tipo_sesion;
         $sesion->punto_activo = 0;
         $sesion->estaactivo = 0;

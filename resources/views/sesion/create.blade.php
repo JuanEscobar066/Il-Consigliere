@@ -9,7 +9,10 @@
               <p class="card-description">
                 Programación de una nueva sesión de consejo
               </p>
-              {!!Form::open(array('url' => 'sesion', 'method' => 'POST', 'autocomplete' => 'off')) !!}
+
+              <!-- Aquí se abre el Form del calendario, la fecha la permite obtener con 
+                   JavaScript con el método de PHP: $_GET. -->
+              {!!Form::open(array('url' => 'sesion?fecha='. $_GET["fecha"], 'method' => 'POST', 'autocomplete' => 'off')) !!}
                 <div class="form-group row">
                     <label for="tipo_sesion" class="col-sm-3 col-form-label">Tipo de sesión</label>
                     <div class="col-sm-9">

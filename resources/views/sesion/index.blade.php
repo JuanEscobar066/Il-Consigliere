@@ -132,19 +132,21 @@ Esto no debería de ni siquiera pasar.
 
     function inicio() {
 
-        function eventos()
-        {
-            //var fecha = this.getAttribute("data-date");
-            //alert(fecha);
+        // Al presionar una fecha en el calendario, esta función detecta cual 
+        // fecha fue presionada y la envía para realizar la inserción. 
+        function eventos(){
 
-            window.location.href = "/sesion/create";
-            //console.log("hola");
+            // Permite obtener la fecha del calendario y enviarlo por parámetro 
+            // a la función para que pueda almacenarlo en la fecha solicitada. 
+            var fecha = this.getAttribute("data-date");
+
+            // Aquí hace el envío de la fecha. 
+            window.location.href = "/sesion/create?fecha=" + fecha;
         }
 
         for(i = 0; tags.length; i++){
             tags[i].onclick = eventos;
         }
-
     }
 
     window.addEventListener('click', inicio, false);
