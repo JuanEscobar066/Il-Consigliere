@@ -125,7 +125,7 @@
                                         @endif
                                     @endif
                                     @include('sesion.modalVerVotos')
-                                    @include('sesion.modalTipoVotacion')
+                                    @include('sesion.modalVotacion')
                                     
                                 </div>
 
