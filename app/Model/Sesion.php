@@ -75,7 +75,7 @@ class Sesion extends Model
     {
          DB::table('events')
             ->where('id', $idEvento)
-            ->update(['horainicio' => 'NOW()']);
+            ->update(['hora' => 'NOW()']);
     }
 
     public function modificarNombreArchivo($idEvento,$nombreArchivo)
@@ -88,7 +88,7 @@ class Sesion extends Model
     public function obtenerHoraInicioFinEvento($idEvento)
     {
         $horas = DB::table('events as s')
-            ->select('s.horainicio', 's.horafin')
+            ->select('s.hora', 's.horafin')
             ->where('id', $idEvento)
             ->get();
         return $horas;
