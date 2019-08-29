@@ -43,7 +43,7 @@
                   </div>
                 </div>                
                 <button type="submit" class="btn btn-primary mr-2">Programar</button>
-                <button class="btn btn-light"  href="{{url('sesion')}}">Cancelar</button>
+                <a class="btn btn-light"  href="{{url('sesion')}}">Cancelar</a>
                 {!! Form::close() !!}
             </div>
         </div>
