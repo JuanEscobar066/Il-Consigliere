@@ -10,11 +10,28 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/AnnadirUsuario','UserController@view page'); 
+//Route::get('/AnnadirUsuario','UserController@view page');
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+/*
+Para explicarles, cada una de las rutas del proyecto, está aquí.
+Entonces, por ejemplo:
+
+* Il-Consigliere/fotos/
+
+No es que exista una carpeta que se llame fotos dentro del proyecto, en cambio, debería de existir un código
+que sea algo así:
+
+Route::get('fotos', function(){
+    return view('fotos');
+});
+
+Donde, en la carpeta resources/views, existirá un archivo que se llame fotos.blade.php. No es necesario ponerle
+blade.php, el asume que es un archivo así.
+*/
 
 Route::get('/', function () {
 // Redirect::to('/miembro/show');
