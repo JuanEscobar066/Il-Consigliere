@@ -94,7 +94,10 @@ Esto no debería de ni siquiera pasar.
                                 <a href="{{action('SesionController@enviarPuntos',$sesion->id)}}"><strong>Convocar</strong></a>
                             </td>
                             <td class="center">
-                                <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta</strong></a>
+                                <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta(PDF)</strong></a>
+                            </td>
+                            <td class="center">
+                                <a href="{{action('PuntoAgendaController@generateDocx')}}"><strong>Acta(.docx)</strong></a>
                             </td>
                             @else
                             <td class="center" >
