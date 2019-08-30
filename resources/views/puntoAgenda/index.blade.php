@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Puntos de agenda propuestos</h4>
-                <p class="card-description"> Lista de puntos de agenda propuestos </p>
+                <p class="card-description"> Lista de puntos de agenda propuestos </p>                
                 <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>

@@ -56,6 +56,15 @@ class PuntoAgendaController extends Controller
         }
     }
 
+    public function crearActa(){
+        $pdf = \PDF::loadView('puntoAgenda.acta');
+        return $pdf->stream('acta.pdf');
+        /*$view = view('puntoAgenda.acta');
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('acta.pdf');*/
+    }
+
     public function accept($id){
     	$punto = PuntoAgenda::find($id);
     	$punto->estado = true;

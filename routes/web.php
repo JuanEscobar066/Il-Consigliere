@@ -109,6 +109,8 @@ Route::get('puntoAgenda/download/{ruta}', 'PuntoAgendaController@download')->nam
 Route::get('indexAdmin','PuntoAgendaController@indexAdmin');
 Route::get('indexAdmin/{punto}/accept','PuntoAgendaController@accept');
 Route::get('indexAdmin/{punto}/deny','PuntoAgendaController@deny');
+Route::get('/acta', function () {return view('puntoAgenda.acta');});
+Route::name('pdf')->get('/crearPDF', 'PuntoAgendaController@crearActa');
 
 //Route::get('miembroVisualizar', 'MiembroController@show');
 //Route::get('miembroCrear', 'MiembroController@create');
