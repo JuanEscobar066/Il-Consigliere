@@ -27,13 +27,13 @@
     onStepChanging: function(event, currentIndex, newIndex) {
       validationForm.val({
         ignore: [":disabled", ":hidden"]
-      })
+      });
       return validationForm.val();
     },
     onFinishing: function(event, currentIndex) {
       validationForm.val({
         ignore: [':disabled']
-      })
+      });
       return validationForm.val();
     },
     onFinished: function(event, currentIndex) {

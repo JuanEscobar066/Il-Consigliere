@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/AnnadirUsuario','UserController@view page'); 
+//Route::get('/AnnadirUsuario','UserController@view page');
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -105,3 +105,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('events', 'SesionController@index');
+
+
+// Ruta del login como tal, el .blade.
+Route::get('form', function(){
+    return View::make('login');
+});
+
+Route::post('form-loginWithDigitalSignature', array('before'=>'csrf',function(){
+    return view('\auth\loginWithDigitalSignature.blade.php');
+}));
+
+

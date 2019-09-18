@@ -18,3 +18,4 @@ config/database.php
 config/app.php
 .env
 config/database.php
+storage/helloWorld.docx

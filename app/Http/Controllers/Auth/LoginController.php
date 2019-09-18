@@ -42,11 +42,11 @@ class LoginController extends Controller
     {
         // $this->middleware('guest')->except('logout');
     }
-    
+
 
     public function index(Request $request)
     {
-        
+
         if ($request->session()->has('id'))
         {
             return redirect::to('sesion');
@@ -68,12 +68,13 @@ class LoginController extends Controller
         }
     }
 
-    public function login(Request $request)
-    {
+    // Función que permite loguearse con la firma digital.
+    public function loginWithDigitalSignature(Request $request){
 
 
 
-          
+    }
+    public function login(Request $request){
         // $request->session()->forget('id'); //Elimina el valor del id
         if (!$request->session()->has('id'))
         {
@@ -146,15 +147,15 @@ class LoginController extends Controller
         $request->session()->forget('roleNombre');
         return redirect::to('/home');
     }
-    
+
     public function check(Request $request)
     {
         $usuario = $request->email;
-        $contrasenna = $request->password;  
-                
+        $contrasenna = $request->password;
+
         $miembro = new Miembro();
         $listaMiembros = $miembro->mostrar();
-        
+
         foreach ($listaMiembros as $member)
         {
             if ($member->correo == $usuario && $member->contrasenna == $contrasenna)
@@ -162,7 +163,7 @@ class LoginController extends Controller
                 return "true";
             }
         }
-        
+
         return "false";
     }
 }
