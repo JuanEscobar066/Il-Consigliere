@@ -129,7 +129,7 @@
 
 </div>
 
-<object class="acta" type="text/html" data="resources/views/puntoAgenda/acta.blade.php"></object>
+<div id=acta></div> <!--object class="acta" type="text/html" data="resources//views//puntoAgenda//acta.blade.php"></object-->
 
 <script>
 
@@ -152,6 +152,9 @@
         for(i = 0; tags.length; i++){
             tags[i].onclick = eventos;
         }
+        $.ajax({
+        $('#acta').load("..\\resources\\views\\puntoAgenda\\acta.blade.php");
+        });
     }
 
     window.addEventListener('click', inicio, false);
