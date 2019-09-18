@@ -95,7 +95,7 @@ class PuntoAgendaController extends Controller
 
         try {
 
-            $objWriter->save(storage_path('helloWorld.docx'));
+            $objWriter->save(storage_path('Acta Consejo.docx'));
 
         } catch (Exception $e) {
 

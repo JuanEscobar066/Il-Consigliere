@@ -28,7 +28,7 @@
     <div class="col-md-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <div id="acta">
+          <div id="acta" class="acta">
             <div>
               <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
               <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>

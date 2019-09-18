@@ -97,7 +97,8 @@ Esto no debería de ni siquiera pasar.
                                 <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta(PDF)</strong></a>
                             </td>
                             <td class="center">
-                                <a href="{{action('PuntoAgendaController@generateDocx')}}"><strong>Acta(.docx)</strong></a>
+                                <a id="descargar-acta" href="javascript:void(0)"><strong>Acta(.docx)</strong></a>
+                                <!-- <input type="submit" id="myButton" value="Acta(.docx)"/> -->
                             </td>
                             @else
                             <td class="center" >
@@ -132,6 +133,9 @@ Esto no debería de ni siquiera pasar.
 </div>
 
 </div>
+
+<object class="acta" type="text/html" data="resources/views/puntoAgenda/acta.blade.php"></object>
+
 <script>
 
     var tags = document.getElementsByClassName('fc-day');
@@ -157,6 +161,11 @@ Esto no debería de ni siquiera pasar.
 
     window.addEventListener('click', inicio, false);
 
+</script>
+<script>
+    $('#descargar-acta').click(function(){
+    $('.acta').wordExport();      
+ });
 </script>
 </body>
 </html>
