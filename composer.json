@@ -16,8 +16,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "maddhatter/laravel-fullcalendar": "^1.3",
-        "phpoffice/phpword": "^0.16.0",
-        "ryakad/pandoc-php": "^1.0"
+        "michelf/php-markdown": "^1.8",
+        "phpoffice/phpword": "^0.16.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -128,8 +128,7 @@
 </div>
 
 </div>
-
-<div id=acta></div> <!--object class="acta" type="text/html" data="resources//views//puntoAgenda//acta.blade.php"></object-->
+<div class="acta" id="acta" style="display: none;"></div>
 
 <script>
 
@@ -161,6 +160,7 @@
 
 </script>
 <script>
+    $('#acta').load("http://localhost:8000/acta");
     $('#descargar-acta').click(function(){
     $('.acta').wordExport();      
  });
