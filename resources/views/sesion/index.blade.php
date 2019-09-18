@@ -1,8 +1,3 @@
-<!--
-Esta es la plantilla donde se encuentra el calendario, surge un error al intentar crear un consejo en X fecha y al
-presionar "Cancelar", igualmente lo crea pero con hora y fecha incorrectas.
-Esto no debería de ni siquiera pasar.
--->
 @extends('layouts.app')
 
 @section('content')

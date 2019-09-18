@@ -60,7 +60,7 @@ class SesionController extends Controller
                         new \DateTime($value->fecha),
                         $value->id,
                         [
-                          'url' => 'http://127.0.0.1:8080/puntoAgenda',
+                          'url' => 'http://localhost:8000/puntoAgenda',
                           //any other full-calendar supported parameters
 	                ]
                     );
