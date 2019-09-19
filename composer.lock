@@ -4,9 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    
-    "content-hash": "307f612a59e4af0f2dd6c30e15a51a4b",
-    "content-hash": 4d90e90960ad2f07b7fb56ec3440c0249735d2cd
+    "content-hash": "2a18c2768a622043d2d5928810402cab",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2252,32 +2250,6 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
-        },
-        {
-            "name": "ryakad/pandoc-php",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ryakad/pandoc-php.git",
-                "reference": "0cfdf959408e4c481db942b26785d94b9fe46672"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ryakad/pandoc-php/zipball/0cfdf959408e4c481db942b26785d94b9fe46672",
-                "reference": "0cfdf959408e4c481db942b26785d94b9fe46672",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Pandoc": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "time": "2015-01-07T05:07:16+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

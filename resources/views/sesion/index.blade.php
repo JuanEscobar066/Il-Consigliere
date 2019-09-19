@@ -92,7 +92,7 @@
                                 <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta(PDF)</strong></a>
                             </td>
                             <td class="center">
-                                <a id="descargar-acta" href="javascript:void(0)"><strong>Acta(.docx)</strong></a>
+                                <a id="descargar-acta" href="javascript:void(0)" onclick="load()"><strong>Acta(.docx)</strong></a>
                                 <!-- <input type="submit" id="myButton" value="Acta(.docx)"/> -->
                             </td>
                             @else
@@ -128,7 +128,7 @@
 </div>
 
 </div>
-<div class="acta" id="acta" style="display: none;"></div>
+<div class="acta" style="display: none;" id="acta" ></div>
 
 <script>
 
@@ -151,19 +151,23 @@
         for(i = 0; tags.length; i++){
             tags[i].onclick = eventos;
         }
-        $.ajax({
-        $('#acta').load("..\\resources\\views\\puntoAgenda\\acta.blade.php");
-        });
     }
 
     window.addEventListener('click', inicio, false);
 
 </script>
 <script>
-    $('#acta').load("http://localhost:8000/acta");
-    $('#descargar-acta').click(function(){
-    $('.acta').wordExport();      
- });
+    async function load(){
+        $('#acta').load("http://localhost:8000/acta");
+        await sleep(1000);
+        wordParser();
+    }
+    function wordParser(){
+        $('#acta').wordExport("holi");
+    }
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 </script>
 </body>
 </html>
