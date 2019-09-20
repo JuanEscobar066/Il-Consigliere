@@ -103,15 +103,15 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                            @if (Route::has('password.request'))
+                                @if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ url('password/reset') }}">
                                     {{ __('¿Olvidó su contraseña?') }}
                                 </a>
                                 @endif                           
                             </div>                            
                         </div>
-                                                
-                        @include('auth.modal')                              
+                        {!! Form::close() !!}                   
+                        @include('auth.modal')                            
                     </div>
                 </div>
             </div>

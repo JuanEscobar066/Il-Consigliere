@@ -128,6 +128,7 @@
 </div>
 
 </div>
+
 <div class="acta" style="display: none;" id="acta" ></div>
 
 <script>
