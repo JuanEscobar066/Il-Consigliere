@@ -9,27 +9,28 @@ function overlay() {
     pin.focus();
 }
 
-// Esta función permite mostrar un filtro de la verficación de conexión. 
+// Esta función permite mostrar un filtro de la verficación de conexión.
 async function showModalAutenticacion(){
 
-  // Variable que funciona como un filtro. 
-  var modalLoading = jq('#divLoading'); 
+  // Variable que funciona como un filtro.
+  // Hace referencia al modal del modal.css.
+  var modalLoading = jq('#divLoading');
   await verificarConexion(modalLoading);
 }
 
-// Verifica que haya conexión con el componente. 
+// Verifica que haya conexión con el componente.
 function verificarConexion(modalLoading){
 	var result = "";
 	var jsonParams = {"cmd":"info"};
 	var codigo = 2;
 
-  // Crea de nuevo un web service para 
+  // Crea de nuevo un web service para
 	var ws = new WebSocket(URL_SERVICE);
 	return new Promise(function(resolve, reject){
 		ws.onopen = function() {
 		    modalLoading.show();
 
-        // El envía los datos del jsonParams para ir al web socket. 
+        // El envía los datos del jsonParams para ir al web socket.
 		    ws.send(JSON.stringify(jsonParams));
 		};
 		ws.onmessage = function (evt) {
@@ -53,11 +54,11 @@ function verificarConexion(modalLoading){
 
 function varificarResultado(codigo){
     if(codigo === 0){
-        overlay(); 
+        overlay();
         smartCardCertificates();
     }else{
         if(codigo === 1){
-            alert("Su equipo dispone de una versión desactualizada del componente de firma digital."); 
+            alert("Su equipo dispone de una versión desactualizada del componente de firma digital.");
         }else {
             alert("Error de conexión con el componente de firma digital.\n\Favor verifique que tenga instalado el componente de firma digital.");
         }
@@ -76,7 +77,7 @@ async function smartCardCertificates(){
     var errorCode = resultado.ErrorCode;
     var description = resultado.Description;
     if(errorCode === 0){
-       var divCerts = document.getElementById("divSmartCardCerts"); 
+       var divCerts = document.getElementById("divSmartCardCerts");
        var objCerts = resultado.Certificados;
        var htmlCerts = "<select id='idSelectCerts'>";
        if(objCerts.length >= 1){

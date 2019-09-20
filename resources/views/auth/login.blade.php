@@ -9,10 +9,11 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('vendors/iconfonts/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css')}}">
-    <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.addons.css')}}">    
+    <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.addons.css')}}">
     <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css')}}">
-    <link rel="shortcut icon" href="{{ asset('images/favicon1.png')}}" />    
-    
+    <link rel="shortcut icon" href="{{ asset('images/favicon1.png')}}" />
+    <!-- <link rel="stylesheet" href="{{ asset('css/modal.css')}}"> -->
+
     <script src="{{ asset('vendors/js/vendor.bundle.base.js')}}"></script>
     <script src="{{ asset('vendors/js/vendor.bundle.addons.js')}}"></script>
 
@@ -94,7 +95,7 @@
                                     {{ __('Ingresar') }}
                                 </button>
 
-                                <a  class="btn btn-primary" data-toggle="modal" href="#modal-firma">Firma Digital</a>                                                                
+                                <a  class="btn btn-primary" data-toggle="modal" href="#modal-firma">Firma Digital</a>
                             </div>
                         </div>
 
@@ -104,11 +105,11 @@
                                 <a class="btn btn-link" href="{{ url('password/reset') }}">
                                     {{ __('¿Olvidó su contraseña?') }}
                                 </a>
-                                @endif                           
-                            </div>                            
+                                @endif
+                            </div>
                         </div>
-                        {!! Form::close() !!}                   
-                        @include('auth.modal')                            
+                        {!! Form::close() !!}
+                        @include('auth.modal')
                     </div>
                 </div>
             </div>
