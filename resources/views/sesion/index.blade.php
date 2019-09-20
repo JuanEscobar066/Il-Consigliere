@@ -89,10 +89,10 @@
                                 <a href="{{action('SesionController@enviarPuntos',$sesion->id)}}"><strong>Convocar</strong></a>
                             </td>
                             <td class="center">
-                                <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta(PDF)</strong></a>
+                                <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta (PDF)</strong></a>
                             </td>
                             <td class="center">
-                                <a id="descargar-acta" href="javascript:void(0)" onclick="load()"><strong>Acta(.docx)</strong></a>
+                                <a id="descargar-acta" href="javascript:void(0)" onclick="load()"><strong>Acta (Editable)</strong></a>
                                 <!-- <input type="submit" id="myButton" value="Acta(.docx)"/> -->
                             </td>
                             @else

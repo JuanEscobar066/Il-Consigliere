@@ -112,7 +112,6 @@ Route::get('indexAdmin/{punto}/deny','PuntoAgendaController@deny');
 Route::get('/acta', function () {return view('puntoAgenda.acta');});
 Route::name('pdf')->get('/crearPDF', 'PuntoAgendaController@crearActa');
 Route::name('doc')->get('/descargar', 'PuntoAgendaController@download');
-Route::get('generar', 'PuntoAgendaController@generateDocx');
 
 //Route::get('miembroVisualizar', 'MiembroController@show');
 //Route::get('miembroCrear', 'MiembroController@create');

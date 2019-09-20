@@ -1,9 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
 
-	
+
 </head>
+
 <body>
 	<div id="solicitudPunto">
 		<div>
@@ -96,4 +99,5 @@
 		</div>
 	</div>
 </body>
+
 </html>
