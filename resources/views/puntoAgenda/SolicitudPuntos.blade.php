@@ -1,98 +1,99 @@
 <html>
 <head>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
 	
-	<style type="text/css">
-		.lst-kix_list_2-1>li{counter-increment:lst-ctn-kix_list_2-1}.lst-kix_list_6-1>li{counter-increment:lst-ctn-kix_list_6-1}ol.lst-kix_list_6-6.start{counter-reset:lst-ctn-kix_list_6-6 0}.lst-kix_list_5-0>li{counter-increment:lst-ctn-kix_list_5-0}ol.lst-kix_list_2-3.start{counter-reset:lst-ctn-kix_list_2-3 0}ol.lst-kix_list_1-5.start{counter-reset:lst-ctn-kix_list_1-5 0}ol.lst-kix_list_5-3.start{counter-reset:lst-ctn-kix_list_5-3 0}.lst-kix_list_2-3>li{counter-increment:lst-ctn-kix_list_2-3}.lst-kix_list_1-2>li{counter-increment:lst-ctn-kix_list_1-2}.lst-kix_list_5-2>li{counter-increment:lst-ctn-kix_list_5-2}.lst-kix_list_5-0>li:before{content:"" counter(lst-ctn-kix_list_5-0,decimal) ". "}ol.lst-kix_list_6-0{list-style-type:none}ol.lst-kix_list_6-1{list-style-type:none}.lst-kix_list_5-4>li{counter-increment:lst-ctn-kix_list_5-4}.lst-kix_list_1-4>li{counter-increment:lst-ctn-kix_list_1-4}ol.lst-kix_list_1-6.start{counter-reset:lst-ctn-kix_list_1-6 0}.lst-kix_list_5-3>li:before{content:"" counter(lst-ctn-kix_list_5-3,decimal) ". "}.lst-kix_list_5-2>li:before{content:"" counter(lst-ctn-kix_list_5-2,lower-roman) ". "}.lst-kix_list_5-1>li:before{content:"" counter(lst-ctn-kix_list_5-1,lower-latin) ". "}.lst-kix_list_5-7>li:before{content:"" counter(lst-ctn-kix_list_5-7,lower-latin) ". "}.lst-kix_list_5-6>li:before{content:"" counter(lst-ctn-kix_list_5-6,decimal) ". "}.lst-kix_list_5-8>li:before{content:"" counter(lst-ctn-kix_list_5-8,lower-roman) ". "}ol.lst-kix_list_6-6{list-style-type:none}ol.lst-kix_list_6-7{list-style-type:none}.lst-kix_list_5-4>li:before{content:"" counter(lst-ctn-kix_list_5-4,lower-latin) ". "}ol.lst-kix_list_6-8{list-style-type:none}.lst-kix_list_5-5>li:before{content:"" counter(lst-ctn-kix_list_5-5,lower-roman) ". "}ol.lst-kix_list_6-2{list-style-type:none}ol.lst-kix_list_6-3{list-style-type:none}ol.lst-kix_list_6-4{list-style-type:none}ol.lst-kix_list_6-5{list-style-type:none}ol.lst-kix_list_1-0.start{counter-reset:lst-ctn-kix_list_1-0 0}.lst-kix_list_6-1>li:before{content:"" counter(lst-ctn-kix_list_6-1,lower-latin) ". "}.lst-kix_list_6-3>li:before{content:"" counter(lst-ctn-kix_list_6-3,decimal) ". "}.lst-kix_list_6-5>li{counter-increment:lst-ctn-kix_list_6-5}.lst-kix_list_6-8>li{counter-increment:lst-ctn-kix_list_6-8}.lst-kix_list_6-0>li:before{content:"" counter(lst-ctn-kix_list_6-0,decimal) ". "}.lst-kix_list_6-4>li:before{content:"" counter(lst-ctn-kix_list_6-4,lower-latin) ". "}.lst-kix_list_6-2>li:before{content:"" counter(lst-ctn-kix_list_6-2,lower-roman) ". "}.lst-kix_list_2-5>li{counter-increment:lst-ctn-kix_list_2-5}.lst-kix_list_2-8>li{counter-increment:lst-ctn-kix_list_2-8}.lst-kix_list_6-8>li:before{content:"" counter(lst-ctn-kix_list_6-8,lower-roman) ". "}.lst-kix_list_6-5>li:before{content:"" counter(lst-ctn-kix_list_6-5,lower-roman) ". "}.lst-kix_list_6-7>li:before{content:"" counter(lst-ctn-kix_list_6-7,lower-latin) ". "}ol.lst-kix_list_2-4.start{counter-reset:lst-ctn-kix_list_2-4 0}.lst-kix_list_6-6>li:before{content:"" counter(lst-ctn-kix_list_6-6,decimal) ". "}ol.lst-kix_list_1-3{list-style-type:none}ol.lst-kix_list_1-4{list-style-type:none}.lst-kix_list_2-7>li:before{content:"" counter(lst-ctn-kix_list_2-7,lower-latin) ". "}.lst-kix_list_2-7>li{counter-increment:lst-ctn-kix_list_2-7}ol.lst-kix_list_1-5{list-style-type:none}.lst-kix_list_7-4>li:before{content:"o  "}.lst-kix_list_7-6>li:before{content:"\0025cf  "}ol.lst-kix_list_1-6{list-style-type:none}ol.lst-kix_list_1-0{list-style-type:none}.lst-kix_list_2-5>li:before{content:"" counter(lst-ctn-kix_list_2-5,lower-roman) ". "}ol.lst-kix_list_6-2.start{counter-reset:lst-ctn-kix_list_6-2 0}ol.lst-kix_list_1-1{list-style-type:none}ol.lst-kix_list_1-2{list-style-type:none}.lst-kix_list_7-2>li:before{content:"\0025aa  "}ul.lst-kix_list_3-7{list-style-type:none}ul.lst-kix_list_3-8{list-style-type:none}ul.lst-kix_list_3-1{list-style-type:none}ul.lst-kix_list_3-2{list-style-type:none}.lst-kix_list_5-7>li{counter-increment:lst-ctn-kix_list_5-7}.lst-kix_list_7-8>li:before{content:"\0025aa  "}ul.lst-kix_list_3-0{list-style-type:none}ol.lst-kix_list_1-7{list-style-type:none}ul.lst-kix_list_3-5{list-style-type:none}ol.lst-kix_list_1-8{list-style-type:none}ul.lst-kix_list_3-6{list-style-type:none}ul.lst-kix_list_3-3{list-style-type:none}ul.lst-kix_list_3-4{list-style-type:none}ol.lst-kix_list_2-5.start{counter-reset:lst-ctn-kix_list_2-5 0}.lst-kix_list_2-6>li{counter-increment:lst-ctn-kix_list_2-6}.lst-kix_list_4-1>li:before{content:"o  "}.lst-kix_list_4-3>li:before{content:"\0025cf  "}.lst-kix_list_4-5>li:before{content:"\0025aa  "}ol.lst-kix_list_5-7.start{counter-reset:lst-ctn-kix_list_5-7 0}.lst-kix_list_1-8>li{counter-increment:lst-ctn-kix_list_1-8}ol.lst-kix_list_1-4.start{counter-reset:lst-ctn-kix_list_1-4 0}.lst-kix_list_5-5>li{counter-increment:lst-ctn-kix_list_5-5}ol.lst-kix_list_1-1.start{counter-reset:lst-ctn-kix_list_1-1 0}.lst-kix_list_6-4>li{counter-increment:lst-ctn-kix_list_6-4}.lst-kix_list_6-3>li{counter-increment:lst-ctn-kix_list_6-3}ol.lst-kix_list_1-3.start{counter-reset:lst-ctn-kix_list_1-3 0}ol.lst-kix_list_2-8.start{counter-reset:lst-ctn-kix_list_2-8 0}ol.lst-kix_list_1-2.start{counter-reset:lst-ctn-kix_list_1-2 0}ol.lst-kix_list_6-1.start{counter-reset:lst-ctn-kix_list_6-1 0}.lst-kix_list_1-1>li:before{content:"" counter(lst-ctn-kix_list_1-1,lower-latin) ". "}.lst-kix_list_1-3>li:before{content:"" counter(lst-ctn-kix_list_1-3,decimal) ". "}.lst-kix_list_1-7>li:before{content:"" counter(lst-ctn-kix_list_1-7,lower-latin) ". "}ol.lst-kix_list_5-8.start{counter-reset:lst-ctn-kix_list_5-8 0}ol.lst-kix_list_2-7.start{counter-reset:lst-ctn-kix_list_2-7 0}.lst-kix_list_1-3>li{counter-increment:lst-ctn-kix_list_1-3}.lst-kix_list_1-5>li:before{content:"" counter(lst-ctn-kix_list_1-5,lower-roman) ". "}.lst-kix_list_5-6>li{counter-increment:lst-ctn-kix_list_5-6}.lst-kix_list_2-1>li:before{content:"" counter(lst-ctn-kix_list_2-1,lower-latin) ". "}ol.lst-kix_list_6-0.start{counter-reset:lst-ctn-kix_list_6-0 0}.lst-kix_list_2-3>li:before{content:"" counter(lst-ctn-kix_list_2-3,decimal) ". "}.lst-kix_list_5-1>li{counter-increment:lst-ctn-kix_list_5-1}.lst-kix_list_1-1>li{counter-increment:lst-ctn-kix_list_1-1}ol.lst-kix_list_2-6.start{counter-reset:lst-ctn-kix_list_2-6 0}.lst-kix_list_3-0>li:before{content:"  "}.lst-kix_list_3-1>li:before{content:"\0025cf  "}.lst-kix_list_3-2>li:before{content:"o  "}ol.lst-kix_list_1-8.start{counter-reset:lst-ctn-kix_list_1-8 0}.lst-kix_list_6-0>li{counter-increment:lst-ctn-kix_list_6-0}.lst-kix_list_3-5>li:before{content:"\0025cf  "}.lst-kix_list_3-4>li:before{content:"\01f8ad  "}.lst-kix_list_3-3>li:before{content:"\0025aa  "}.lst-kix_list_3-8>li:before{content:"\01f8ad  "}.lst-kix_list_2-0>li{counter-increment:lst-ctn-kix_list_2-0}.lst-kix_list_3-6>li:before{content:"o  "}.lst-kix_list_3-7>li:before{content:"\0025aa  "}ol.lst-kix_list_5-0.start{counter-reset:lst-ctn-kix_list_5-0 0}ol.lst-kix_list_2-2{list-style-type:none}ol.lst-kix_list_2-3{list-style-type:none}ol.lst-kix_list_2-4{list-style-type:none}ol.lst-kix_list_2-5{list-style-type:none}ol.lst-kix_list_2-0{list-style-type:none}ol.lst-kix_list_2-1{list-style-type:none}.lst-kix_list_4-8>li:before{content:"\0025aa  "}ol.lst-kix_list_6-4.start{counter-reset:lst-ctn-kix_list_6-4 0}.lst-kix_list_4-7>li:before{content:"o  "}ul.lst-kix_list_4-8{list-style-type:none}ol.lst-kix_list_5-6.start{counter-reset:lst-ctn-kix_list_5-6 0}ul.lst-kix_list_4-6{list-style-type:none}ul.lst-kix_list_4-7{list-style-type:none}ul.lst-kix_list_4-0{list-style-type:none}ul.lst-kix_list_4-1{list-style-type:none}ul.lst-kix_list_4-4{list-style-type:none}ol.lst-kix_list_2-6{list-style-type:none}ul.lst-kix_list_4-5{list-style-type:none}ol.lst-kix_list_2-7{list-style-type:none}ul.lst-kix_list_4-2{list-style-type:none}ol.lst-kix_list_2-8{list-style-type:none}ul.lst-kix_list_4-3{list-style-type:none}ol.lst-kix_list_6-3.start{counter-reset:lst-ctn-kix_list_6-3 0}ol.lst-kix_list_5-5.start{counter-reset:lst-ctn-kix_list_5-5 0}.lst-kix_list_7-0>li:before{content:"\0025cf  "}.lst-kix_list_2-2>li{counter-increment:lst-ctn-kix_list_2-2}.lst-kix_list_6-2>li{counter-increment:lst-ctn-kix_list_6-2}ol.lst-kix_list_5-0{list-style-type:none}.lst-kix_list_2-6>li:before{content:"" counter(lst-ctn-kix_list_2-6,decimal) ". "}ol.lst-kix_list_5-1{list-style-type:none}ol.lst-kix_list_5-2{list-style-type:none}.lst-kix_list_2-4>li:before{content:"" counter(lst-ctn-kix_list_2-4,lower-latin) ". "}.lst-kix_list_2-8>li:before{content:"" counter(lst-ctn-kix_list_2-8,lower-roman) ". "}.lst-kix_list_7-1>li:before{content:"o  "}.lst-kix_list_7-5>li:before{content:"\0025aa  "}.lst-kix_list_6-6>li{counter-increment:lst-ctn-kix_list_6-6}ol.lst-kix_list_5-4.start{counter-reset:lst-ctn-kix_list_5-4 0}.lst-kix_list_7-3>li:before{content:"\0025cf  "}ul.lst-kix_list_7-5{list-style-type:none}ul.lst-kix_list_7-6{list-style-type:none}ul.lst-kix_list_7-3{list-style-type:none}ul.lst-kix_list_7-4{list-style-type:none}ol.lst-kix_list_5-1.start{counter-reset:lst-ctn-kix_list_5-1 0}ul.lst-kix_list_7-7{list-style-type:none}ul.lst-kix_list_7-8{list-style-type:none}ol.lst-kix_list_5-7{list-style-type:none}.lst-kix_list_6-7>li{counter-increment:lst-ctn-kix_list_6-7}ol.lst-kix_list_5-8{list-style-type:none}ol.lst-kix_list_5-3{list-style-type:none}ul.lst-kix_list_7-1{list-style-type:none}ol.lst-kix_list_5-4{list-style-type:none}ul.lst-kix_list_7-2{list-style-type:none}.lst-kix_list_1-7>li{counter-increment:lst-ctn-kix_list_1-7}ol.lst-kix_list_5-5{list-style-type:none}ol.lst-kix_list_5-6{list-style-type:none}ul.lst-kix_list_7-0{list-style-type:none}.lst-kix_list_7-7>li:before{content:"o  "}.lst-kix_list_5-8>li{counter-increment:lst-ctn-kix_list_5-8}.lst-kix_list_4-0>li:before{content:"\0025cf  "}ol.lst-kix_list_6-8.start{counter-reset:lst-ctn-kix_list_6-8 0}ol.lst-kix_list_1-7.start{counter-reset:lst-ctn-kix_list_1-7 0}.lst-kix_list_4-4>li:before{content:"o  "}ol.lst-kix_list_2-2.start{counter-reset:lst-ctn-kix_list_2-2 0}.lst-kix_list_1-5>li{counter-increment:lst-ctn-kix_list_1-5}ol.lst-kix_list_6-5.start{counter-reset:lst-ctn-kix_list_6-5 0}.lst-kix_list_4-2>li:before{content:"\0025aa  "}.lst-kix_list_4-6>li:before{content:"\0025cf  "}.lst-kix_list_2-4>li{counter-increment:lst-ctn-kix_list_2-4}ol.lst-kix_list_6-7.start{counter-reset:lst-ctn-kix_list_6-7 0}.lst-kix_list_5-3>li{counter-increment:lst-ctn-kix_list_5-3}.lst-kix_list_1-0>li:before{content:"" counter(lst-ctn-kix_list_1-0,decimal) ". "}.lst-kix_list_1-2>li:before{content:"" counter(lst-ctn-kix_list_1-2,lower-roman) ". "}ol.lst-kix_list_2-0.start{counter-reset:lst-ctn-kix_list_2-0 0}.lst-kix_list_1-4>li:before{content:"" counter(lst-ctn-kix_list_1-4,lower-latin) ". "}.lst-kix_list_1-0>li{counter-increment:lst-ctn-kix_list_1-0}.lst-kix_list_1-6>li{counter-increment:lst-ctn-kix_list_1-6}.lst-kix_list_1-6>li:before{content:"" counter(lst-ctn-kix_list_1-6,decimal) ". "}.lst-kix_list_2-0>li:before{content:"" counter(lst-ctn-kix_list_2-0,decimal) ". "}ol.lst-kix_list_2-1.start{counter-reset:lst-ctn-kix_list_2-1 0}.lst-kix_list_1-8>li:before{content:"" counter(lst-ctn-kix_list_1-8,lower-roman) ". "}.lst-kix_list_2-2>li:before{content:"" counter(lst-ctn-kix_list_2-2,lower-roman) ". "}ol.lst-kix_list_5-2.start{counter-reset:lst-ctn-kix_list_5-2 0}ol{margin:0;padding:0}table td,table th{padding:0}.c4{border-right-style:solid;padding:0pt 5.8pt 0pt 5.8pt;border-bottom-color:#000000;border-top-width:0pt;border-right-width:0pt;border-left-color:#000000;vertical-align:top;border-right-color:#000000;border-left-width:0pt;border-top-style:solid;border-left-style:solid;border-bottom-width:0pt;width:283.5pt;border-top-color:#000000;border-bottom-style:solid}.c24{border-right-style:solid;padding:0pt 5.8pt 0pt 5.8pt;border-bottom-color:#000000;border-top-width:0pt;border-right-width:0pt;border-left-color:#000000;vertical-align:top;border-right-color:#000000;border-left-width:0pt;border-top-style:solid;border-left-style:solid;border-bottom-width:0pt;width:84.8pt;border-top-color:#000000;border-bottom-style:solid}.c8{margin-left:36pt;padding-top:0pt;padding-left:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:justify}.c9{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:left;height:12pt}.c13{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:24pt;font-family:"Arial";font-style:normal}.c19{padding-top:0pt;text-indent:-14.2pt;padding-bottom:6pt;line-height:1.0;orphans:2;widows:2;text-align:justify}.c14{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:justify;height:12pt}.c5{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c10{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Times New Roman";font-style:normal}.c12{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:8pt;font-family:"Arial";font-style:normal}.c6{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:right;height:12pt}.c11{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:left;margin-right:30pt}.c20{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Arial";font-style:italic}.c2{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c25{color:#808080;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:8pt;font-family:"Times New Roman";font-style:italic}.c1{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:10pt;font-family:"Arial";font-style:normal}.c15{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:right}.c18{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:left}.c17{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:justify}.c26{font-size:11pt;font-family:"Arial";font-style:italic;font-weight:700}.c0{font-size:11pt;font-family:"Arial";font-style:italic;font-weight:400}.c22{margin-left:-5.8pt;border-spacing:0;border-collapse:collapse;margin-right:auto}.c3{font-size:11pt;font-family:"Arial";font-weight:400}.c28{color:#000000;text-decoration:none;vertical-align:baseline}.c29{background-color:#ffffff;max-width:441.9pt;padding:28.4pt 85pt 14.2pt 85pt}.c27{font-size:11pt;font-family:"Arial";font-weight:700}.c16{margin-left:-9.1pt;text-indent:-14.2pt}.c21{margin-left:-9.1pt;text-indent:9.1pt}.c7{padding:0;margin:0}.c23{height:0pt}.c30{height:12pt}.title{padding-top:24pt;color:#000000;font-weight:700;font-size:36pt;padding-bottom:6pt;font-family:"Times New Roman";line-height:1.0;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:18pt;color:#666666;font-size:24pt;padding-bottom:4pt;font-family:"Georgia";line-height:1.0;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:12pt;font-family:"Times New Roman"}p{margin:0;color:#000000;font-size:12pt;font-family:"Times New Roman"}h1{padding-top:12pt;color:#000000;font-weight:700;font-size:16pt;padding-bottom:3pt;font-family:"Arial";line-height:1.0;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-weight:700;font-size:18pt;padding-bottom:4pt;font-family:"Times New Roman";line-height:1.0;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:14pt;color:#000000;font-weight:700;font-size:14pt;padding-bottom:4pt;font-family:"Times New Roman";line-height:1.0;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:12pt;color:#000000;font-weight:700;font-size:12pt;padding-bottom:2pt;font-family:"Times New Roman";line-height:1.0;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:11pt;color:#000000;font-weight:700;font-size:11pt;padding-bottom:2pt;font-family:"Times New Roman";line-height:1.0;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:10pt;color:#000000;font-weight:700;font-size:10pt;padding-bottom:2pt;font-family:"Times New Roman";line-height:1.0;page-break-after:avoid;orphans:2;widows:2;text-align:left}
-</style>
 </head>
-	<body class="c29">
+<body>
+	<div id="solicitudPunto">
 		<div>
-			<p class="c6"><span class="c1"></span></p>
-			<p class="c6"><span class="c1"></span></p>
-			<p class="c15"><span class="c1">Ingenier&iacute;a en Computaci&oacute;n-San Jos&eacute;</span></p>
-			<p class="c15"><span class="c1">Tel: 2550-9300</span></p>
+			<p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:10pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+			<p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:10pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+			<p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:10pt;"><span style="font-family:Arial;">Ingeniería en Computación-San José</span></p>
+			<p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:10pt;"><span style="font-family:Arial;">Tel: 2550-9300</span></p>
 		</div>
-			<p class="c9"><span class="c13"></span></p>
-			<p class="c18"><span class="c13">MEMORANDO</span></p>
-			<p class="c9"><span class="c13"></span></p>
-			<a id="t.ce1ddd6b226ec27ce6995d070ef30d9a86a2c9ac"></a>
-			<a id="t.0"></a>
-			<table class="c22">
-				<tbody>
-					<tr class="c23">
-						<td class="c24" colspan="1" rowspan="1">
-							<p class="c11"><span class="c5">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Para:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-						</td>
-						<td class="c4" colspan="1" rowspan="1">
-							<p class="c9"><span class="c2"></span></p>
-							<p class="c18"><span class="c2">M&aacute;ster Erick Hern&aacute;ndez Bonilla, Coordinador</span></p>
-							<p class="c18"><span class="c2">Ingenier&iacute;a en Computaci&oacute;n-San Jos&eacute; </span></p>
-						</td>
-					</tr>
-					<tr class="c23">
-						<td class="c24" colspan="1" rowspan="1">
-							<p class="c11"><span class="c5">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;De:</span></p>
-						</td>
-						<td class="c4" colspan="1" rowspan="1">
-							<p class="c9"><span class="c2"></span></p>
-							<p class="c18"><span class="c2">Profesor XXX XXX XXX, Miembro,</span></p>
-							<p class="c18"><span class="c2">Consejo de Unidad</span></p>
-							<p class="c18"><span class="c2">Ingenier&iacute;a en Computaci&oacute;n-San Jos&eacute;</span></p>
-							<p class="c9"><span class="c2"></span></p>
-						</td>
-					</tr>
-					<tr class="c23">
-						<td class="c24" colspan="1" rowspan="1">
-							<p class="c11"><span class="c5">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fecha:</span></p>
-						</td>
-						<td class="c4" colspan="1" rowspan="1">
-							<p class="c9"><span class="c2"></span></p>
-							<p class="c18"><span class="c2">XX de XXXXX del 201X</span></p>
-						</td>
-					</tr>
-					<tr class="c23">
-						<td class="c24" colspan="1" rowspan="1">
-							<p class="c11"><span class="c5">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Asunto:</span></p>
-						</td>
-						<td class="c4" colspan="1" rowspan="1">
-							<p class="c9"><span class="c2"></span></p>
-							<p class="c18"><span class="c2">Solicitud de puntos a Consejo de Unidad</span></p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<p class="c14"><span class="c2"></span></p>
-			<p class="c17"><span class="c3">Me permito solicitar que se incluya </span><span class="c0">el/los</span><span class="c3">&nbsp;siguientes puntos en la agenda para la sesi&oacute;n </span><span class="c0">&lt;ordinaria&gt; &lt;extraordinaria&gt;</span><span class="c3">&nbsp;</span><span class="c26">XX</span><span class="c3">-201</span><span class="c0">X,</span><span class="c2">&nbsp;a continuaci&oacute;n, el detalle;</span></p>
-			<p class="c14"><span class="c2"></span></p>
-			<p class="c17"><span class="c5">Punto (s) a solicitar:</span></p>
-			<p class="c14"><span class="c2"></span></p>
-			<ol class="c7 lst-kix_list_5-0 start" start="1">
-				<li class="c8"><span class="c2">Xxxx</span></li>
-				<li class="c8"><span class="c2">Xxxx</span></li>
-			</ol>
-			<p class="c14"><span class="c2"></span></p>
-			<p class="c17"><span class="c27">Considerandos: </span><span class="c0">&lt;incluir los considerandos necesarios en los cuales se fundamenta su solicitud&gt;</span></p>
-			<ul class="c7 lst-kix_list_7-0 start">
-				<li class="c8"><span class="c5">Xxxxx</span></li>
-			</ul>
-			<p class="c14"><span class="c5"></span></p>
-			<p class="c14"><span class="c5"></span></p>
-			<p class="c17"><span class="c5">Por lo tanto;</span></p>
-			<p class="c17"><span class="c5">Se acuerda:</span></p>
-			<p class="c17"><span class="c0 c28">&lt;Redactar la PROPUESTA del acuerdo, en caso de ser aprobada su solicitud al consejo de ICSJ&gt;</span></p>
-			<p class="c14"><span class="c0 c28"></span></p>
-			<p class="c19 c30"><span class="c2"></span></p>
-			<p class="c19"><span class="c2">Agradezco su atenci&oacute;n.</span></p>
-			<p class="c14 c16"><span class="c12"></span></p>
-			<p class="c14 c16"><span class="c12"></span></p>
-			<p class="c14 c16"><span class="c12"></span></p>
-			<p class="c16 c17" id="h.gjdgxs"><span class="c12">ci</span><span class="c1">: &nbsp;</span></p>
-			<p class="c17 c21"><span class="c1">&nbsp; Archivo</span></p>
-			<div>
-				<p class="c18"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 65.00px; height: 56.00px;"><img alt="" src="images/image1.png" style="width: 65.00px; height: 56.00px; margin-left: -0.00px; margin-top: -0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""></span></p><p class="c18"><span class="c25">Formulario aprobado Consejo de Unidad</span></p>
-				<p class="c18"><span class="c25">Sesi&oacute;n Ordinaria 12-2016</span></p>
-				<p class="c9"><span class="c10"></span></p>
-			</div>
-	</body>
+		<p style="margin-top:0pt; margin-bottom:0pt; font-size:24pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; font-size:24pt;"><span style="font-family:Arial;">MEMORANDO</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; font-size:24pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<table cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+			<tbody>
+				<tr>
+					<td style="width:74pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-right:30pt; margin-bottom:0pt; font-size:11pt;"><strong><span style="font-family:Arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></strong><strong><span style="font-family:Arial;">Para:</span></strong><span style="width:20.62pt; display:inline-block;">&nbsp;</span></p>
+					</td>
+					<td style="width:272.7pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">Máster Erick Hernández Bonilla, Coordinador</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">Ingeniería en Computación-San José&nbsp;</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:74pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-right:30pt; margin-bottom:0pt; font-size:11pt;"><strong><span style="font-family:Arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></strong><strong><span style="font-family:Arial;">De:</span></strong></p>
+					</td>
+					<td style="width:272.7pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">Profesor XXX XXX XXX, Miembro,</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">Consejo de Unidad</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">Ingeniería en Computación-San José</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:74pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-right:30pt; margin-bottom:0pt; font-size:11pt;"><strong><span style="font-family:Arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></strong><strong><span style="font-family:Arial;">Fecha:</span></strong></p>
+					</td>
+					<td style="width:272.7pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">XX de XXXXX del 201X</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:74pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-right:30pt; margin-bottom:0pt; font-size:11pt;"><strong><span style="font-family:Arial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></strong><strong><span style="font-family:Arial;">Asunto:</span></strong></p>
+					</td>
+					<td style="width:272.7pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+						<p style="margin-top:0pt; margin-bottom:0pt; font-size:11pt;"><span style="font-family:Arial;">Solicitud de puntos a Consejo de Unidad</span></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">Me permito solicitar que se incluya&nbsp;</span><em><span style="font-family:Arial;">el/los</span></em><span style="font-family:Arial;">&nbsp;siguientes puntos en la agenda para la sesión&nbsp;</span><em><span style="font-family:Arial;">&lt;ordinaria&gt; &lt;extraordinaria&gt;</span></em><span style="font-family:Arial;">&nbsp;</span><strong><em><span style="font-family:Arial;">XX</span></em></strong><span style="font-family:Arial;">-201</span><em><span style="font-family:Arial;">X,</span></em><span style="font-family:Arial;">&nbsp;a continuación, el detalle;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">Punto (s) a solicitar:</span></strong></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<ol style="margin:0pt; padding-left:0pt;" type="1">
+			<li style="margin-left:32.17pt; text-align:justify; padding-left:3.83pt; font-family:Arial; font-size:11pt;">Xxxx</li>
+			<li style="margin-left:32.17pt; text-align:justify; padding-left:3.83pt; font-family:Arial; font-size:11pt;">Xxxx</li>
+		</ol>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">Considerandos:&nbsp;</span></strong><em><span style="font-family:Arial;">&lt;incluir los considerandos necesarios en los cuales se fundamenta su solicitud&gt;</span></em></p>
+		<ul style="margin:0pt; padding-left:0pt;" type="disc">
+			<li style="margin-left:28.06pt; text-align:justify; padding-left:7.94pt; font-family:serif; font-size:11pt;"><strong><span style="font-family:Arial;">Xxxxx</span></strong></li>
+		</ul>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">&nbsp;</span></strong></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">&nbsp;</span></strong></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">Por lo tanto;</span></strong></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">Se acuerda:</span></strong></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><em><span style="font-family:Arial;">&lt;Redactar la PROPUESTA del acuerdo, en caso de ser aprobada su solicitud al consejo de ICSJ&gt;</span></em></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><em><span style="font-family:Arial;">&nbsp;</span></em></p>
+		<p style="margin-top:0pt; margin-bottom:6pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:6pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">Agradezco su atención.</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><span style="font-family:Arial;">&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial; font-size:8pt;">ci</span><span style="font-family:Arial;">:</span><span style="font-family:Arial;">&nbsp;&nbsp;</span></p>
+		<p style="margin-top:0pt; margin-bottom:0pt; text-indent:9.05pt; text-align:justify; font-size:10pt;"><span style="font-family:Arial;">&nbsp;&nbsp;</span><span style="font-family:Arial;">Archivo</span></p>
+		<div>
+			<p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;">
+				<img src="https://myfiles.space/user_files/36668_0be72ceb28bd454a/1568921472_plantilla-solicitud-de-puntos-consejo/1568921472_plantilla-solicitud-de-puntos-consejo.001.png" width="65" height="56" alt="">
+			</p>
+			<p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><em><span style="font-family:'Times New Roman'; color:#808080;">Formulario aprobado Consejo de Unidad</span></em></p>
+			<p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><em><span style="font-family:'Times New Roman'; color:#808080;">Sesión Ordinaria 12-2016</span></em></p>
+			<p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
+		</div>
+	</div>
+</body>
 </html>
