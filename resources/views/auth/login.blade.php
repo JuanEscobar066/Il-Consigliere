@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="{{ asset('vendors/iconfonts/font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css')}}">
     <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.addons.css')}}">
-    <!-- endinject -->
-    <!-- plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
+    
     <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css')}}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('images/favicon1.png')}}" />
+
+    <!-- plugins:js -->
+  <script src="{{ asset('vendors/js/vendor.bundle.base.js')}}"></script>
+  <script src="{{ asset('vendors/js/vendor.bundle.addons.js')}}"></script>
+
+
 </head>
 
 <body class="sidebar-light page-body-wrapper">
@@ -112,10 +115,15 @@
                         @csrf
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <a  class="btn btn-primary" style="padding-left: 10%;" data-toggle="modal" href="#modal-firma">
+                                    Ingresar con Firma Digital
+                                </a>
+                                <!--button type="submit" class="btn btn-primary">
                                     {{ __('Ingresar con Firma Digital') }}
-                                </button>                               
+                                </button--> 
+                                @include('auth.modal')                              
                             </div>
+                            
                         </div>
                         {!! Form::close() !!}
                     </div>

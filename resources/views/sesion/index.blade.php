@@ -163,7 +163,7 @@
         wordParser();
     }
     function wordParser(){
-        $('#acta').wordExport("holi");
+        $('#acta').wordExport("Acta");
     }
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
