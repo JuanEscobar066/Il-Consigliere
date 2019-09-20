@@ -97,35 +97,21 @@
                                     {{ __('Ingresar') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
+                                <a  class="btn btn-primary" data-toggle="modal" href="#modal-firma">Firma Digital</a>                                                                
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                            @if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ url('password/reset') }}">
                                     {{ __('¿Olvidó su contraseña?') }}
                                 </a>
-                                @endif
-
-                                <!-- <a class="nav-link" href="{{url('password/reset')}}">
-<i class="fa fa-puzzle-piece menu-icon"></i>
-<span class="menu-title">Actualizar Password</span>
-</a> -->
-                            </div>
+                                @endif                           
+                            </div>                            
                         </div>
-                        <!-- </form> -->
-                        {!! Form::close() !!}
-                        {!!Form::open(array('url' => 'login', 'method' => 'POST', 'autocomplete' => 'off')) !!}
-                        @csrf
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <a  class="btn btn-primary" style="padding-left: 10%;" data-toggle="modal" href="#modal-firma">
-                                    Ingresar con Firma Digital
-                                </a>
-                                <!--button type="submit" class="btn btn-primary">
-                                    {{ __('Ingresar con Firma Digital') }}
-                                </button--> 
-                                @include('auth.modal')                              
-                            </div>
-                            
-                        </div>
-                        {!! Form::close() !!}
+                                                
+                        @include('auth.modal')                              
                     </div>
                 </div>
             </div>
