@@ -16,6 +16,23 @@
 //     return view('welcome');
 // });
 
+/*
+Para explicarles, cada una de las rutas del proyecto, está aquí.
+Entonces, por ejemplo:
+
+* Il-Consigliere/fotos/
+
+No es que exista una carpeta que se llame fotos dentro del proyecto, en cambio, debería de existir un código
+que sea algo así:
+
+Route::get('fotos', function(){
+    return view('fotos');
+});
+
+Donde, en la carpeta resources/views, existirá un archivo que se llame fotos.blade.php. No es necesario ponerle
+blade.php, el asume que es un archivo así.
+*/
+
 Route::get('/', function () {
 // Redirect::to('/miembro/show');
     return Redirect::to('/home');
@@ -92,6 +109,9 @@ Route::get('puntoAgenda/download/{ruta}', 'PuntoAgendaController@download')->nam
 Route::get('indexAdmin','PuntoAgendaController@indexAdmin');
 Route::get('indexAdmin/{punto}/accept','PuntoAgendaController@accept');
 Route::get('indexAdmin/{punto}/deny','PuntoAgendaController@deny');
+Route::get('/acta', function () {return view('puntoAgenda.acta');});
+Route::name('pdf')->get('/crearPDF', 'PuntoAgendaController@crearActa');
+Route::name('doc')->get('/descargar', 'PuntoAgendaController@download');
 
 //Route::get('miembroVisualizar', 'MiembroController@show');
 //Route::get('miembroCrear', 'MiembroController@create');

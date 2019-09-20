@@ -9,6 +9,10 @@ use App\Model\Sesion;
 use App\Model\Miembro;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
+use \Pandoc\Pandoc;
+
+// Permite usar autentificación.
+use Auth;
 
 class PuntoAgendaController extends Controller
 {
@@ -56,6 +60,12 @@ class PuntoAgendaController extends Controller
             return redirect::to('/login');
         }
     }
+
+    public function crearActa(){
+        $pdf = \PDF::loadView('puntoAgenda.acta');
+        return $pdf->stream('acta.pdf');
+    }
+
 
     public function accept($id){
     	$punto = PuntoAgenda::find($id);
@@ -158,17 +168,24 @@ class PuntoAgendaController extends Controller
      * @param PuntoAgenda $puntoAgenda
      * @return Response
      */
-    public function update(Request $request,$id)
+
+    // Permite hacer un update en la tabla punto agenda.
+    // Esta le hace "requests" al HTML de la vista para poder obtener los datos que necesita.
+    public function update(Request $request, $id)
     {
         if($this->acceso($request))
         {
+            // Esta sección le solicita al HTML todos esos valores mediante las etiquetas.
+            // En cada input:  <input type="text" name="NOMBRE_QUE_SE_QUIERE".
         	$punto = PuntoAgenda::find($id);
         	$punto->titulo = $request->titulo_punto;
         	$punto->considerando = $request->considerando_punto;
         	$punto->acuerda = $request->se_acuerda_punto;
-        	$punto->miembro = 25;
 
+            // Se obtiene su ID.
+        	$punto->miembro = (int)$request->session()->get('id');
 
+        	// Se guarda la información.
         	$punto->save();
 
         	$key = $punto->getKey();

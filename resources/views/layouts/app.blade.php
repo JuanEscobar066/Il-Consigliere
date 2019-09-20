@@ -329,6 +329,8 @@
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
+  <script src="{{ asset('js/FileSaver.js')}}"></script>
+  <script src="{{ asset('js/jquery.wordexport.js')}}"></script>
   <script src="{{ asset('js/off-canvas.js')}}"></script>
   <script src="{{ asset('js/hoverable-collapse.js')}}"></script>
   <script src="{{ asset('js/template.js')}}"></script>
