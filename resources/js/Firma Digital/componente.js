@@ -8,31 +8,31 @@ var TYPE_SIGN = "SIGN";
 var TYPE_KEY_GENERATOR = "KEY_GENERATOR";
 var VALIDATION_TYPE = "nothing"; // ocsp, crl, nothing
 
-// Es un alias de JQuery, le da el control a otro JavaScript de este script.
+// Es un alias de JQuery, le da el control a otro JavaScript de este script.  
 var jq= $.noConflict();
 
-// Permite secuencias de comandos de sitios cruzados.
+// Permite secuencias de comandos de sitios cruzados. 
 jq.support.cors = true;
 
 function verificarConexion(){
 	var result = "";
 	var jsonParams = {"cmd":"info"};
     var codigo = 2;
-
-    // Crea el web socket usando la URL de donde el servidor responde,
+	
+    // Crea el web socket usando la URL de donde el servidor responde, 
     // en este caso, el web socket corre local con el programa que hay que instalar
-    // entonces solo se le da el puerto por donde escucha.
+    // entonces solo se le da el puerto por donde escucha. 
 	var ws = new WebSocket(URL_SERVICE);
-
-    // Le envía los datos al web service.
+		
+    // Le envía los datos al web service.     
 	ws.onopen = function() {
 	    ws.send(JSON.stringify(jsonParams));
 	};
-
-    // Recibe la información del web service.
+	
+    // Recibe la información del web service. 
 	ws.onmessage = function (evt) {
 
-        // Parsea toda la información y verifica la versión del componente.
+        // Parsea toda la información y verifica la versión del componente. 
 	    result = JSON.parse(evt.data);
 	    if(result.ErrorCode === 0){
             var version = parseFloat(result.Version);
@@ -45,9 +45,9 @@ function verificarConexion(){
             }
         }
 	};
-
-    // Si hubo un error con el web service.
-    // Printea el error.
+	
+    // Si hubo un error con el web service. 
+    // Printea el error. 
 	ws.onerror = function(err) {
 	    alert("Error: " + err);
 	    codigo = 2;
@@ -59,25 +59,25 @@ function verificarConexion(){
 async function service(jsonObject){
     var ws = new WebSocket(URL_SERVICE);
 
-    // Es una función "anónima", que atiende la petición,
+    // Es una función "anónima", que atiende la petición, 
     // si la función, dependiendo del caso, es exitosa le hace un resolve
-    // si no le tira un reject.
+    // si no le tira un reject. 
     return new Promise(function (resolve, reject) {
         var socket = ws;
         socket.onopen = function () {
-
-            // No termina de operar hasta que el componente le envíe la respuesta.
+            
+            // No termina de operar hasta que el componente le envíe la respuesta. 
             socket.send(JSON.stringify(jsonObject));
         };
         socket.onmessage = function (message) {
-
-            // Devuelve la data de la información del componente.
-            // Este mensaje es el que tiene toda la data del Usuario.
+            
+            // Devuelve la data de la información del componente. 
+            // Este mensaje es el que tiene toda la data del Usuario. 
             resolve(message);
             console.log(message);
 
-            // Así se puede atrapar la información de la persona. En esta variable
-            // se puede encontrar los detalles del nombre y los apellidos.
+            // Así se puede atrapar la información de la persona. En esta variable 
+            // se puede encontrar los detalles del nombre y los apellidos. 
             var resultado = message.data;
             console.log(resultado);
         };
