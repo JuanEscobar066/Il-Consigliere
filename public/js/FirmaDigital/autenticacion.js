@@ -1,11 +1,11 @@
 //Funciones de autenticacion en Mer-link
 async function inicioSesion(){
-  
+
     var pin = document.getElementById("pin").value;
     var certificateType = document.querySelector('input[name=tipoCertificado]:checked').value;
     var fileName;
     var slotSelected;
-    
+
     if(certificateType === "CARD"){
         var selectCerts = document.getElementById("idSelectCerts");
         slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
@@ -21,8 +21,8 @@ async function inicioSesion(){
             return;
         }
      }
-   
-    var jsonParams = {"cmd":"getAuthValues", 
+
+    var jsonParams = {"cmd":"getAuthValues",
                       "password":pin,
                       "signType":TYPE_AUTH,
                       "certificateType":certificateType,
@@ -30,15 +30,15 @@ async function inicioSesion(){
                       "validationType":VALIDATION_TYPE,
                       "certificate":CERTIFICATE,
                       "slot":slotSelected};
-                  
+
     var resultado = await service(jsonParams);
-    
+
     var errorCode = resultado.ErrorCode;
     var description = resultado.Description;
 
     if(errorCode === 0){
         overlay(); //cerrar modal
-        
+
         var auth = resultado.Authentication;
         var result = "";
             result += "Fecha Inicio " + auth.validityStart;
@@ -53,14 +53,14 @@ async function inicioSesion(){
         //mostrar mensaje de error
         alert(errorCode);
     }
-} 
+}
 
 async function getCertificadoBase64(){
     var pin = document.getElementById("pin").value;
     var certificateType = document.querySelector('input[name=tipoCertificado]:checked').value;
     var fileName;
     var slotSelected;
-    
+
     if(certificateType === "CARD"){
         var selectCerts = document.getElementById("idSelectCerts");
         slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
@@ -76,25 +76,25 @@ async function getCertificadoBase64(){
             return;
         }
      }
-    
-     var jsonParams = {"cmd":"certificateBase64", 
+
+     var jsonParams = {"cmd":"certificateBase64",
                       "password":pin,
                       "signType":TYPE_AUTH,
                       "certificateType":certificateType,
                       "certificatePath":fileName,
                       "validationType":VALIDATION_TYPE,
                       "slot":slotSelected};
-                  
+
     var resolve = await service(jsonParams);
     var resultado = JSON.parse(resolve.data);
-    
-    
+
+
     var errorCode = resultado.ErrorCode;
     var description = resultado.Description;
 
     if(errorCode === 0){
         overlay(); //cerrar modal
-        
+
         var obj = resultado.Certificado;
         document.getElementById("texto").value = obj.certificateBase64;
     }else{
@@ -123,14 +123,14 @@ function generarLlaves(){
             return;
         }
      }
-     var jsonParams = {"cmd":"generarLlaves", 
+     var jsonParams = {"cmd":"generarLlaves",
                       "password":pin,
                       "signType":TYPE_KEY_GENERATOR,
                       "certificateType":certificateType,
                       "certificatePath":fileName,
                       "validationType":VALIDATION_TYPE,
-                      "keyName": "CR_102313231237127381", 
-                      "slot":slotSelected};             
+                      "keyName": "CR_102313231237127381",
+                      "slot":slotSelected};
     var resultado = service(jsonParams);
     var errorCode = resultado.ErrorCode;
     var description = resultado.Description;
@@ -160,7 +160,7 @@ function saveFile(text, fileName, type) {
     delete link;
 
 }
-    
+
 function extraerNombre(DN){
 	 var myRe  = /CN=*/g;
 	 var str   = DN;
@@ -170,7 +170,7 @@ function extraerNombre(DN){
 	 var nombre;
 	 while ((myArray = myRe.exec(str)) !== null) {
 	  nombre = str.slice(myRe.lastIndex,index);
-	  
+
 	 }
 	 //alert("El nombre extraido es : " + nombre );
      document.getElementById('out').value = nombre;
@@ -189,7 +189,7 @@ function extraerCedula(DN){
 }
 function extraerCer(DN){
     document.getElementById("cert6").value = DN;
- 
+
 }
 function FechaInicioValidacion(DN){
 	    var year = DN.slice(0,4);
@@ -211,17 +211,17 @@ async function getDN(){
     var pin = document.getElementById("pin").value;
     var fileName;
     var d = new Date();
+    var opcion = 1;
+    var selectCerts = document.getElementById("idSelectCerts");
+    slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
+    if(slotSelected === '-1'){
+        alert(selectCerts.options[selectCerts.selectedIndex].text);
+        return;
+    }
+
     var token = d.getTime();
     var slotSelected;
-    var opcion = 1;
-   var selectCerts = document.getElementById("idSelectCerts");
-   slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
-   if(slotSelected === '-1'){
-       alert(selectCerts.options[selectCerts.selectedIndex].text);
-       return;
-   }
-
-    var jsonParams = {"cmd":"getDN", 
+    var jsonParams = {"cmd":"getDN",
                       "password":pin,
                       "signType":TYPE_AUTH,
                       "certificateType":"CARD",
@@ -230,10 +230,10 @@ async function getDN(){
                       "token":token,
                       "slot":slotSelected
                      };
-                     
+
     var resolve = await service(jsonParams);
     var resultado = JSON.parse(resolve.data);
-    
+
     var errorCode = resultado.ErrorCode;
     var description = resultado.Description;
 
@@ -260,21 +260,21 @@ async function getDN(){
         //mostrar mensaje de error
         alert(description);
     }
-    
-    
-} 
+
+
+}
 
 
 
 
 async function firmarPDF(){
-    
+
     var b64;
     b64 = document.getElementById("base64").value;
-    
+
     var pin = document.getElementById("pin").value;
     var fileName;
-    
+
     var d = new Date();
     var token = d.getTime();
     var slotSelected;
@@ -286,13 +286,13 @@ async function firmarPDF(){
        return;
    }
 
-    
-    
-    
+
+
+
     var reason = "Razon";
     var country = "CR";
-    
-    var jsonParams = {"cmd":"signPDFFile", 
+
+    var jsonParams = {"cmd":"signPDFFile",
                       "password":pin,
                       "signType":TYPE_SIGN,
                       "certificateType":"CARD",
@@ -303,7 +303,7 @@ async function firmarPDF(){
                       "country":country,
                       "fileName":"pdf_firmado.pdf",
                       "slot":slotSelected};
-                  
+
     var resolve = await service(jsonParams);
     var resultado = JSON.parse(resolve.data);
     var errorCode = resultado.ErrorCode;
@@ -311,18 +311,18 @@ async function firmarPDF(){
 
     if(errorCode === 0){
         overlay(); //cerrar modal
-      
+
          var signedFile = resultado.SignedFile;
         //console.log(signedFile.base64File);
-         
+
         document.getElementById("base64_firmado").value = signedFile.base64File;
-        
+
     }else{
         //mostrar mensaje de error
         alert(description);
     }
-    
-    
-} 
+
+
+}
 
 

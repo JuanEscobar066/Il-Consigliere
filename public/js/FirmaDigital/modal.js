@@ -17,6 +17,7 @@ async function showModalAutenticacion(){
   var modalLoading = jq('#divLoading');
   console.log("logre llegar al showModalautenticacion");
   await verificarConexion(modalLoading);
+    smartCardCertificates();
 }
 
 // Verifica que haya conexión con el componente.

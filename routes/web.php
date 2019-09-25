@@ -137,3 +137,32 @@ Route::post('form-loginWithDigitalSignature', array('before'=>'csrf',function(){
 }));
 
 
+
+
+
+// Aquí se supone que se agrega el web service en las rutas para ser aceptado.
+Route::post('/js/FirmaDigital/componente.js', ['middleware' => 'cors',function(){
+
+    return ['status'=>'success'];
+}]);
+
+/*
+Route::post('/api/your_url', function () {
+    return ['status'=>'success'];
+})->middleware('cors');
+*/
+
+Route::group(['middleware' => 'cors'], function() {
+    Route::post('/js/FirmaDigital/componente.js', function () {
+        return ['status'=>'success'];
+    });
+});
+
+Route::group(['middleware' => 'cors'], function() {
+    Route::post('/js/FirmaDigital/componente.js','LoginController@loginWithDigitalSignature');
+
+});
+
+
+
+

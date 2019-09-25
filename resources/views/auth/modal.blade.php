@@ -22,15 +22,17 @@
                                onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();"/>
                         <button onclick="getDN();">Validar</button>
                         <button onclick="overlay();">Cerrar</button>
-                        @include('auth.jquery')
-                        @include('auth.componente')
-                        @include('auth.modal')
-                        @include('auth.autenticacion')
                     </div>
                 </div>
             </div>
             </div>
         </div>
     </div>
+
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
+
 </body>
 
