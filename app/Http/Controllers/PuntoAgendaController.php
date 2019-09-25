@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Model\Sesion;
 use App\Model\Miembro;
 use Illuminate\Support\Facades\Redirect;
-use \Pandoc\Pandoc;
 
 // Permite usar autentificación.
 use Auth;
@@ -44,6 +43,18 @@ class PuntoAgendaController extends Controller
         }
     }
 
+    public function obtenerPuntosUsuario(Request $request){
+        $idMiembro = (int)$request->session()->get('id'); // Obtiene el id del usuario que está logueado en el momento.
+        $puntos = new PuntoAgenda();
+        $puntosPropuestos = $puntos->obtenerPuntosPorUsuario($idMiembro);
+        foreach ($puntosPropuestos as $p){
+            $miembro = Miembro::find($p->miembro);
+            $nombre = "$miembro->nombremiembro $miembro->apellido1miembro";
+            $p->miembro = $nombre;
+          }
+        return view('puntoAgenda.solicitud_puntos',['puntosPropuestos' => $puntosPropuestos]);
+    }
+
     public function indexAdmin(Request $request)
     {
     //    $pun = new PuntoAgenda();
@@ -65,6 +76,10 @@ class PuntoAgendaController extends Controller
         return $pdf->stream('acta.pdf');
     }
 
+    public function crearSolicitudPuntos(){
+        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos');
+        return $pdf->stream('solicitud.pdf');
+    }
 
     public function accept($id){
     	$punto = PuntoAgenda::find($id);

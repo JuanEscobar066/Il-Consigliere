@@ -224,14 +224,14 @@
                 <i class="fa fa-palette menu-icon"></i>
                 <span class="menu-title">Puntos de agenda</span>
                 <i class="menu-arrow"></i>
-              </a>
-
-              
+              </a>              
               <div class="collapse" id="dashboards">
                 <ul class="nav flex-column sub-menu">              
                   <li class="nav-item"><a class="nav-link" href="{{action('PuntoAgendaController@create')}}">Añadir</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{action('PuntoAgendaController@index')}}">Visualizar</a></li>
+                  @if(Auth::obtenerRole() != 'Miembro')                   
                   <li class="nav-item"><a class="nav-link" href="{{url('indexAdmin')}}">Administrar</a></li>
+                  @endif
                 </ul>
               </div>
             </li>

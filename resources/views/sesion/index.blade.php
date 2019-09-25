@@ -87,7 +87,15 @@
                             </td>
                             <td class="center">
                                 <a href="{{action('SesionController@enviarPuntos',$sesion->id)}}"><strong>Convocar</strong></a>
+                            </td>                            
+                            @else
+                            <td class="center" >
+                                <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}"><strong>Ingresar</strong></a>
                             </td>
+                            <td class="center" >
+                                <a href="{{action('PuntoAgendaController@crearSolicitudPuntos')}}" target="_blank"><strong>Solicitud puntos</strong></a>
+                            </td>
+                            @endif
                             <td class="center">
                                 <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta (PDF)</strong></a>
                             </td>
@@ -95,11 +103,6 @@
                                 <a id="descargar-acta" href="javascript:void(0)" onclick="load()"><strong>Acta (Editable)</strong></a>
                                 <!-- <input type="submit" id="myButton" value="Acta(.docx)"/> -->
                             </td>
-                            @else
-                            <td class="center" >
-                                <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}"><strong>Ingresar</strong></a>
-                            </td>
-                            @endif
                         </tr>
                         @endif
                         @include('sesion.modal')
