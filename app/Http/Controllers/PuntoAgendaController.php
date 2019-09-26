@@ -43,16 +43,30 @@ class PuntoAgendaController extends Controller
         }
     }
 
-    public function obtenerPuntosUsuario(Request $request){
+    public function solicitudPuntos(Request $request, $idEvento){
         $idMiembro = (int)$request->session()->get('id'); // Obtiene el id del usuario que está logueado en el momento.
+        $sesion = new Sesion();
+        $sesion = $sesion->buscar($idEvento);     
+        $fecha = $sesion->fecha;
+        $sesion->fecha = date("d/m/Y", strtotime($fecha)); 
+        
+        if($sesion->tipo_sesion == 1){
+            $sesion->tipo_sesion = "ordinaria";
+        }  
+        else{
+            $sesion->tipo_sesion = "extraordinaria";
+        }
+        
         $puntos = new PuntoAgenda();
-        $puntosPropuestos = $puntos->obtenerPuntosPorUsuario($idMiembro);
-        foreach ($puntosPropuestos as $p){
-            $miembro = Miembro::find($p->miembro);
-            $nombre = "$miembro->nombremiembro $miembro->apellido1miembro";
+        $puntosPropuestos = $puntos->obtenerPuntosPorUsuario($idMiembro, $idEvento);
+        $miembro = Miembro::find($idMiembro);
+        $nombre = "$miembro->nombremiembro $miembro->apellido1miembro $miembro->apellido2miembro";
+        
+        foreach ($puntosPropuestos as $p){            
             $p->miembro = $nombre;
-          }
-        return view('puntoAgenda.solicitud_puntos',['puntosPropuestos' => $puntosPropuestos]);
+        }
+        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
+        return $pdf->stream('Solicitud de puntos ' . $sesion->fecha . '.pdf');        
     }
 
     public function indexAdmin(Request $request)
@@ -73,12 +87,7 @@ class PuntoAgendaController extends Controller
 
     public function crearActa(){
         $pdf = \PDF::loadView('puntoAgenda.acta');
-        return $pdf->stream('acta.pdf');
-    }
-
-    public function crearSolicitudPuntos(){
-        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos');
-        return $pdf->stream('solicitud.pdf');
+        return $pdf->stream('Acta de Consejo.pdf');
     }
 
     public function accept($id){

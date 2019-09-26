@@ -32,12 +32,12 @@ class PuntoAgenda extends Model
         return $puntos;
 	}
 
-	public function obtenerPuntosPorUsuario($idMiembro)
+	public function obtenerPuntosPorUsuario($idMiembro, $idEvento)
 	{
 		$puntos = DB::table('punto_agenda as p')
                 ->join('miembro as m','m.idmiembro','=','p.miembro')
                 ->select('p.id_punto','m.nombremiembro', 'm.apellido1miembro', 'm.apellido2miembro', 'p.titulo', 'p.considerando', 'p.acuerda', 'p.miembro', 'p.id_punto')
-                ->where('m.idmiembro', '=', (int)$idMiembro)
+                ->where('p.punto_para_agenda', '=', (int)$idEvento, 'and', 'm.idmiembro', '=', (int)$idMiembro)
                 ->get();
         return $puntos;
 	}
