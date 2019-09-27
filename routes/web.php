@@ -99,7 +99,7 @@ Route::get('sesion/iniciar/votacion/cerrar/{sesion}', ['as'=>'cerrarvotacion', '
 Route::get('sesion/iniciar/votacion/reiniciar/{sesion}', ['as'=>'reiniciarvotacion', 'uses'=>'SesionController@reiniciarVotacion']);
 
 Route::get('sesion/obtenerPuntosUsuario/{sesion}', ['as'=>'obtenerPuntosUsuario', 'uses'=>'PuntoAgendaController@solicitudPuntos']);
-
+Route::get('sesion/obtenerPuntos/{sesion}', ['as'=>'obtenerPuntos', 'uses'=>'PuntoAgendaController@crearActa']);
 
 Route::resource('sesion', 'SesionController');
 Route::resource('puntoAgenda','PuntoAgendaController');
@@ -112,7 +112,7 @@ Route::get('indexAdmin/{punto}/accept','PuntoAgendaController@accept');
 Route::get('indexAdmin/{punto}/deny','PuntoAgendaController@deny');
 Route::get('/acta', function () {return view('puntoAgenda.acta');});
 Route::get('/solicitud_puntos', function () {return view('puntoAgenda.solicitud_puntos');});
-Route::name('pdf')->get('/crearPDF', 'PuntoAgendaController@crearActa');
+//Route::name('pdf')->get('/crearPDF', 'PuntoAgendaController@crearActa');
 //Route::name('pdf')->get('/crearPDFSolicitud', 'PuntoAgendaController@crearSolicitudPuntos');
 Route::name('doc')->get('/descargar', 'PuntoAgendaController@download');
 

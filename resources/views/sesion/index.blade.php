@@ -108,7 +108,7 @@
                                             </a>
 
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="{{action('PuntoAgendaController@crearActa')}}" target="_blank">PDF</a>
+                                                <a class="dropdown-item" href="{{action('PuntoAgendaController@crearActa',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta')">Editable</a>
                                             </div>
                                         </div>

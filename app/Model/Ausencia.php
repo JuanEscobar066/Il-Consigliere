@@ -70,6 +70,19 @@ class Ausencia extends Model
         return $ausencias;
     }
     
+    // Busca los miembros cuyas ausencias se presenten durante un periodo de sesión.
+    public function buscarAusenciaPorRango($fechaSesion){
+        $ausencias = DB::select( DB::raw(
+            "select a.estado, a.idausencia , m.idmiembro, m.nombremiembro, m.apellido1miembro, m.apellido2miembro, a.fechainicio, a.fechafin, a.motivo, c.convocado
+             FROM public.ausencias as a
+             JOIN miembro as m ON m.idmiembro = a.idmiembro
+             JOIN miembrosconvocados as c ON c.idmiembroconvocado = a.idmiembro
+             JOIN events as e ON e.id = c.ideventoconvocado
+             WHERE c.convocado = 1 AND e.fecha between a.fechainicio AND a.fechafin AND a.estado = 1 AND e.fecha = " . "'" . $fechaSesion . "'" . ";"));   
+
+        return $ausencias; 
+    }
+
     public function buscar($id){
         $member = DB::table('ausencias as a')
                 ->join('miembro as m','m.idmiembro','=','a.idmiembro')  

@@ -7,6 +7,7 @@ use App\Model\AdjuntosPunto;
 use Illuminate\Http\Request;
 use App\Model\Sesion;
 use App\Model\Miembro;
+use App\Model\Ausencia;
 use Illuminate\Support\Facades\Redirect;
 
 // Permite usar autentificación.
@@ -48,7 +49,7 @@ class PuntoAgendaController extends Controller
         $sesion = new Sesion();
         $sesion = $sesion->buscar($idEvento);     
         $fecha = $sesion->fecha;
-        $sesion->fecha = date("d/m/Y", strtotime($fecha)); 
+        $sesion->fecha = date("d-m-Y", strtotime($fecha)); 
         
         if($sesion->tipo_sesion == 1){
             $sesion->tipo_sesion = "ordinaria";
@@ -85,8 +86,37 @@ class PuntoAgendaController extends Controller
         }
     }
 
-    public function crearActa(){
-        $pdf = \PDF::loadView('puntoAgenda.acta');
+    public function crearActa($idEvento){
+        $sesion = new Sesion();
+        $sesion = $sesion->buscar($idEvento);     
+        $fecha = $sesion->fecha;
+        $ausencia = new Ausencia();
+        $miembrosAusentes = $ausencia->buscarAusenciaPorRango($fecha);
+        $sesion->fecha = date("d-m-Y", strtotime($fecha)); 
+        
+        if($sesion->tipo_sesion == 1){
+            $sesion->tipo_sesion = "ordinaria";
+        }  
+        else{
+            $sesion->tipo_sesion = "extraordinaria";
+        }
+        $puntos = new PuntoAgenda();
+        $puntosPropuestos = $puntos->obtenerPuntosTodos();
+        $miembrosPresentes = $sesion->obtenerMiembrosConvocados($idEvento);
+        $miembros = array();
+        $ausentes = array();
+
+        foreach ($miembrosPresentes as $m){            
+            array_push($miembros, $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro);
+        }                        
+        foreach ($miembrosAusentes as $m){       
+            $nombreCompleto = $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro;     
+            array_push($ausentes, $nombreCompleto);                        
+            $miembros = array_diff($miembros, array($nombreCompleto));            
+        }
+        
+        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion, 
+                              'miembrosPresentes' =>  $miembros, 'miembrosAusentes' =>  $ausentes]);
         return $pdf->stream('Acta de Consejo.pdf');
     }
 

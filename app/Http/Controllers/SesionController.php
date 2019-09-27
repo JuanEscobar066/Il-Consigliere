@@ -187,8 +187,7 @@ class SesionController extends Controller
             $sesion = $sesion->buscar($id);
             $tipo_sesion = new Tipo_sesion();
             $tipo_sesion = $tipo_sesion->mostrar();
-            $listaMiembros = $sesion->obtenerMiembrosConvocados((int)$id);
-            $miembrosConvocados = $listaMiembros;
+            $listaMiembros = $sesion->obtenerMiembrosConvocados((int)$id);            
 
         	return view("sesion.edit",["sesion"=>$sesion, 'tipo_sesion'=>$tipo_sesion, "listaMiembros"=>$listaMiembros]);
         }
