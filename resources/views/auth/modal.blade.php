@@ -10,7 +10,6 @@
                 <!-- Aquí está el código de la Firma Digital -->
                 <div id="overlay" class="modalDialog">
                     <div>
-                        <a onclick="overlay();" title="Cerrar" class="close">X</a>
                         <h3>Autenticación</h3>
                         <div id="divSmartCard">
                             Por favor seleccione el certificado:
@@ -20,15 +19,18 @@
                         <label>Pin:</label>
                         <input id="pin" type="password"
                                onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();"/>
+
                         <button onclick="getDN();">Validar</button>
-                        <button onclick="overlay();">Cerrar</button>
+                        <button data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
             </div>
         </div>
+    {{Form::Close()}}
     </div>
 
+<!-- Los componentes de la Firma Digital. -->
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>

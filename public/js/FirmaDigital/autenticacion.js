@@ -173,7 +173,8 @@ function extraerNombre(DN){
 
 	 }
 	 //alert("El nombre extraido es : " + nombre );
-     document.getElementById('out').value = nombre;
+     overlay();
+     return nombre;
 }
 
 function extraerCedula(DN){
@@ -207,20 +208,27 @@ function FechaExpirValidacion(DN){
         document.getElementById('emision_dt').value = date2;
 }
 
+// Resuelve la petición del Usuario e imprime la información del Usuario.
 async function getDN(){
-    var pin = document.getElementById("pin").value;
+
+    // Variables auxiliares.
+    var slotSelected;
     var fileName;
-    var d = new Date();
-    var opcion = 1;
+
+    // Se obtienen del HTML del modal.
+    var pin         = document.getElementById("pin").value;
+    var date        = new Date();
     var selectCerts = document.getElementById("idSelectCerts");
-    slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
+    slotSelected    = selectCerts.options[selectCerts.selectedIndex].value;
     if(slotSelected === '-1'){
         alert(selectCerts.options[selectCerts.selectedIndex].text);
         return;
     }
 
-    var token = d.getTime();
-    var slotSelected;
+    // Le pide la fecha a la variable date.
+    var token = date.getTime();
+
+    // Se configura todo lo que se necesita del certificado.
     var jsonParams = {"cmd":"getDN",
                       "password":pin,
                       "signType":TYPE_AUTH,
@@ -231,41 +239,37 @@ async function getDN(){
                       "slot":slotSelected
                      };
 
-    var resolve = await service(jsonParams);
-    var resultado = JSON.parse(resolve.data);
-
-    var errorCode = resultado.ErrorCode;
+    // Se hace la petición al WebSocket, mediante la función service y se se procesan los datos.
+    var resolve     = await service(jsonParams);
+    var resultado   = JSON.parse(resolve.data);
+    var errorCode   = resultado.ErrorCode;
     var description = resultado.Description;
 
+    // Verificamos que no haya error.
     if(errorCode === 0){
-        overlay(); //cerrar modal
+        overlay();  // Cerrar modal.
+        var name;
+        var dt_start;
+        var dt_expire;
         var auth = resultado.DnInfo;
-        var name = "";
-        var dt_start="";
-        var dt_expire="";
 
+        // Se setea la información del Usuario.
         name       = auth.UserDn;
         dt_start   = auth.ValidityStart;
         dt_expire  = auth.ValidityExpire;
 
+        // Se hace un llamado a las otras funciones.
         extraerNombre(name);
-        extraerCedula(name);
-        FechaExpirValidacion(dt_expire);
-        FechaInicioValidacion(dt_start);
-        extraerCer(auth.CertificateBase64);
-
-
+        // extraerCedula(name);
+        // FechaExpirValidacion(dt_expire);
+        // FechaInicioValidacion(dt_start);
+        // extraerCer(auth.CertificateBase64);
 
     }else{
         //mostrar mensaje de error
         alert(description);
     }
-
-
 }
-
-
-
 
 async function firmarPDF(){
 

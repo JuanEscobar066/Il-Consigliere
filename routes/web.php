@@ -146,11 +146,6 @@ Route::post('/js/FirmaDigital/componente.js', ['middleware' => 'cors',function()
     return ['status'=>'success'];
 }]);
 
-/*
-Route::post('/api/your_url', function () {
-    return ['status'=>'success'];
-})->middleware('cors');
-*/
 
 Route::group(['middleware' => 'cors'], function() {
     Route::post('/js/FirmaDigital/componente.js', function () {

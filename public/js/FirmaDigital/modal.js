@@ -1,9 +1,9 @@
 // Es la función que permite "obtener" focus del Usuario para pedirle el PIN.
 function overlay() {
     var el = document.getElementById("overlay");
-    console.log("perro, llegue al overlay");
+
     // Es un if-else.
-    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    el.style.visibility = (el.style.visibility === "visible") ? "hidden" : "visible";
     var pin = document.getElementById("pin");
     pin.value = "";
     pin.focus();

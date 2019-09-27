@@ -69,8 +69,7 @@ class LoginController extends Controller
     }
 
     // Función que permite loguearse con la firma digital.
-    public function loginWithDigitalSignature(Request $request){
-
+    public function loginWithDigitalSignature(Request $request, $nombre, $primerApellido, $segundoApellido){
 
 
     }
