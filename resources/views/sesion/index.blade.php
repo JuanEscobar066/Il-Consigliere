@@ -95,7 +95,7 @@
                                             </a>                                                                             
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
-                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', {{$sesion->id}})">Editable</a>
+                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
                                     </td>
@@ -108,7 +108,7 @@
 
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@crearActa',$sesion->id)}}" target="_blank">PDF</a>
-                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta', {{$sesion->id}})">Editable</a>
+                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta', 'documentoActa/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
                                     </td>
@@ -169,8 +169,9 @@
         window.addEventListener('click', inicio, false);
     </script>
     <script>
-        async function load(archivo, idSesion) {
-            $('#' + archivo).load("http://localhost:8000/sesion/documentoSolicitudPuntos/" + idSesion);
+        async function load(archivo, tipoDocumento, idSesion) {
+            alert("http://localhost:8000/sesion/" + tipoDocumento + idSesion);
+            $('#' + archivo).load("http://localhost:8000/sesion/" + tipoDocumento + idSesion);
             await sleep(1000);            
             wordParser(archivo);
         }
@@ -184,7 +185,7 @@
                  nombreArchivo = "Solicitud de puntos";
             }
             
-            var html = document.getElementById('solicitud_puntos').innerHTML;
+            var html = document.getElementById(archivo).innerHTML;
             var blob = new Blob(['\ufeff', html], {
                 type: 'application/msword'
             });

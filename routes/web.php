@@ -102,6 +102,7 @@ Route::get('sesion/obtenerPuntosUsuario/{sesion}', ['as'=>'obtenerPuntosUsuario'
 Route::get('sesion/obtenerPuntos/{sesion}', ['as'=>'obtenerPuntos', 'uses'=>'PuntoAgendaController@crearActa']);
 
 Route::get('sesion/documentoSolicitudPuntos/{sesion}', ['as'=>'documentoSolicitudPuntos', 'uses'=>'PuntoAgendaController@crearDocSolicitudPuntos']);
+Route::get('sesion/documentoActa/{sesion}', ['as'=>'documentoActa', 'uses'=>'PuntoAgendaController@crearDocumentoActa']);
 
 Route::resource('sesion', 'SesionController');
 Route::resource('puntoAgenda','PuntoAgendaController');

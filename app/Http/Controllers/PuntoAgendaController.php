@@ -109,6 +109,37 @@ class PuntoAgendaController extends Controller
     }
 
     public function crearActa($idEvento){
+        $datos = $this->obtenerDatosActa($idEvento);
+        $puntosPropuestos = $datos[0]; 
+        $sesion = $datos[1]; 
+        $miembros = $datos[2]; 
+        $estudiantes = $datos[3]; 
+        $ausentes = $datos[4]; 
+        $presidentes = $datos[5]; 
+        $secretarios = $datos[6];
+        
+        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion, 
+                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes, 
+                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
+        return $pdf->stream('Acta de Consejo.pdf');
+    }
+    
+    public function crearDocumentoActa($idEvento){
+        $datos = $this->obtenerDatosActa($idEvento);
+        $puntosPropuestos = $datos[0]; 
+        $sesion = $datos[1]; 
+        $miembros = $datos[2]; 
+        $estudiantes = $datos[3]; 
+        $ausentes = $datos[4]; 
+        $presidentes = $datos[5]; 
+        $secretarios = $datos[6];
+        
+        return view('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion, 
+                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes, 
+                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);        
+    }
+
+    public function obtenerDatosActa($idEvento){
         $sesion = new Sesion();
         $sesion = $sesion->buscar($idEvento);     
         $fecha = $sesion->fecha;
@@ -151,11 +182,12 @@ class PuntoAgendaController extends Controller
             array_push($ausentes, $nombreCompleto);                        
             $miembros = array_diff($miembros, array($nombreCompleto));            
         }
-        
-        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion, 
-                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes, 
-                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
-        return $pdf->stream('Acta de Consejo.pdf');
+
+        $datos = array();
+
+        array_push($datos, $puntosPropuestos, $sesion, $miembros, $estudiantes, $ausentes, $presidentes, $secretarios);
+
+        return $datos;
     }
 
     public function accept($id){
