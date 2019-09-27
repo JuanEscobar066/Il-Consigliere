@@ -313,10 +313,12 @@
             <p style="margin-top:0pt; margin-left:18pt; margin-bottom:0pt; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">____________________________________</span></p>
-            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Máster Erick Hernández Bonilla</span></p>
+            @foreach($presidentes as $p)
+            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Máster {{$p}}</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Presidente del Consejo</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Carrera Ingeniería en Computación</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Centro Académico de San José</span></p>
+            @endforeach
             <div>
               <table style="width:100%; border-collapse:collapse;" cellspacing="0" cellpadding="0">
                 <tbody>

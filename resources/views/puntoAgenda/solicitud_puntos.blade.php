@@ -74,14 +74,14 @@
 					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
 					<ol style="margin:0pt; padding-left:0pt;" type="1">
 						@foreach($puntosPropuestos as $p)
-						<li style="margin-left:32.17pt; text-align:justify; padding-left:3.83pt; font-family:Arial; font-size:11pt;">{{$p->titulo}}.</li>
+						<li style="margin-left:32.17pt; text-align:justify; padding-left:3.83pt; font-family:Arial; font-size:11pt;">{{$p->titulo}}</li>
 						@endforeach
 					</ol>
 					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
 					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">Considerandos:</span></em></p>
 					<ul style="margin:0pt; padding-left:0pt;" type="disc">
 						@foreach($puntosPropuestos as $p)
-						<li style="margin-left:28.06pt; text-align:justify; padding-left:7.94pt; font-family:serif; font-size:11pt;"><span style="font-family:Arial;">{{$p->considerando}}.</span></li>
+						<li style="margin-left:28.06pt; text-align:justify; padding-left:7.94pt; font-family:serif; font-size:11pt;"><span style="font-family:Arial;">{{$p->considerando}}</span></li>
 						@endforeach
 					</ul>
 					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">&nbsp;</span></strong></p>
@@ -89,7 +89,7 @@
 					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">Por lo tanto;</span></strong></p>
 					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><strong><span style="font-family:Arial;">Se acuerda:</span></strong></p>
 					@foreach($puntosPropuestos as $p)
-					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">{{$p->acuerda}}.</span></p>
+					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">{{$p->acuerda}}</span></p>
 					@endforeach
 					<p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:11pt;"><em><span style="font-family:Arial;">&nbsp;</span></em></p>
 					<p style="margin-top:0pt; margin-bottom:6pt; text-align:justify; font-size:11pt;"><span style="font-family:Arial;">&nbsp;</span></p>
