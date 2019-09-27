@@ -29,7 +29,14 @@
                             @foreach($puntosPropuestos as $p)
                                 <tr>
                                     <td>
-                                        {{$p->titulo}}
+                                      <?php 
+                                      if(strlen($p->titulo) > 50){
+                                        echo substr($p->titulo, 0, 60) . '...'; 
+                                      }
+                                      else{
+                                        echo $p->titulo; 
+                                      }
+                                      ?>                                        
                                     </td>
                                     <td>
                                         {{$p->fecha->format('d/m/y')}}

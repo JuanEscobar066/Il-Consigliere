@@ -191,6 +191,11 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         return false;
     }
 
+    public function obtenerRol()
+    {
+        return $this->request->session()->get('descripcionrole');
+    }
+
     public function permisoPuntosAgenda()
     {
         if ($this->request->session()->get('puntos_agenda')!=0)

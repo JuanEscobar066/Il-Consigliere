@@ -1,28 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
-  <style>
-    h1{
-      text-align: center;
-      text-transform: uppercase;
-    }
-    .contenido{
-      font-size: 20px;
-    }
-    #primero{
-      background-color: #ccc;
-    }
-    #segundo{
-      color:#44a359;
-    }
-    #tercero{
-      text-decoration:line-through;
-    }
-  </style>
+  <title>Acta de Consejo</title>
 </head>
+
 <body>
   <div class="row">
     <div class="col-md-6 grid-margin stretch-card">
@@ -33,24 +16,26 @@
               <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
               <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
               <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">Carrera Ingeniería en Computación-SJ</span></p>
-              <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">Acta ICSJ-XX-201X-Sesión&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">Ordinaria</span></p>
+              <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">Acta ICSJ-{{$sesion->fecha}}-Sesión&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">{{$sesion->tipo_sesion}}</span></p>
               <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">Teléfono: 2550-9300</span></p>
               <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:9pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             </div>
-            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:14pt;"><strong><span style="font-family:'Times New Roman';">ACTA ICSJ-SX-XX-201X</span></strong></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:14pt;"><strong><span style="font-family:'Times New Roman';">ACTA ICSJ-{{$sesion->fecha}}</span></strong></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:14pt;"><strong><span style="font-family:'Times New Roman';">SESIÓN&nbsp;</span></strong><strong><span style="font-family:'Times New Roman'; color:#ff0000;">ORDINARIA</span></strong></p>
             <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
-            <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Sesión&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">Extraordinaria</span><span style="font-family:'Times New Roman';">&nbsp;celebrada el xx de xxx del 201xx a las xx:xx&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">a</span><span style="font-family:'Times New Roman';">.m. en la Sala de Reuniones de&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">CASA VERDE&nbsp;</span><span style="font-family:'Times New Roman';">del&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">Centro Académico de San José</span><span style="font-family:'Times New Roman';">. Carrera Ingeniería en Computación,&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">Centro Académico de San José</span><span style="font-family:'Times New Roman';">.</span></p>
+            <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Sesión&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">{{$sesion->tipo_sesion}}</span><span style="font-family:'Times New Roman';">&nbsp;celebrada el {{$sesion->fecha}} a las {{$sesion->hora}}&nbsp;</span><span style="font-family:'Times New Roman';">en {{$sesion->lugar}}&nbsp;</span><span style="font-family:'Times New Roman';">del&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">Centro Académico de San José</span><span style="font-family:'Times New Roman';">. Carrera Ingeniería en Computación,&nbsp;</span><span style="font-family:'Times New Roman'; color:#ff0000;">Centro Académico de San José</span><span style="font-family:'Times New Roman';">.</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">Preside la Sesión</span></strong></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
             <table style="margin-left:69.2pt; border-collapse:collapse;" cellspacing="0" cellpadding="0">
               <tbody>
+              @foreach($presidentes as $p)
                 <tr>
                   <td style="width:174.55pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Erick Hernández Bonilla</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$p}}</span></p>
                   </td>
                 </tr>
+              @endforeach
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -60,29 +45,16 @@
               <tbody>
                 <tr>
                   <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Adriana Álvarez Figueroa</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';"></span></p>
                   </td>
                 </tr>
+                @foreach($miembrosPresentes as $m)
                 <tr style="height:15.6pt;">
                   <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Eduardo Canessa Montero</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$m}}</span></p>
                   </td>
-                </tr>
-                <tr style="height:14.4pt;">
-                  <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Francisco Torres Rojas</span></p>
-                  </td>
-                </tr>
-                <tr style="height:14.4pt;">
-                  <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">José Castro Mora</span></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Mauricio Avilés Cisneros</span></p>
-                  </td>
-                </tr>
+                </tr>                
+                @endforeach
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
@@ -90,21 +62,13 @@
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
             <table style="margin-left:69.2pt; border-collapse:collapse;" cellspacing="0" cellpadding="0">
               <tbody>
+                @foreach($miembrosAusentes as $m)
                 <tr>
                   <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Mauricio Avilés Cisneros</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$m}}</span></p>
                   </td>
                 </tr>
-                <tr>
-                  <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Ericka Solano Fernández</span></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Byron Rojas Burgos</span></p>
-                  </td>
-                </tr>
+                @endforeach                
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
@@ -113,16 +77,13 @@
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
             <table style="margin-left:69.2pt; border-collapse:collapse;" cellspacing="0" cellpadding="0">
               <tbody>
+              @foreach($estudiantesPresentes as $e)
                 <tr>
                   <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Luis Jair Cordero Barona</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$e}}</span></p>
                   </td>
-                </tr>
-                <tr>
-                  <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Axel Fernández Jiménez</span></p>
-                  </td>
-                </tr>
+                </tr>                
+              @endforeach    
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -130,9 +91,10 @@
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             <table style="margin-left:69.2pt; border-collapse:collapse;" cellspacing="0" cellpadding="0">
               <tbody>
+              @foreach($secretarios as $s)
                 <tr>
                   <td style="width:125.55pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Jazmín Calderón Brenes</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$s}}</span></p>
                   </td>
                   <td style="width:95.5pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
                     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -146,6 +108,7 @@
                     <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><strong><em><span style="font-family:'Times New Roman';">Firma</span></em></strong></p>
                   </td>
                 </tr>
+              @endforeach    
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -350,10 +313,12 @@
             <p style="margin-top:0pt; margin-left:18pt; margin-bottom:0pt; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">____________________________________</span></p>
-            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Máster Erick Hernández Bonilla</span></p>
+            @foreach($presidentes as $p)
+            <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Máster {{$p}}</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Presidente del Consejo</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Carrera Ingeniería en Computación</span></p>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt;"><span style="font-family:'Times New Roman';">Centro Académico de San José</span></p>
+            @endforeach
             <div>
               <table style="width:100%; border-collapse:collapse;" cellspacing="0" cellpadding="0">
                 <tbody>
@@ -373,6 +338,7 @@
         </div>
       </div>
     </div>
-  </div>      
+  </div>
 </body>
+
 </html>
