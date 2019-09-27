@@ -92,11 +92,10 @@
                                         <div class="dropdown show">
                                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <strong>Solicitud puntos</strong>
-                                            </a>
-
+                                            </a>                                                                             
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
-                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos')">Editable</a>
+                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', {{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
                                     </td>
@@ -109,7 +108,7 @@
 
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@crearActa',$sesion->id)}}" target="_blank">PDF</a>
-                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta')">Editable</a>
+                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta', {{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
                                     </td>
@@ -170,8 +169,8 @@
         window.addEventListener('click', inicio, false);
     </script>
     <script>
-        async function load(archivo) {
-            $('#' + archivo).load("http://localhost:8000/"+ archivo);
+        async function load(archivo, idSesion) {
+            $('#' + archivo).load("http://localhost:8000/sesion/documentoSolicitudPuntos/" + idSesion);
             await sleep(1000);            
             wordParser(archivo);
         }
@@ -179,12 +178,42 @@
         function wordParser(archivo) {
             var nombreArchivo;
             if(archivo == "acta"){
-                nombreArchivo = "Acta de Consejo";
+                 nombreArchivo = "Acta de Consejo";
             }
             else{
-                nombreArchivo = "Solicitud de puntos";
+                 nombreArchivo = "Solicitud de puntos";
             }
-            $('#' + archivo).wordExport(nombreArchivo);
+            
+            var html = document.getElementById('solicitud_puntos').innerHTML;
+            var blob = new Blob(['\ufeff', html], {
+                type: 'application/msword'
+            });
+            
+            // Specify link url
+            var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+            
+            // Specify file name
+            var filename = filename?filename+'.doc':nombreArchivo+'.doc';
+            
+            // Create download link element
+            var downloadLink = document.createElement("a");
+
+            document.body.appendChild(downloadLink);
+            
+            if(navigator.msSaveOrOpenBlob ){
+                navigator.msSaveOrOpenBlob(blob, filename);
+            }else{
+                // Create a link to the file
+                downloadLink.href = url;
+                
+                // Setting the file name
+                downloadLink.download = filename;
+                
+                //triggering the function
+                downloadLink.click();
+            }
+            
+            document.body.removeChild(downloadLink);
         }
 
         function sleep(ms) {

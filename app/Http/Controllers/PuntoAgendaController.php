@@ -45,6 +45,25 @@ class PuntoAgendaController extends Controller
     }
 
     public function solicitudPuntos(Request $request, $idEvento){
+        $datos = $this->obtenerDatos($request, $idEvento);
+        $puntosPropuestos = $datos[0];
+        $nombre = $datos[1];
+        $sesion = $datos[2];
+                
+        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
+        return $pdf->stream('Solicitud de puntos ' . $sesion->fecha . '.pdf');        
+    }
+
+    public function crearDocSolicitudPuntos(Request $request, $idEvento){
+        $datos = $this->obtenerDatos($request, $idEvento);
+        $puntosPropuestos = $datos[0];
+        $nombre = $datos[1];
+        $sesion = $datos[2];
+
+        return view('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
+    }
+
+    public function obtenerDatos(Request $request, $idEvento){
         $idMiembro = (int)$request->session()->get('id'); // Obtiene el id del usuario que está logueado en el momento.
         $sesion = new Sesion();
         $sesion = $sesion->buscar($idEvento);     
@@ -66,8 +85,11 @@ class PuntoAgendaController extends Controller
         foreach ($puntosPropuestos as $p){            
             $p->miembro = $nombre;
         }
-        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
-        return $pdf->stream('Solicitud de puntos ' . $sesion->fecha . '.pdf');        
+
+        $datos = array();
+        array_push($datos, $puntosPropuestos, $nombre, $sesion);
+
+        return $datos;
     }
 
     public function indexAdmin(Request $request)

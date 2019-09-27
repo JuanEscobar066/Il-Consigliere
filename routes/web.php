@@ -101,6 +101,8 @@ Route::get('sesion/iniciar/votacion/reiniciar/{sesion}', ['as'=>'reiniciarvotaci
 Route::get('sesion/obtenerPuntosUsuario/{sesion}', ['as'=>'obtenerPuntosUsuario', 'uses'=>'PuntoAgendaController@solicitudPuntos']);
 Route::get('sesion/obtenerPuntos/{sesion}', ['as'=>'obtenerPuntos', 'uses'=>'PuntoAgendaController@crearActa']);
 
+Route::get('sesion/documentoSolicitudPuntos/{sesion}', ['as'=>'documentoSolicitudPuntos', 'uses'=>'PuntoAgendaController@crearDocSolicitudPuntos']);
+
 Route::resource('sesion', 'SesionController');
 Route::resource('puntoAgenda','PuntoAgendaController');
 Route::resource('miembro', 'MiembroController');
