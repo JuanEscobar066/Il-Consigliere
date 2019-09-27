@@ -170,7 +170,6 @@
     </script>
     <script>
         async function load(archivo, tipoDocumento, idSesion) {
-            alert("http://localhost:8000/sesion/" + tipoDocumento + idSesion);
             $('#' + archivo).load("http://localhost:8000/sesion/" + tipoDocumento + idSesion);
             await sleep(1000);            
             wordParser(archivo);
