@@ -41,21 +41,16 @@
                                     </th>
                                     <th>
                                         Lugar
-                                    </th>
-                                    @if(Auth::permisoIniciarSesion())
+                                    </th>                                   
                                     <th>
                                         Acciones
-                                    </th>
-                                    @else
-                                    <th>
-                                        Acciones
-                                    </th>
-                                    @endif
+                                    </th>                                                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($sesiones as $sesion)
-                                @if($sesion->estaactivo<2) <tr>
+                                @if($sesion->estaactivo < 2) 
+                                <tr>
                                     <td>
                                         {{$sesion->tipo}}
                                     </td>
@@ -89,18 +84,34 @@
                                     <td class="center">
                                         <a href="{{action('SesionController@enviarPuntos',$sesion->id)}}"><strong>Convocar</strong></a>
                                     </td>
-                                    <td class="center">
-                                        <a href="{{action('PuntoAgendaController@crearActa')}}" target="_blank"><strong>Acta (PDF)</strong></a>
-                                    </td>
-                                    <td class="center">
-                                        <a id="descargar-acta" href="javascript:void(0)" onclick="load()"><strong>Acta (Editable)</strong></a>
-                                        <!-- <input type="submit" id="myButton" value="Acta(.docx)"/> -->
-                                    </td>
                                     @else
-                                    <td class="center">
-                                        <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}"><strong>Ingresar</strong></a>
+                                    <td>
+                                        <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}" style="color:green"><strong>Ingresar</strong></a>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown show">
+                                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <strong>Solicitud puntos</strong>
+                                            </a>                                                                             
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
+                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
+                                            </div>
+                                        </div>
                                     </td>
                                     @endif
+                                    <td>
+                                        <div class="dropdown show">
+                                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <strong>Acta de Consejo</strong>
+                                            </a>
+
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="{{action('PuntoAgendaController@crearActa',$sesion->id)}}" target="_blank">PDF</a>
+                                                <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta', 'documentoActa/',{{$sesion->id}})">Editable</a>
+                                            </div>
+                                        </div>
+                                    </td>
                                     </tr>
                                     @endif
                                     @include('sesion.modal')
@@ -131,6 +142,7 @@
     </div>
 
     <div class="acta" style="display: none;" id="acta"></div>
+    <div class="solicitud_puntos" style="display: none;" id="solicitud_puntos"></div>
 
     <script>
         var tags = document.getElementsByClassName('fc-day');
@@ -157,14 +169,51 @@
         window.addEventListener('click', inicio, false);
     </script>
     <script>
-        async function load() {
-            $('#acta').load("http://localhost:8000/acta");
-            await sleep(1000);
-            wordParser();
+        async function load(archivo, tipoDocumento, idSesion) {
+            $('#' + archivo).load("http://localhost:8000/sesion/" + tipoDocumento + idSesion);
+            await sleep(1000);            
+            wordParser(archivo);
         }
 
-        function wordParser() {
-            $('#acta').wordExport("Acta");
+        function wordParser(archivo) {
+            var nombreArchivo;
+            if(archivo == "acta"){
+                 nombreArchivo = "Acta de Consejo";
+            }
+            else{
+                 nombreArchivo = "Solicitud de puntos";
+            }
+            
+            var html = document.getElementById(archivo).innerHTML;
+            var blob = new Blob(['\ufeff', html], {
+                type: 'application/msword'
+            });
+            
+            // Specify link url
+            var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+            
+            // Specify file name
+            var filename = filename?filename+'.doc':nombreArchivo+'.doc';
+            
+            // Create download link element
+            var downloadLink = document.createElement("a");
+
+            document.body.appendChild(downloadLink);
+            
+            if(navigator.msSaveOrOpenBlob ){
+                navigator.msSaveOrOpenBlob(blob, filename);
+            }else{
+                // Create a link to the file
+                downloadLink.href = url;
+                
+                // Setting the file name
+                downloadLink.download = filename;
+                
+                //triggering the function
+                downloadLink.click();
+            }
+            
+            document.body.removeChild(downloadLink);
         }
 
         function sleep(ms) {
