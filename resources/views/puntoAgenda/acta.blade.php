@@ -29,11 +29,13 @@
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
             <table style="margin-left:69.2pt; border-collapse:collapse;" cellspacing="0" cellpadding="0">
               <tbody>
+              @foreach($presidentes as $p)
                 <tr>
                   <td style="width:174.55pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Erick Hernández Bonilla</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$p}}</span></p>
                   </td>
                 </tr>
+              @endforeach
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -75,16 +77,13 @@
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
             <table style="margin-left:69.2pt; border-collapse:collapse;" cellspacing="0" cellpadding="0">
               <tbody>
+              @foreach($estudiantesPresentes as $e)
                 <tr>
                   <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Luis Jair Cordero Barona</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$e}}</span></p>
                   </td>
-                </tr>
-                <tr>
-                  <td style="width:223.1pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Axel Fernández Jiménez</span></p>
-                  </td>
-                </tr>
+                </tr>                
+              @endforeach    
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -92,9 +91,10 @@
             <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:8pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
             <table style="margin-left:69.2pt; border-collapse:collapse;" cellspacing="0" cellpadding="0">
               <tbody>
+              @foreach($secretarios as $s)
                 <tr>
                   <td style="width:125.55pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
-                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">Jazmín Calderón Brenes</span></p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">{{$s}}</span></p>
                   </td>
                   <td style="width:95.5pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top;">
                     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
@@ -108,6 +108,7 @@
                     <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:10pt;"><strong><em><span style="font-family:'Times New Roman';">Firma</span></em></strong></p>
                   </td>
                 </tr>
+              @endforeach    
               </tbody>
             </table>
             <p style="margin-top:0pt; margin-bottom:0pt; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>

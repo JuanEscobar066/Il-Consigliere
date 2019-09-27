@@ -195,11 +195,24 @@ class Sesion extends Model
             ->join('miembro as m','c.idmiembroconvocado','=','m.idmiembro')
             ->select('m.idmiembro','c.idmiembroconvocado', 'c.ideventoconvocado', 'c.convocado', 'm.nombremiembro', 'm.apellido1miembro', 'm.apellido2miembro')
             ->orderBy('m.apellido1miembro', 'asc')
-            ->where('c.convocado', '=', 1, 'and', 'c.ideventoconvocado', '=', $idEvento)
+            ->where('c.ideventoconvocado', '=', $idEvento)
             ->get();
         return $listaMiembros;
     }
 
+    public function obtenerMiembrosPorRol($idEvento, $rol)
+    {
+        // $miembro = new Miembro();
+        // $listaMiembros = $miembro->mostrar();
+        $listaMiembros = DB::table('miembrosconvocados as c')
+            ->join('miembro as m','c.idmiembroconvocado','=','m.idmiembro')
+            ->join('roles as r','r.idrole','=','m.rol')
+            ->select('m.idmiembro','c.idmiembroconvocado', 'c.ideventoconvocado', 'c.convocado', 'm.nombremiembro', 'm.apellido1miembro', 'm.apellido2miembro')
+            ->orderBy('m.apellido1miembro', 'asc')
+            ->where('r.descripcionrole', '=', $rol, 'and', 'c.convocado', '=', 1, 'and', 'c.ideventoconvocado', '=', $idEvento)
+            ->get();
+        return $listaMiembros;
+    }
 
     public function eliminarPuntosEvento($idEvento)
     {

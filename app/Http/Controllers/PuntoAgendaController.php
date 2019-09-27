@@ -91,7 +91,7 @@ class PuntoAgendaController extends Controller
         $sesion = $sesion->buscar($idEvento);     
         $fecha = $sesion->fecha;
         $ausencia = new Ausencia();
-        $miembrosAusentes = $ausencia->buscarAusenciaPorRango($fecha);
+        $miembrosAusentes = $ausencia->buscarAusenciaPorRango($fecha, "Miembro");
         $sesion->fecha = date("d-m-Y", strtotime($fecha)); 
         
         if($sesion->tipo_sesion == 1){
@@ -102,13 +102,28 @@ class PuntoAgendaController extends Controller
         }
         $puntos = new PuntoAgenda();
         $puntosPropuestos = $puntos->obtenerPuntosTodos();
-        $miembrosPresentes = $sesion->obtenerMiembrosConvocados($idEvento);
+        $presidente = $sesion->obtenerMiembrosPorRol($idEvento, "Presidente");
+        $miembrosPresentes = $sesion->obtenerMiembrosPorRol($idEvento, "Miembro");
+        $estudiantesPresentes = $sesion->obtenerMiembrosPorRol($idEvento, "Estudiante");
+        $secretario = $sesion->obtenerMiembrosPorRol($idEvento, "Secretario(a)");
+        $presidentes = array();
         $miembros = array();
+        $estudiantes = array();
+        $secretarios = array();
         $ausentes = array();
 
+        foreach ($presidente as $p){            
+            array_push($presidentes, $p->nombremiembro . ' ' . $p->apellido1miembro . ' ' . $p->apellido2miembro);
+        } 
         foreach ($miembrosPresentes as $m){            
             array_push($miembros, $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro);
-        }                        
+        }   
+        foreach ($estudiantesPresentes as $e){            
+            array_push($estudiantes, $e->nombremiembro . ' ' . $e->apellido1miembro . ' ' . $e->apellido2miembro);
+        }    
+        foreach ($secretario as $s){            
+            array_push($secretarios, $s->nombremiembro . ' ' . $s->apellido1miembro . ' ' . $s->apellido2miembro);
+        }                    
         foreach ($miembrosAusentes as $m){       
             $nombreCompleto = $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro;     
             array_push($ausentes, $nombreCompleto);                        
@@ -116,7 +131,8 @@ class PuntoAgendaController extends Controller
         }
         
         $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion, 
-                              'miembrosPresentes' =>  $miembros, 'miembrosAusentes' =>  $ausentes]);
+                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes, 
+                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
         return $pdf->stream('Acta de Consejo.pdf');
     }
 
