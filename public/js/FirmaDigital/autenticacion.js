@@ -210,7 +210,7 @@ function FechaExpirValidacion(DN){
 
 // Resuelve la petición del Usuario e imprime la información del Usuario.
 async function getDN(){
-
+    document.getElementById("validar").value = "Jorge Barquero";
     // Variables auxiliares.
     var slotSelected;
     var fileName;

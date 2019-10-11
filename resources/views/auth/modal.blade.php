@@ -20,7 +20,7 @@
                         <input id="pin" type="password"
                                onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();"/>
 
-                        <button onclick="getDN();">Validar</button>
+                        <button id="validar" onclick="getDN();">Validar</button>
                         <button data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -35,6 +35,17 @@
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
+
+<script>
+        $(document).ready(function() {
+            $('#validar').click(function() {
+                const nombre = document.getElementById('validar');                                              
+                alert(nombre.value)
+                variablelaravelphp = nombre.value;
+            });
+        });
+    </script>
+
 
 </body>
 
