@@ -96,7 +96,7 @@
                                     {{ __('Ingresar') }}
                                 </button>
 
-                                <a  class="btn btn-primary" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
+                                <a class="btn btn-primary" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
                             </div>
                         </div>
 
@@ -116,6 +116,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Los componentes de la Firma Digital. -->
+    <script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#validar').click(function() {
+                var nombre = document.getElementById('validar').value;
+                
+                // $.ajax({
+                //     url: "http://localhost:8000/login/firmaDigital/",
+                //     type: 'ANY',                    
+                //     success: function(data) {
+                //         alert('AJAX call was successful!');                        
+                //         location.href = "http://localhost:8000/login/firmaDigital/";
+                //     },
+                //     error: function() {
+                //         alert('There was some error performing the AJAX call!');
+                //     }
+
+                // });                
+
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -1,4 +1,3 @@
-<body>
 <div class="modal fade modal-slide-in-right" aria-hidden="false" role="dialog" id="modal-firma">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -9,7 +8,10 @@
 
                 <!-- Aquí está el código de la Firma Digital -->
                 <div id="overlay" class="modalDialog">
-                    <div>
+                    {!!Form::open(array('url' => 'login/firmaDigital', 'method' => 'POST', 'autocomplete' => 'off')) !!}
+                    @csrf
+
+                    <div class="form-group">
                         <h3>Autenticación</h3>
                         <div id="divSmartCard">
                             Por favor seleccione el certificado:
@@ -17,35 +19,14 @@
                         </div>
                         <br><br>
                         <label>Pin:</label>
-                        <input id="pin" type="password"
-                               onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();"/>
+                        <input id="pin" name="pin" type="password" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
 
-                        <button id="validar" onclick="getDN();">Validar</button>
+                        <button id="validar" name="validar" onclick="getDN();" type="submit">Validar</button>
                         <button data-dismiss="modal">Cerrar</button>
                     </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
-            </div>
         </div>
-    {{Form::Close()}}
-    </div>
-
-<!-- Los componentes de la Firma Digital. -->
-<script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
-
-<script>
-        $(document).ready(function() {
-            $('#validar').click(function() {
-                const nombre = document.getElementById('validar');                                              
-                alert(nombre.value)
-                variablelaravelphp = nombre.value;
-            });
-        });
-    </script>
-
-
-</body>
-
+    </div>    
+</div>

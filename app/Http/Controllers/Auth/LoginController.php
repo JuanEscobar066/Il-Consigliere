@@ -69,10 +69,13 @@ class LoginController extends Controller
     }
 
     // Función que permite loguearse con la firma digital.
-    public function loginWithDigitalSignature(Request $request, $nombre, $primerApellido, $segundoApellido){
-
-
+    public function loginFirmaDigital(Request $request){        
+        $pin = $_POST['pin'];        
+        $nombre = $_POST['validar'];
+        dd($nombre . ': ' . $pin); // Esto es equivalente a un var_dump (es sólo para debugging, luego se debe quitar).
+        return view('auth.login');
     }
+
     public function login(Request $request){
         // $request->session()->forget('id'); //Elimina el valor del id
         if (!$request->session()->has('id'))
