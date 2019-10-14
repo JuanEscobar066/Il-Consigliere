@@ -19,10 +19,11 @@
                         </div>
                         <br><br>
                         <label>Pin:</label>
-                        <input id="pin" name="pin" type="password" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
-
-                        <button id="validar" name="validar" onclick="getDN();" type="submit">Validar</button>
-                        <button data-dismiss="modal">Cerrar</button>
+                        <input id="pin" name="pin" type="password" class="form-control" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
+                    </div>
+                    <div class="form-group">
+                        <button id="validar" name="validar" onclick="getDN();" type="submit" class="btn btn-primary mr-2">Validar</button>
+                        <button data-dismiss="modal" class="btn btn-light">Cerrar</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
