@@ -122,29 +122,7 @@
     <script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
-
-
-    <script>
-        $(document).ready(function() {
-            $('#validar').click(function() {
-                var nombre = document.getElementById('validar').value;
-                
-                // $.ajax({
-                //     url: "http://localhost:8000/login/firmaDigital/",
-                //     type: 'ANY',                    
-                //     success: function(data) {
-                //         alert('AJAX call was successful!');                        
-                //         location.href = "http://localhost:8000/login/firmaDigital/";
-                //     },
-                //     error: function() {
-                //         alert('There was some error performing the AJAX call!');
-                //     }
-
-                // });                
-
-            });
-        });
-    </script>
+    
 </body>
 
 </html>
