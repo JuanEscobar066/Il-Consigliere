@@ -161,56 +161,11 @@ function saveFile(text, fileName, type) {
 
 }
 
-function extraerNombre(DN){
-	 var myRe  = /CN=*/g;
-	 var str   = DN;
-	 var tam   = str.length;
-	 var index = str.indexOf("(");
-	 var myArray;
-	 var nombre;
-	 while ((myArray = myRe.exec(str)) !== null) {
-	  nombre = str.slice(myRe.lastIndex,index);
 
-	 }
-	 //alert("El nombre extraido es : " + nombre );
-     overlay();
-     return nombre;
-}
-
-function extraerCedula(DN){
-	 var myRe = /CPF-*/g;
-	 var str = DN;
-	 var tam = str.length;
-	 var myArray;
-	 var cedula;
-	 while ((myArray = myRe.exec(str)) !== null) {
-	  cedula = str.slice(myRe.lastIndex ,tam );
-	 }
-    document.getElementById("cert").value = cedula;
-}
-function extraerCer(DN){
-    document.getElementById("cert6").value = DN;
-
-}
-function FechaInicioValidacion(DN){
-	    var year = DN.slice(0,4);
-        var month = DN.slice(5,7);
-        var day = DN.slice(8,10);
-        var date = ""+day+"-"+month+"-"+year;
-        document.getElementById('expiracion_dt').value = date;
-}
-
-function FechaExpirValidacion(DN){
-        var year2 = DN.slice(0,4);
-        var month2 = DN.slice(5,7);
-        var day2 = DN.slice(8,10);
-        var date2 = ""+day2+"-"+month2+"-"+year2;
-        document.getElementById('emision_dt').value = date2;
-}
 
 // Resuelve la petición del Usuario e imprime la información del Usuario.
 async function getDN(){
-    document.getElementById("validar").value = "Jorge Barquero";
+
     // Variables auxiliares.
     var slotSelected;
     var fileName;
@@ -239,9 +194,13 @@ async function getDN(){
                       "slot":slotSelected
                      };
 
-    // Se hace la petición al WebSocket, mediante la función service y se se procesan los datos.
+    // Se hace la petición al WebSocket, mediante la función service y se procesan los datos.
+    // Importante: de alguna forma, siempre hay que darle tiempo a la variable "resolve", es la que
+    // realiza la petición de la firma digital.
     var resolve     = await service(jsonParams);
     var resultado   = JSON.parse(resolve.data);
+    var validar     = resultado;
+
     var errorCode   = resultado.ErrorCode;
     var description = resultado.Description;
 
@@ -255,11 +214,19 @@ async function getDN(){
 
         // Se setea la información del Usuario.
         name       = auth.UserDn;
-        dt_start   = auth.ValidityStart;
-        dt_expire  = auth.ValidityExpire;
+        // dt_start   = auth.ValidityStart;
+        // dt_expire  = auth.ValidityExpire;
 
         // Se hace un llamado a las otras funciones.
-        extraerNombre(name);
+        // Se extrae el nombre del certificado.
+        var nombreLimpio        = extraerNombre(name);
+
+        // Mediante una cookie (fue la única forma que se nos ocurrió), se guarda
+        // para usarlo más adelante.
+        document.cookie         = "nombreUsuario " + nombreLimpio;
+
+        // Finalmente, redirija con el nombre del usuario. 
+        window.location.href    = "login/firmaDigital/";
         // extraerCedula(name);
         // FechaExpirValidacion(dt_expire);
         // FechaInicioValidacion(dt_start);
@@ -270,6 +237,57 @@ async function getDN(){
         alert(description);
     }
 }
+// Estas 5 funciones son particularmente útiles para parsear la información del lector y poder utilizarla
+// de forma más clara.
+// Se le brinda el DN, es decir, la información del Usuario y la parsea para retornarla.
+function extraerNombre(DN){
+
+    // Básicamente, lo recorre y lo guarda en la variable nombre.
+    var myRe  = /CN=*/g;
+    var str   = DN;
+    var index = str.indexOf("(");
+    var myArray;
+    var nombre;
+    while ((myArray = myRe.exec(str)) !== null) {
+        nombre = str.slice(myRe.lastIndex,index);
+    }
+    overlay();
+    return nombre;
+}
+
+function extraerCedula(DN){
+    var myRe = /CPF-*/g;
+    var str = DN;
+    var tam = str.length;
+    var myArray;
+    var cedula;
+    while ((myArray = myRe.exec(str)) !== null) {
+        cedula = str.slice(myRe.lastIndex ,tam );
+    }
+    document.getElementById("cert").value = cedula;
+}
+
+function extraerCer(DN){
+    document.getElementById("cert6").value = DN;
+
+}
+
+function FechaInicioValidacion(DN){
+    var year = DN.slice(0,4);
+    var month = DN.slice(5,7);
+    var day = DN.slice(8,10);
+    var date = ""+day+"-"+month+"-"+year;
+    document.getElementById('expiracion_dt').value = date;
+}
+
+function FechaExpirValidacion(DN){
+    var year2 = DN.slice(0,4);
+    var month2 = DN.slice(5,7);
+    var day2 = DN.slice(8,10);
+    var date2 = ""+day2+"-"+month2+"-"+year2;
+    document.getElementById('emision_dt').value = date2;
+}
+
 
 async function firmarPDF(){
 

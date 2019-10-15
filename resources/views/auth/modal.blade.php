@@ -6,11 +6,11 @@
             </div>
             <div class="modal-body" style="text-align: center;">
 
-                <!-- Aquí está el código de la Firma Digital -->
+                <!-- Aquí está el código de la Firma Digital
+                     No hay llamadas a los forms de Laravel porque se hace el llamado en el mismo JS.
+                     Importante: las funciones de abajo, son funciones definidas en los 5 archivos
+                     de JavaScript. -->
                 <div id="overlay" class="modalDialog">
-                    {!!Form::open(array('url' => 'login/firmaDigital', 'method' => 'POST', 'autocomplete' => 'off')) !!}
-                    @csrf
-
                     <div class="form-group">
                         <h3>Autenticación</h3>
                         <div id="divSmartCard">
@@ -23,11 +23,10 @@
                     </div>
                     <div class="form-group">
                         <button id="validar" name="validar" onclick="getDN();" type="submit" class="btn btn-primary mr-2">Validar</button>
-                        <button data-dismiss="modal" class="btn btn-light">Cerrar</button>
+                        <button id="cerrar" data-dismiss="modal" class="btn btn-light">Cerrar</button>
                     </div>
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>

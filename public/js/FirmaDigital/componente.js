@@ -92,8 +92,3 @@ async function service(jsonObject){
         };
     });
 }
-
-// Retorna el nombre del Usuario de la Firma Digital en un string.
-async function obtenerNombreCompletoUsuario(){
-
-}
