@@ -70,8 +70,36 @@ class LoginController extends Controller
 
     // Función que permite loguearse con la firma digital.
     public function loginFirmaDigital(Request $request){
-        $nombre = $_COOKIE['nombre'];
-        dd($nombre . ': ' ); // Esto es equivalente a un var_dump (es sólo para debugging, luego se debe quitar).
+
+        // Primero, hay que verificar que la persona no esté logueada.
+        if (!$request->session()->has('id')) {
+            // Con la cookie del lector, obtenemos el nombre del usuario.
+            $nombre = $_COOKIE['nombre'];
+
+            // Luego, verificamos que está en la base de datos.
+            // Para esto, creamos un miembro auxiliar.
+            $miembro = new Miembro();
+
+            // Obtenemos los usuarios de la base de datos.
+            $listaMiembros = $miembro->mostrar();
+
+            // Ahora, iteramos sobre esta lista y buscamos hacer match con esta persona, parseando
+            // el nombre para dejar ambos sin tildes y en mayúscula.
+            foreach ($listaMiembros as $cadaMiembroEnBase){
+
+                // Se obtiene la información de cada miembro y se unifica para poder utilizarla.
+                // $cadaMiembroEnBase
+
+            }
+        }
+
+        // Significa que ya está logueado.
+        else{
+
+            // Nada más redireccionar de forma común y corriente.
+            return redirect::to('sesion');
+        }
+
         return view('auth.login');
     }
 
@@ -79,9 +107,6 @@ class LoginController extends Controller
         // $request->session()->forget('id'); //Elimina el valor del id
         if (!$request->session()->has('id'))
         {
-
-
-
             $usuario = $request->post('email');
             $contrasenna = $request->post('password');
             $miembro = new Miembro();
