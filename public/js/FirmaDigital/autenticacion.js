@@ -213,20 +213,21 @@ async function getDN(){
         var auth = resultado.DnInfo;
 
         // Se setea la información del Usuario.
-        name       = auth.UserDn;
+        name = auth.UserDn;
         // dt_start   = auth.ValidityStart;
         // dt_expire  = auth.ValidityExpire;
 
         // Se hace un llamado a las otras funciones.
         // Se extrae el nombre del certificado.
-        var nombreLimpio        = extraerNombre(name);
+        var nombreLimpio = extraerNombre(name);
 
         // Mediante una cookie (fue la única forma que se nos ocurrió), se guarda
         // para usarlo más adelante.
-        document.cookie         = "nombreUsuario " + nombreLimpio;
+        document.cookie = "nombreUsuario" + "=" + nombreLimpio;
 
-        // Finalmente, redirija con el nombre del usuario. 
-        window.location.href    = "login/firmaDigital/";
+        // Finalmente, redirija con el nombre del usuario.
+        window.location.href = "login/firmaDigital/";
+
         // extraerCedula(name);
         // FechaExpirValidacion(dt_expire);
         // FechaInicioValidacion(dt_start);

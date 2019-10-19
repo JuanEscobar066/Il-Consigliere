@@ -73,23 +73,81 @@ class LoginController extends Controller
 
         // Primero, hay que verificar que la persona no esté logueada.
         if (!$request->session()->has('id')) {
-            // Con la cookie del lector, obtenemos el nombre del usuario.
-            $nombre = $_COOKIE['nombre'];
 
-            // Luego, verificamos que está en la base de datos.
-            // Para esto, creamos un miembro auxiliar.
-            $miembro = new Miembro();
+            // Ya que es algo relacionado con conectividad a redes externas, es mejor meterlo en un try-catch.
+            try{
 
-            // Obtenemos los usuarios de la base de datos.
-            $listaMiembros = $miembro->mostrar();
+                // Con la cookie del lector, obtenemos el nombre del usuario.
+                $nombre = $_COOKIE['nombreUsuario'];
 
-            // Ahora, iteramos sobre esta lista y buscamos hacer match con esta persona, parseando
-            // el nombre para dejar ambos sin tildes y en mayúscula.
-            foreach ($listaMiembros as $cadaMiembroEnBase){
+                // Luego, verificamos que está en la base de datos.
+                // Para esto, creamos un miembro auxiliar.
+                $miembro = new Miembro();
 
-                // Se obtiene la información de cada miembro y se unifica para poder utilizarla.
-                // $cadaMiembroEnBase
+                // Obtenemos los usuarios de la base de datos.
+                $listaMiembros = $miembro->mostrar();
 
+                // Es importante comparar los datos en un mismo estándar, es decir, ambas van a estar
+                // en mayúscula y sin tildes.
+                $nombreUsuarioFirmaDigitalSinTildes = $this->quitarTildes($nombre);
+
+                // Hay un detalle, en la base de datos está de la siguiente forma:
+                // Primer nombre, primer apellido y segundo apellido.
+                // Por lo que, vamos a eliminar el segundo nombre del usuario, en caso de tenerlo.
+                $cantidadPalabras = explode(" ", $nombreUsuarioFirmaDigitalSinTildes);
+
+                // Mediante el siguiente "slicing" del nombre, podemos obtener solo lo que nos interesa.
+                $nombreSinSegundoNombre     = array();
+                $nombreSinSegundoNombre[0]  = $cantidadPalabras[0];  // Primer nombre.
+                $nombreSinSegundoNombre[1]  = $cantidadPalabras[count($cantidadPalabras) - 2];   // Primer apellido.
+                $nombreSinSegundoNombre[2]  = $cantidadPalabras[count($cantidadPalabras) - 1];   // Segundo apellido.
+
+                // Ahora, buscamos en la base de datos el Usuario que tenga la misma configuración.
+                foreach ($listaMiembros as $cadaMiembroEnBase){
+
+                    // Se obtiene la información de cada miembro, quitándole tildes y haciéndolo mayúscula.
+                    $primerNombre       = strtoupper($this->quitarTildes($cadaMiembroEnBase->nombremiembro));
+                    $primerApellido     = strtoupper($this->quitarTildes($cadaMiembroEnBase->apellido1miembro));
+                    $segundoApellido    = strtoupper($this->quitarTildes($cadaMiembroEnBase->apellido2miembro));
+
+                    // ¡Está en la base!
+                    if($primerNombre    == $nombreSinSegundoNombre[0] &&
+                       $primerApellido  == $nombreSinSegundoNombre[1] &&
+                       $segundoApellido == $nombreSinSegundoNombre[2]){
+
+                        // Setea el id, el nombre y su rol.
+                        $request->session()->put('id', $cadaMiembroEnBase->idmiembro);
+                        $request->session()->put('nombre', $cadaMiembroEnBase->nombremiembro .
+                            " " . $cadaMiembroEnBase->apellido1miembro . " " . $cadaMiembroEnBase->apellido2miembro);
+                        $request->session()->put('roleNombre', $cadaMiembroEnBase->descripcionrole);
+
+                        // Setea toda su configuración y privilegios.
+                        $request->session()->put('role', $cadaMiembroEnBase->rol);
+                        $request->session()->put('agregarMiembro', $cadaMiembroEnBase->agregarmiembro);
+
+                        //Funciona también para editar y visualizar
+                        $request->session()->put('eliminarMiembro', $cadaMiembroEnBase->eliminarmiembro);
+
+                        $request->session()->put('administrarPuntos', $cadaMiembroEnBase->administrarpuntos);
+                        $request->session()->put('proponerPuntos', $cadaMiembroEnBase->proponerpuntos);
+                        $request->session()->put('puntos_agenda', $cadaMiembroEnBase->puntos_agenda);
+                        $request->session()->put('aceptar_ausencias', $cadaMiembroEnBase->aceptar_ausencias);
+                        $request->session()->put('iniciar_sesion', $cadaMiembroEnBase->iniciar_sesion);
+
+                        // Por aquello, es importante señalar que se logueó con el firmador.
+                        $request->session()->put("tipoDeInicioDeSesion", "FirmaDigital");
+
+                        // Finalmente, redireccione.
+                        return redirect::to('sesion');
+                    }
+                }
+
+                // Si sale del ciclo y no loguea, es que no está en la base de datos :(.
+                return Redirect::back()->with('#modal-firma', 'Firma Digital no reconocida. ');
+
+            }
+            catch (Exception $e){
+                return $e->getMessage();
             }
         }
 
@@ -99,8 +157,6 @@ class LoginController extends Controller
             // Nada más redireccionar de forma común y corriente.
             return redirect::to('sesion');
         }
-
-        return view('auth.login');
     }
 
     public function login(Request $request){
@@ -135,12 +191,10 @@ class LoginController extends Controller
                         $request->session()->put('puntos_agenda', $member->puntos_agenda);
                         $request->session()->put('aceptar_ausencias', $member->aceptar_ausencias);
                         $request->session()->put('iniciar_sesion', $member->iniciar_sesion);
-                        // return view('welcome');
-                        /*if($member->role == 1){
-                            return view('/home', ['rol' => 1]);
-                        }
-                        return view('/home', ['rol' =>2]);*/
-                         return redirect::to('sesion');
+
+                        // Para diferenciar los dos login.
+                        $request->session()->put("tipoDeInicioDeSesion", "CorreoYContraseña");
+                        return redirect::to('sesion');
                     }
                     else
                     {
@@ -191,5 +245,15 @@ class LoginController extends Controller
         }
 
         return "false";
+    }
+
+    // Esta pequeña función auxiliar, recibe un string y le quita todas las tildes.
+    // Tomada de: https://www.macosas.com/archives/funcion-php-para-quitar-las-tildes-de-una-cadena/
+    function quitarTildes($cadena) {
+        $no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬"
+        ,"Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+        $permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
+        $texto = str_replace($no_permitidas, $permitidas ,$cadena);
+        return $texto;
     }
 }
