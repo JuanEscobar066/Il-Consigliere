@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Puntos de agenda propuestos</h4>
-                <p class="card-description"> Lista de puntos de agenda propuestos </p>
+                <p class="card-description"> Lista de puntos de agenda propuestos </p>                
                 <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>
@@ -29,7 +29,14 @@
                             @foreach($puntosPropuestos as $p)
                                 <tr>
                                     <td>
-                                        {{$p->titulo}}
+                                      <?php 
+                                      if(strlen($p->titulo) > 50){
+                                        echo substr($p->titulo, 0, 60) . '...'; 
+                                      }
+                                      else{
+                                        echo $p->titulo; 
+                                      }
+                                      ?>                                        
                                     </td>
                                     <td>
                                         {{$p->fecha->format('d/m/y')}}

@@ -2,6 +2,9 @@
 
 namespace App\Model;
 
+// Esto quiere decir que lo crearon desde la temrinal de Laravel, mediante el comando:
+// php artisan make:model Sesion
+// Exactamente, utilizan Eloquent para hacer el CRUD de la base de datos.
 use Illuminate\Database\Eloquent\Model;
 
 use DB;
@@ -11,43 +14,45 @@ use App\Model\Miembro;
 class Sesion extends Model
 {
     protected $table = 'events';
-    
+
     protected $primarykey = 'id';
-    
+
     public $timestamps = false;
-    
+
     protected $fillable = ['lugar', 'hora', 'fecha', 'tipo_sesion', 'punto_activo', 'estaactivo'];
- /*   
-    public function insertar($tipo_sesion, $fecha, $hora, $lugar){            
+ /*
+    public function insertar($tipo_sesion, $fecha, $hora, $lugar){
         $sesion = new Sesion();
-        
+
         $sesion->lugar = $lugar;
         $sesion->hora = $hora;
         $sesion->fecha = $fecha;
         $sesion->tipo_sesion = $tipo_sesion;
         $sesion->punto_activo = 0;
         $sesion->estaactivo = 0;
-        
+
         $sesion->save();
 
         $this->ConvocarMiembros($fecha);
     }
 */
-    public function insertar($tipo_sesion, $hora, $lugar){            
+    // Ni siquiera está recibiendo la fecha.
+    public function insertar($tipo_sesion, $hora, $lugar){
         $sesion = new Sesion();
 
-        $fecha = '2019-06-24';
-        
         $sesion->lugar = $lugar;
         $sesion->hora = $hora;
-        $sesion->fecha = $fecha;
+
+        // Obtiene la fecha del JavaScript. 
+        $sesion->fecha = $_GET["fecha"];
+        
         $sesion->tipo_sesion = $tipo_sesion;
         $sesion->punto_activo = 0;
         $sesion->estaactivo = 0;
-        
+
         $sesion->save();
 
-        $this->ConvocarMiembros($fecha);
+        $this->ConvocarMiembros($sesion->fecha);
     }
 
     public function insertarAsistencia($lista)
@@ -71,7 +76,7 @@ class Sesion extends Model
     {
          DB::table('events')
             ->where('id', $idEvento)
-            ->update(['horainicio' => 'NOW()']);
+            ->update(['hora' => 'NOW()']);
     }
 
     public function modificarNombreArchivo($idEvento,$nombreArchivo)
@@ -84,7 +89,7 @@ class Sesion extends Model
     public function obtenerHoraInicioFinEvento($idEvento)
     {
         $horas = DB::table('events as s')
-            ->select('s.horainicio', 's.horafin')
+            ->select('s.hora', 's.horafin')
             ->where('id', $idEvento)
             ->get();
         return $horas;
@@ -151,7 +156,7 @@ class Sesion extends Model
     public function obtenerUltimoIdSesion()
     {
         $sesion = DB::table('events as s')
-            ->join('tipo_sesion as ts','s.tipo_sesion','=','ts.id')  
+            ->join('tipo_sesion as ts','s.tipo_sesion','=','ts.id')
             ->select('s.id', 's.lugar', 's.fecha', 's.hora', 'ts.nombre as tipo')
             ->orderBy('id', 'desc')
             ->take(1)
@@ -175,7 +180,7 @@ class Sesion extends Model
         // $miembro = new Miembro();
         // $listaMiembros = $miembro->mostrar();
         $listaMiembros = DB::table('miembrosconvocados as c')
-            ->join('miembro as m','c.idmiembroconvocado','=','m.idmiembro')  
+            ->join('miembro as m','c.idmiembroconvocado','=','m.idmiembro')
             ->select('m.idmiembro','m.correo','c.idmiembroconvocado', 'c.ideventoconvocado', 'c.convocado', 'm.nombremiembro', 'm.apellido1miembro', 'm.apellido2miembro')
             ->orderBy('m.apellido1miembro', 'asc')
             ->where('c.ideventoconvocado', '=', $idEvento)
@@ -187,7 +192,7 @@ class Sesion extends Model
         // $miembro = new Miembro();
         // $listaMiembros = $miembro->mostrar();
         $listaMiembros = DB::table('miembrosconvocados as c')
-            ->join('miembro as m','c.idmiembroconvocado','=','m.idmiembro')  
+            ->join('miembro as m','c.idmiembroconvocado','=','m.idmiembro')
             ->select('m.idmiembro','c.idmiembroconvocado', 'c.ideventoconvocado', 'c.convocado', 'm.nombremiembro', 'm.apellido1miembro', 'm.apellido2miembro')
             ->orderBy('m.apellido1miembro', 'asc')
             ->where('c.ideventoconvocado', '=', $idEvento)
@@ -195,6 +200,19 @@ class Sesion extends Model
         return $listaMiembros;
     }
 
+    public function obtenerMiembrosPorRol($idEvento, $rol)
+    {
+        // $miembro = new Miembro();
+        // $listaMiembros = $miembro->mostrar();
+        $listaMiembros = DB::table('miembrosconvocados as c')
+            ->join('miembro as m','c.idmiembroconvocado','=','m.idmiembro')
+            ->join('roles as r','r.idrole','=','m.rol')
+            ->select('m.idmiembro','c.idmiembroconvocado', 'c.ideventoconvocado', 'c.convocado', 'm.nombremiembro', 'm.apellido1miembro', 'm.apellido2miembro')
+            ->orderBy('m.apellido1miembro', 'asc')
+            ->where('r.descripcionrole', '=', $rol, 'and', 'c.convocado', '=', 1, 'and', 'c.ideventoconvocado', '=', $idEvento)
+            ->get();
+        return $listaMiembros;
+    }
 
     public function eliminarPuntosEvento($idEvento)
     {
@@ -217,14 +235,14 @@ class Sesion extends Model
         //$listaMiembros = $miembro->mostrar();
         //$listaMiembros = $this->obtenerMiembrosConvocados($idSesion);
         $listaInsertar = $this->crearListaInsertar($listaMiembros,$idSesion);
-        
+
         DB::table('miembrosconvocados')->insert($listaInsertar);
         //echo $listaMiembros;
         //return $listaInsertar;
     }
 
 
-    public function mostrarPorUsuario($idUsuario){        
+    public function mostrarPorUsuario($idUsuario){
         $sesion = DB::table('events as s')
             ->join('tipo_sesion as ts','s.tipo_sesion','=','ts.id')
             ->join('miembrosconvocados as m','m.ideventoconvocado','=','s.id')
@@ -234,11 +252,11 @@ class Sesion extends Model
             ->get();
         return $sesion;
     }
-    
+
     public function mostrar()
-    {       
+    {
         $sesion = DB::table('events as s')
-            ->join('tipo_sesion as ts','s.tipo_sesion','=','ts.id')  
+            ->join('tipo_sesion as ts','s.tipo_sesion','=','ts.id')
             ->select('s.id', 's.lugar', 's.fecha', 's.hora', 'ts.nombre as tipo', 's.estaactivo')
             ->orderBy('s.fecha', 'asc')
             ->get();
@@ -246,30 +264,30 @@ class Sesion extends Model
     }
 
     public function mostrarFiltrado($id)
-    {       
+    {
         $sesion = DB::table('events as s')
-            ->join('tipo_sesion as ts','s.tipo_sesion','=','ts.id')  
+            ->join('tipo_sesion as ts','s.tipo_sesion','=','ts.id')
             ->select('s.id', 's.lugar', 's.fecha', 's.hora', 'ts.nombre as tipo', 's.estaactivo')
             ->orderBy('s.fecha', 'asc')
             ->where('s.id',$id)
             ->get();
         return $sesion;
     }
-    
+
     public function buscar($id){
         $sesion = new Sesion;
         $sesion = Sesion::find($id);
         return $sesion;
     }
-    
+
     public function actualizar($id, $tipo_sesion, $fecha, $hora, $lugar){
         $sesion = Sesion::findOrFail($id);
-        
+
         $sesion->lugar = $lugar;
         $sesion->hora = $hora;
         $sesion->fecha = $fecha;
         $sesion->tipo_sesion = $tipo_sesion;
-        
+
         $sesion->update();
     }
 
@@ -308,7 +326,7 @@ class Sesion extends Model
             ->update(['estaactivo' => $valor]);
     }
 
-    
+
 
 
 }

@@ -13,7 +13,7 @@
         label.insertAfter(element);
       },
       highlight: function(element, errorClass) {
-        $(element).parent().addClass('has-danger')
+        $(element).parent().addClass('has-danger');
         $(element).addClass('form-control-danger')
       }
     });
@@ -70,7 +70,7 @@
         label.insertAfter(element);
       },
       highlight: function(element, errorClass) {
-        $(element).parent().addClass('has-danger')
+        $(element).parent().addClass('has-danger');
         $(element).addClass('form-control-danger')
       }
     });

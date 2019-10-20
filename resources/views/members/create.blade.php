@@ -62,7 +62,7 @@
 
 
 						<p class="btnSubmitP"><input type="submit" value="Aceptar" class="btn btn-primary mr-2"/></p>
-						<p class="btnSubmitP"><a class="btn btn-light"  href="{{url('miembroVisualizar')}}">Cancelar</a></p>
+						<p class="btnSubmitP"><a class="btn btn-light"  href="{{url('sesion')}}">Cancelar</a></p>
 					{!! Form::close() !!}
 			</div>
 		</div>

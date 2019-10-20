@@ -8,7 +8,7 @@ if ($('#map').length) {
       },
       zoom: 8
     });
-  };
+  }
 }
 (function($) {
   'use strict';
