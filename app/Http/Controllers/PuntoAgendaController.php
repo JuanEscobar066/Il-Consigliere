@@ -159,7 +159,7 @@ class PuntoAgendaController extends Controller
         $presidente = $sesion->obtenerMiembrosPorRol($idEvento, "Presidente");
         $miembrosPresentes = $sesion->obtenerMiembrosPorRol($idEvento, "Miembro");
         $estudiantesPresentes = $sesion->obtenerMiembrosPorRol($idEvento, "Estudiante");
-        $secretario = $sesion->obtenerMiembrosPorRol($idEvento, "Secretario(a)");
+        $secretario = $sesion->obtenerMiembrosPorRol($idEvento, "Administrativo");
         $presidentes = array();
         $miembros = array();
         $estudiantes = array();
