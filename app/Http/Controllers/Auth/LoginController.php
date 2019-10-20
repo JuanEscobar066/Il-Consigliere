@@ -105,8 +105,12 @@ class LoginController extends Controller
                 // Ahora, buscamos en la base de datos el Usuario que tenga la misma configuración.
                 foreach ($listaMiembros as $cadaMiembroEnBase){
 
+                    // Puede que el nombre en el registro, esté escrito con segundo nombre, por lo que
+                    // lo vamos a omitir.
+                    $nombreEnBase = explode(" ", $cadaMiembroEnBase->nombremiembro);
+
                     // Se obtiene la información de cada miembro, quitándole tildes y haciéndolo mayúscula.
-                    $primerNombre       = strtoupper($this->quitarTildes($cadaMiembroEnBase->nombremiembro));
+                    $primerNombre       = strtoupper($this->quitarTildes($nombreEnBase[0]));
                     $primerApellido     = strtoupper($this->quitarTildes($cadaMiembroEnBase->apellido1miembro));
                     $segundoApellido    = strtoupper($this->quitarTildes($cadaMiembroEnBase->apellido2miembro));
 
