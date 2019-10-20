@@ -143,7 +143,8 @@ class LoginController extends Controller
                 }
 
                 // Si sale del ciclo y no loguea, es que no está en la base de datos :(.
-                return Redirect::back()->with('#modal-firma', 'Firma Digital no reconocida. ');
+                return Redirect::back()->withErrors(['usuarioNoEncontrado',
+                    'El usuario no se encuentra dentro del sistema.']);
 
             }
             catch (Exception $e){
