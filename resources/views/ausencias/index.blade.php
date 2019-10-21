@@ -40,7 +40,6 @@
 							<tr>
 								<td>
 									{{$ausencia->nombremiembro}} {{$ausencia->apellido1miembro}} {{$ausencia->apellido2miembro}}
-
 								</td>
 								<td>
 									{{$ausencia->fechainicio}}
@@ -72,16 +71,3 @@
 </div>
 
 @endsection
-
-
-				   <!--  while ($row = pg_fetch_row($query)) {
-				      $tabla = $tabla . "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td>";
-				       $tabla = $tabla . "<td><a href=actualizarUsuario.php?valor=" . $row[0] ."><i class='fas fa-user-edit'></i></a><a href=procesarEliminarUsuario.php?valor=" . $row[0] ."><i class='fas fa-user-times'></i></a></td>";
-				      $tabla = $tabla . "</tr>";
-				    }
-				    $table = $tabla . "</table>";
-				    echo $tabla; -->
-<!-- 			</div>
-		</div>
-	</body>
-</html>

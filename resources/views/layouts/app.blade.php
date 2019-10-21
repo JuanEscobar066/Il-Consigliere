@@ -201,7 +201,6 @@
             </a>
             <div class="collapse" id="dasboards">
               <ul class="nav flex-column sub-menu">
-                <!-- C:\Users\Jimenez\Documents\GitHub\Il-Consigliere\vendor\laravel\framework\src\Illuminate\Auth -->
                 @if(Auth::permisoMiembrosAgregar()) 
                   <li class="nav-item"><a class="nav-link" href="{{url('miembro/create')}}">Añadir</a></li>
                 @endif

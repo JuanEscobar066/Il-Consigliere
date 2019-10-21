@@ -52,7 +52,7 @@ class Sesion extends Model
 
         $sesion->save();
 
-        $this->ConvocarMiembros($fecha);
+        $this->ConvocarMiembros($sesion->fecha);
     }
 
     public function insertarAsistencia($lista)

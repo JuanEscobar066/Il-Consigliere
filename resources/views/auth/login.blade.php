@@ -23,9 +23,10 @@
     <nav class="row navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
           <a class="navbar-brand brand-logo" href="{{url('/home')}}"><img src="{{ asset('images/logo.jpeg')}}" alt="logo"/></a>
-          <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}"><img src="{{ asset('images/logo-mini.png')}}" alt="logo"/></a>
         </div>
-        
+        <div class="d-flex align-items-left justify-content-center">
+          <a class="navbar-brand" href="{{url('/showFiles')}}">Documentos Públicos</a>
+        </div>
     </nav>
     <div class="row justify-content-center">
       <div class="col-md-8">

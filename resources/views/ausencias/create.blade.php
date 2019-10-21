@@ -25,15 +25,8 @@
 							<label for="fechaF" class="col-sm-12 col-form-label labels">Fecha Final</label>
 							<input type="date" name="fechaF" class="form-control" id="fechaF">
 						</div>
-						
-
-						
-
-						
-
-
 						<p class="btnSubmitP"><input type="submit" value="Aceptar" class="btn btn-primary mr-2"/></p>
-						<p class="btnSubmitP"><a class="btn btn-light"  href="{{url('miembroVisualizar')}}">Cancelar</a></p>
+						<p class="btnSubmitP"><a class="btn btn-light" href="{{url('miembroVisualizar')}}">Cancelar</a></p>
 					{!! Form::close() !!}
 			</div>
 		</div>

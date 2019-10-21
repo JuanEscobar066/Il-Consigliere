@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -110,7 +109,7 @@ Route::get('indexAdmin','PuntoAgendaController@indexAdmin');
 Route::get('indexAdmin/{punto}/accept','PuntoAgendaController@accept');
 Route::get('indexAdmin/{punto}/deny','PuntoAgendaController@deny');
 
-//Route::get('miembroVisualizar', 'MiembroController@show');
+Route::get('miembroVisualizar', 'MiembroController@show');
 //Route::get('miembroCrear', 'MiembroController@create');
 Route::get('miembroEliminar', 'MiembroController@delete');
 Route::post('miembroInsertarDatos', 'MiembroController@store');
@@ -118,6 +117,9 @@ Route::post('miembroInsertarDatos', 'MiembroController@store');
 Route::post('miembroEliminarDatos', 'MiembroController@deleteData');
 Route::post('miembroActualizarDatos', 'MiembroController@update');
 Route::get('logOut','Auth\LoginController@logOut');
+Route::get('showFiles', 'MostrarArchivosController@index');
+Route::get('download/{fileName}', 'MostrarArchivosController@download')->name('download'); 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
