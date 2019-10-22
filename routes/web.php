@@ -99,6 +99,7 @@ Route::get('sesion/iniciar/votacion/cerrar/{sesion}', ['as'=>'cerrarvotacion', '
 Route::get('sesion/iniciar/votacion/reiniciar/{sesion}', ['as'=>'reiniciarvotacion', 'uses'=>'SesionController@reiniciarVotacion']);
 
 Route::get('sesion/obtenerPuntosUsuario/{sesion}', ['as'=>'obtenerPuntosUsuario', 'uses'=>'PuntoAgendaController@solicitudPuntos']);
+Route::get('sesion/firmarPuntosUsuario/{sesion}', ['as'=>'firmarPuntosUsuario', 'uses'=>'PuntoAgendaController@firmaSolicitudPuntos']);
 Route::get('sesion/obtenerPuntos/{sesion}', ['as'=>'obtenerPuntos', 'uses'=>'PuntoAgendaController@crearActa']);
 
 Route::get('sesion/documentoSolicitudPuntos/{sesion}', ['as'=>'documentoSolicitudPuntos', 'uses'=>'PuntoAgendaController@crearDocSolicitudPuntos']);

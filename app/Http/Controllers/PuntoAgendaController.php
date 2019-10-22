@@ -55,6 +55,23 @@ class PuntoAgendaController extends Controller
         return $pdf->stream('Solicitud de puntos ' . $sesion->fecha . '.pdf');        
     }
 
+    public function firmaSolicitudPuntos(Request $request, $idEvento){
+        $datos = $this->obtenerDatos($request, $idEvento);
+        $puntosPropuestos = $datos[0];
+        $nombre = $datos[1];
+        $sesion = $datos[2];
+                
+        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);           
+       
+        // Aquí se obtiene el contenido del PDF y luego se convierte a base64, esto para efectuar el proceso de firma digital
+        // para el documento en cuestión.
+        $contenidoPDF = $pdf->download()->getOriginalContent();        
+        $documentoEnBase64 = chunk_split(base64_encode($contenidoPDF));
+        dd($documentoEnBase64);        
+        
+        //return Redirect::back()->with(['puntosPDF' => $pdf]);  
+    }
+
     public function crearDocSolicitudPuntos(Request $request, $idEvento){
         $datos = $this->obtenerDatos($request, $idEvento);
         $puntosPropuestos = $datos[0];
