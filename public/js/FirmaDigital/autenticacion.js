@@ -289,32 +289,52 @@ function FechaExpirValidacion(DN){
     document.getElementById('emision_dt').value = date2;
 }
 
+// Permite leer una cookie del arreglo de las cookies.
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
+// Función que permite hacer la firma digital en un archivo PDF.
 async function firmarPDF(){
 
-    var b64;
-    b64 = document.getElementById("base64").value;
+    // Obtenemos la cookie con el archivo codificado en base 64.
+    var b64 = getCookie("archivoBase64");
 
+    // Obtenemos el pin del usuario.
     var pin = document.getElementById("pin").value;
+
+    // El filename que le vamos a pasar a la lectora para que lo firme.
     var fileName;
 
+    // Obtenemos la fecha.
     var d = new Date();
-    var token = d.getTime();
     var slotSelected;
-    var opcion = 1;
-   var selectCerts = document.getElementById("idSelectCerts");
-   slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
-   if(slotSelected === '-1'){
+
+    // Obtenemos el certificado que el usuario seleccionó.
+    var selectCerts = document.getElementById("idSelectCerts");
+    slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
+    if(slotSelected === '-1'){
        alert(selectCerts.options[selectCerts.selectedIndex].text);
        return;
-   }
+    }
 
-
-
-
+    // Se le indica que el país de origen es Costa Rica.
     var reason = "Razon";
     var country = "CR";
 
+    // Se crea el JSON con toda la información necesaria para firmar.
     var jsonParams = {"cmd":"signPDFFile",
                       "password":pin,
                       "signType":TYPE_SIGN,
@@ -327,18 +347,25 @@ async function firmarPDF(){
                       "fileName":"pdf_firmado.pdf",
                       "slot":slotSelected};
 
+    // Se hace la resolución del servicio.
     var resolve = await service(jsonParams);
+
+    // Se parsea la información recibida.
     var resultado = JSON.parse(resolve.data);
-    var errorCode = resultado.ErrorCode;
+
+    // Obtenemos el error y la descripción.
+    var errorCode   = resultado.ErrorCode;
     var description = resultado.Description;
 
+    // Si no hubo ningún error...
     if(errorCode === 0){
-        overlay(); //cerrar modal
 
-         var signedFile = resultado.SignedFile;
-        //console.log(signedFile.base64File);
+        // Se cierra el modal.
+        overlay();
 
-        document.getElementById("base64_firmado").value = signedFile.base64File;
+        // Este sería el archivo ya firmado, en base 64.
+        var signedFile = resultado.SignedFile;
+        console.log(signedFile.base64File);
 
     }else{
         //mostrar mensaje de error

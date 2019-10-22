@@ -94,7 +94,7 @@
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
-                                                <a class="dropdown-item" href="{{action('PuntoAgendaController@firmaSolicitudPuntos',$sesion->id)}}" target="_blank">Firmar documento</a>
+                                                <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@
         </div>
 
     </div>
-    
+
     <div class="acta" style="display: none;" id="acta"></div>
     <div class="solicitud_puntos" style="display: none;" id="solicitud_puntos"></div>
 
@@ -149,15 +149,15 @@
 
         function inicio() {
 
-            // Al presionar una fecha en el calendario, esta función detecta cual 
-            // fecha fue presionada y la envía para realizar la inserción. 
+            // Al presionar una fecha en el calendario, esta función detecta cual
+            // fecha fue presionada y la envía para realizar la inserción.
             function eventos() {
 
-                // Permite obtener la fecha del calendario y enviarlo por parámetro 
-                // a la función para que pueda almacenarlo en la fecha solicitada. 
+                // Permite obtener la fecha del calendario y enviarlo por parámetro
+                // a la función para que pueda almacenarlo en la fecha solicitada.
                 var fecha = this.getAttribute("data-date");
 
-                // Aquí hace el envío de la fecha. 
+                // Aquí hace el envío de la fecha.
                 window.location.href = "/sesion/create?fecha=" + fecha;
             }
 
@@ -231,11 +231,17 @@
         //     // alert(document.getElementById("pdf").offsetWidth)
         // }
 
-        // $(window).resize(function() {            
+        // $(window).resize(function() {
         //     ajustarTamaño();
-        // });  
-    </script>    
+        // });
+    </script>
 </body>
+
+<!-- Los componentes de la Firma Digital. -->
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
 
 </html>
 

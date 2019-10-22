@@ -50,26 +50,41 @@ class PuntoAgendaController extends Controller
         $puntosPropuestos = $datos[0];
         $nombre = $datos[1];
         $sesion = $datos[2];
-                
+
         $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
-        return $pdf->stream('Solicitud de puntos ' . $sesion->fecha . '.pdf');        
+        return $pdf->stream('Solicitud de puntos ' . $sesion->fecha . '.pdf');
     }
 
+    // Esta función permite firmar la solicitud de puntos.
     public function firmaSolicitudPuntos(Request $request, $idEvento){
+
+        // Se hace un llamado a la información de la solicitud de puntos.
         $datos = $this->obtenerDatos($request, $idEvento);
+
+        // Aquí se encuentran todos los datos.
         $puntosPropuestos = $datos[0];
         $nombre = $datos[1];
         $sesion = $datos[2];
-                
-        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);           
-       
+
+        // Se forma el PDF como tal.
+        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
+
         // Aquí se obtiene el contenido del PDF y luego se convierte a base64, esto para efectuar el proceso de firma digital
         // para el documento en cuestión.
-        $contenidoPDF = $pdf->download()->getOriginalContent();        
+        $contenidoPDF = $pdf->download()->getOriginalContent();
         $documentoEnBase64 = chunk_split(base64_encode($contenidoPDF));
-        dd($documentoEnBase64);        
-        
-        //return Redirect::back()->with(['puntosPDF' => $pdf]);  
+
+        // Seteamos la cookie con el archivo.
+        $_COOKIE["archivoBase64"] = $documentoEnBase64;
+
+        // Ahora, se hace un llamado a las funciones de firmado en javascript.
+        echo
+        '<script type="text/javascript">',
+        'jsfunction();',
+        '</script>'
+        ;
+
+        //return Redirect::back()->with(['puntosPDF' => $pdf]);
     }
 
     public function crearDocSolicitudPuntos(Request $request, $idEvento){
@@ -84,23 +99,23 @@ class PuntoAgendaController extends Controller
     public function obtenerDatos(Request $request, $idEvento){
         $idMiembro = (int)$request->session()->get('id'); // Obtiene el id del usuario que está logueado en el momento.
         $sesion = new Sesion();
-        $sesion = $sesion->buscar($idEvento);     
+        $sesion = $sesion->buscar($idEvento);
         $fecha = $sesion->fecha;
-        $sesion->fecha = date("d-m-Y", strtotime($fecha)); 
-        
+        $sesion->fecha = date("d-m-Y", strtotime($fecha));
+
         if($sesion->tipo_sesion == 1){
             $sesion->tipo_sesion = "ordinaria";
-        }  
+        }
         else{
             $sesion->tipo_sesion = "extraordinaria";
         }
-        
+
         $puntos = new PuntoAgenda();
         $puntosPropuestos = $puntos->obtenerPuntosPorUsuario($idMiembro, $idEvento);
         $miembro = Miembro::find($idMiembro);
         $nombre = "$miembro->nombremiembro $miembro->apellido1miembro $miembro->apellido2miembro";
-        
-        foreach ($puntosPropuestos as $p){            
+
+        foreach ($puntosPropuestos as $p){
             $p->miembro = $nombre;
         }
 
@@ -128,46 +143,46 @@ class PuntoAgendaController extends Controller
 
     public function crearActa($idEvento){
         $datos = $this->obtenerDatosActa($idEvento);
-        $puntosPropuestos = $datos[0]; 
-        $sesion = $datos[1]; 
-        $miembros = $datos[2]; 
-        $estudiantes = $datos[3]; 
-        $ausentes = $datos[4]; 
-        $presidentes = $datos[5]; 
+        $puntosPropuestos = $datos[0];
+        $sesion = $datos[1];
+        $miembros = $datos[2];
+        $estudiantes = $datos[3];
+        $ausentes = $datos[4];
+        $presidentes = $datos[5];
         $secretarios = $datos[6];
-        
-        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion, 
-                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes, 
+
+        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
+                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
                               'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
         return $pdf->stream('Acta de Consejo.pdf');
     }
-    
+
     public function crearDocumentoActa($idEvento){
         $datos = $this->obtenerDatosActa($idEvento);
-        $puntosPropuestos = $datos[0]; 
-        $sesion = $datos[1]; 
-        $miembros = $datos[2]; 
-        $estudiantes = $datos[3]; 
-        $ausentes = $datos[4]; 
-        $presidentes = $datos[5]; 
+        $puntosPropuestos = $datos[0];
+        $sesion = $datos[1];
+        $miembros = $datos[2];
+        $estudiantes = $datos[3];
+        $ausentes = $datos[4];
+        $presidentes = $datos[5];
         $secretarios = $datos[6];
-        
-        return view('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion, 
-                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes, 
-                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);        
+
+        return view('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
+                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
+                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
     }
 
     public function obtenerDatosActa($idEvento){
         $sesion = new Sesion();
-        $sesion = $sesion->buscar($idEvento);     
+        $sesion = $sesion->buscar($idEvento);
         $fecha = $sesion->fecha;
         $ausencia = new Ausencia();
         $miembrosAusentes = $ausencia->buscarAusenciaPorRango($fecha, "Miembro");
-        $sesion->fecha = date("d-m-Y", strtotime($fecha)); 
-        
+        $sesion->fecha = date("d-m-Y", strtotime($fecha));
+
         if($sesion->tipo_sesion == 1){
             $sesion->tipo_sesion = "ordinaria";
-        }  
+        }
         else{
             $sesion->tipo_sesion = "extraordinaria";
         }
@@ -183,22 +198,22 @@ class PuntoAgendaController extends Controller
         $secretarios = array();
         $ausentes = array();
 
-        foreach ($presidente as $p){            
+        foreach ($presidente as $p){
             array_push($presidentes, $p->nombremiembro . ' ' . $p->apellido1miembro . ' ' . $p->apellido2miembro);
-        } 
-        foreach ($miembrosPresentes as $m){            
+        }
+        foreach ($miembrosPresentes as $m){
             array_push($miembros, $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro);
-        }   
-        foreach ($estudiantesPresentes as $e){            
+        }
+        foreach ($estudiantesPresentes as $e){
             array_push($estudiantes, $e->nombremiembro . ' ' . $e->apellido1miembro . ' ' . $e->apellido2miembro);
-        }    
-        foreach ($secretario as $s){            
+        }
+        foreach ($secretario as $s){
             array_push($secretarios, $s->nombremiembro . ' ' . $s->apellido1miembro . ' ' . $s->apellido2miembro);
-        }                    
-        foreach ($miembrosAusentes as $m){       
-            $nombreCompleto = $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro;     
-            array_push($ausentes, $nombreCompleto);                        
-            $miembros = array_diff($miembros, array($nombreCompleto));            
+        }
+        foreach ($miembrosAusentes as $m){
+            $nombreCompleto = $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro;
+            array_push($ausentes, $nombreCompleto);
+            $miembros = array_diff($miembros, array($nombreCompleto));
         }
 
         $datos = array();
