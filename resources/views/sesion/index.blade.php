@@ -95,6 +95,7 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
+                                                <a class="dropdown-item" href="{{action('PuntoAgendaController@firmaSolicitudPuntos',$sesion->id)}}">Prueba</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
@@ -143,6 +144,12 @@
 
     <div class="acta" style="display: none;" id="acta"></div>
     <div class="solicitud_puntos" style="display: none;" id="solicitud_puntos"></div>
+    <input  class="pdfBase64" style="display: none;" id="pdfBase64" value="{{session('pdfBase64')}}"/>
+
+    
+        <p>{{session('pdfBase64')}}</p>
+    
+
 
     <script>
         var tags = document.getElementsByClassName('fc-day');
@@ -218,6 +225,14 @@
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
+
+
+        function miFuncion() {
+            var pdfBase64 = document.getElementById('pdfBase64').value;
+            alert(pdfBase64);
+        }
+
+        window.onload=miFuncion;
 
         // function ajustarTamaño() {
         //     var anchoContenedor = document.getElementById("contenedorPDF").offsetWidth - 23;

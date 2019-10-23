@@ -75,16 +75,12 @@ class PuntoAgendaController extends Controller
         $documentoEnBase64 = chunk_split(base64_encode($contenidoPDF));
 
         // Seteamos la cookie con el archivo.
-        $_COOKIE["archivoBase64"] = $documentoEnBase64;
+        //$_COOKIE["archivoBase64"] = $documentoEnBase64;
 
         // Ahora, se hace un llamado a las funciones de firmado en javascript.
-        echo
-        '<script type="text/javascript">',
-        'jsfunction();',
-        '</script>'
-        ;
+        //dd($_COOKIE["archivoBase64"]);
 
-        //return Redirect::back()->with(['puntosPDF' => $pdf]);
+        return Redirect::back()->with(['pdfBase64' => $documentoEnBase64]);
     }
 
     public function crearDocSolicitudPuntos(Request $request, $idEvento){
