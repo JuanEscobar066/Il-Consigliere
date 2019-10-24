@@ -28,7 +28,7 @@
      En el fondo, es el mismo del login, pero ubicado en la ruta que se necesita.
  -->
 <div class="modal fade modal-slide-in-right" aria-hidden="false" role="dialog" id="modal-firma">
-    {{ action('PuntoAgendaController@firmaSolicitudPuntos', $sesion->id)}}
+    
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: rgb(247, 247, 247);">

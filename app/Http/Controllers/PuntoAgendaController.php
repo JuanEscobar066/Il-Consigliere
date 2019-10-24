@@ -78,9 +78,10 @@ class PuntoAgendaController extends Controller
         //$_COOKIE["archivoBase64"] = $documentoEnBase64;
 
         // Ahora, se hace un llamado a las funciones de firmado en javascript.
-        //dd($_COOKIE["archivoBase64"]);
+        //dd($documentoEnBase64);
 
-        return Redirect::back()->with(['pdfBase64' => $documentoEnBase64]);
+        //return Redirect::back()->with(['pdfBase64' => $documentoEnBase64]);
+        return $documentoEnBase64;
     }
 
     public function crearDocSolicitudPuntos(Request $request, $idEvento){

@@ -49,6 +49,7 @@
                             </thead>
                             <tbody>
                                 @foreach($sesiones as $sesion)
+                                
                                 @if($sesion->estaactivo < 2) <tr>
                                     <td>
                                         {{$sesion->tipo}}
@@ -83,7 +84,7 @@
                                     <td class="center">
                                         <a href="{{action('SesionController@enviarPuntos',$sesion->id)}}"><strong>Convocar</strong></a>
                                     </td>
-                                    @else
+                                    @else                                    
                                     <td>
                                         <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}" style="color:green"><strong>Ingresar</strong></a>
                                     </td>
@@ -92,7 +93,8 @@
                                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <strong>Solicitud puntos</strong>
                                             </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">                                                
+                                                <input  class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmaSolicitudPuntos(request(), $sesion->id) }}"/>
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@firmaSolicitudPuntos',$sesion->id)}}">Prueba</a>
@@ -227,12 +229,12 @@
         }
 
 
-        function miFuncion() {
-            var pdfBase64 = document.getElementById('pdfBase64').value;
-            alert(pdfBase64);
-        }
+        // function miFuncion() {
+        //     var pdfBase64 = document.getElementById('15').value;
+        //     alert(pdfBase64);
+        // }
 
-        window.onload=miFuncion;
+        // window.onload=miFuncion;
 
         // function ajustarTamaño() {
         //     var anchoContenedor = document.getElementById("contenedorPDF").offsetWidth - 23;
