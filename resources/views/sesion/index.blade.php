@@ -41,16 +41,16 @@
                                     </th>
                                     <th>
                                         Lugar
-                                    </th>                                   
+                                    </th>
                                     <th>
                                         Acciones
-                                    </th>                                                                    
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($sesiones as $sesion)
-                                @if($sesion->estaactivo < 2) 
-                                <tr>
+
+                                @if($sesion->estaactivo < 2) <tr>
                                     <td>
                                         {{$sesion->tipo}}
                                     </td>
@@ -92,9 +92,12 @@
                                         <div class="dropdown show">
                                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <strong>Solicitud puntos</strong>
-                                            </a>                                                                             
+                                            </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <input  class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmaSolicitudPuntos(request(), $sesion->id) }}"/>
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
+                                                <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
+
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
@@ -143,21 +146,27 @@
 
     <div class="acta" style="display: none;" id="acta"></div>
     <div class="solicitud_puntos" style="display: none;" id="solicitud_puntos"></div>
+    <input  class="pdfBase64" style="display: none;" id="pdfBase64" value="{{session('pdfBase64')}}"/>
+
+
+        <p>{{session('pdfBase64')}}</p>
+
+
 
     <script>
         var tags = document.getElementsByClassName('fc-day');
 
         function inicio() {
 
-            // Al presionar una fecha en el calendario, esta función detecta cual 
-            // fecha fue presionada y la envía para realizar la inserción. 
+            // Al presionar una fecha en el calendario, esta función detecta cual
+            // fecha fue presionada y la envía para realizar la inserción.
             function eventos() {
 
-                // Permite obtener la fecha del calendario y enviarlo por parámetro 
-                // a la función para que pueda almacenarlo en la fecha solicitada. 
+                // Permite obtener la fecha del calendario y enviarlo por parámetro
+                // a la función para que pueda almacenarlo en la fecha solicitada.
                 var fecha = this.getAttribute("data-date");
 
-                // Aquí hace el envío de la fecha. 
+                // Aquí hace el envío de la fecha.
                 window.location.href = "/sesion/create?fecha=" + fecha;
             }
 
@@ -171,56 +180,85 @@
     <script>
         async function load(archivo, tipoDocumento, idSesion) {
             $('#' + archivo).load("http://localhost:8000/sesion/" + tipoDocumento + idSesion);
-            await sleep(1000);            
+            await sleep(1000);
             wordParser(archivo);
         }
 
         function wordParser(archivo) {
             var nombreArchivo;
-            if(archivo == "acta"){
-                 nombreArchivo = "Acta de Consejo";
+            if (archivo == "acta") {
+                nombreArchivo = "Acta de Consejo";
+            } else {
+                nombreArchivo = "Solicitud de puntos";
             }
-            else{
-                 nombreArchivo = "Solicitud de puntos";
-            }
-            
+
             var html = document.getElementById(archivo).innerHTML;
             var blob = new Blob(['\ufeff', html], {
                 type: 'application/msword'
             });
-            
+
             // Specify link url
             var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-            
+
             // Specify file name
-            var filename = filename?filename+'.doc':nombreArchivo+'.doc';
-            
+            var filename = filename ? filename + '.doc' : nombreArchivo + '.doc';
+
             // Create download link element
             var downloadLink = document.createElement("a");
 
             document.body.appendChild(downloadLink);
-            
-            if(navigator.msSaveOrOpenBlob ){
+
+            if (navigator.msSaveOrOpenBlob) {
                 navigator.msSaveOrOpenBlob(blob, filename);
-            }else{
+            } else {
                 // Create a link to the file
                 downloadLink.href = url;
-                
+
                 // Setting the file name
                 downloadLink.download = filename;
-                
+
                 //triggering the function
                 downloadLink.click();
             }
-            
+
             document.body.removeChild(downloadLink);
         }
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
+
+
+        // function miFuncion() {
+        //     var pdfBase64 = document.getElementById('15').value;
+        //     alert(pdfBase64);
+        // }
+
+        // window.onload=miFuncion;
+
+        // function ajustarTamaño() {
+        //     var anchoContenedor = document.getElementById("contenedorPDF").offsetWidth - 23;
+        //     //alert(anchoContenedor);
+
+        //     var elementoPDF = document.getElementById("pdf");
+        //     Object.assign(elementoPDF.style, {
+        //         width: anchoContenedor + "px",
+        //         height: "1100px"
+        //     });
+        //     // alert(document.getElementById("pdf").offsetWidth)
+        // }
+
+        // $(window).resize(function() {
+        //     ajustarTamaño();
+        // });
     </script>
 </body>
+
+<!-- Los componentes de la Firma Digital. -->
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
 
 </html>
 

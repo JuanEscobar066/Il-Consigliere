@@ -32,6 +32,13 @@
         </nav>
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                @if($errors->has('usuarioNoEncontrado'))
+                    <div class="alert alert-danger" role="alert">
+                        {{$errors->first('usuarioNoEncontrado')}}
+                    </div>
+                @endif
+
                 <div class="card">
                     <div class="card-header">{{ __('Login') }}</div>
 
@@ -214,7 +221,7 @@
     <script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
-    
+
 </body>
 
 </html>
