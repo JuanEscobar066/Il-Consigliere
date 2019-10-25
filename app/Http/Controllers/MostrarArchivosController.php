@@ -14,19 +14,18 @@ class MostrarArchivosController extends Controller
         $filesList = Storage::files('public');
         $listFilestmp = [];
         foreach ($filesList as $filetmp) {
-            //$url = explode("/\,/", $filetmp);
-            //$url = (string) $filetmp;
             $tmp = Storage::url($filetmp);
             $url = public_path($tmp);
             $urtmp = str_replace('\\', '/', $url);
             $urltmp = str_replace('//', '/', $urtmp);
             $urlfinal = str_replace('/', '\\', $urtmp);
             $urltmp2 = str_replace('\\\\', '\\', $urlfinal);
-            //$url = storage_path()."\".$filetmp;
             $newFileName = $filetmp;
+            $array_name = explode('/',$newFileName);
+
             $size = Storage::size($filetmp);
             
-            array_push($listFilestmp, [$tmp, $size, $urltmp2]);
+            array_push($listFilestmp, [$tmp, $size, $urltmp2, $array_name[1]]);
         }
         return View::make('mostrarArchivos.mostrarArchivos')->with('filesList', $listFilestmp);
     }

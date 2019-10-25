@@ -32,14 +32,16 @@
       <div class="col-md-8">
         @foreach($filesList as $fl)
             {!! Form::open(['route' => array('download', $fl[2]), 'method' => 'GET', 'files' => 'true', 'enctype' =>'multipart/form-data']) !!}
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h3 class="card-title">{{ $fl[0] }}</h5>
-                    <h6>{{ $fl[0] }} Bytes</h6>
-                    <a href="{{ $fl[0] }}" download>Download File</a>
-                </div>
-            </div>
             <br>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ $fl[3] }}</h5>
+                <p class="card-text">{{ $fl[1] }} Bytes</p>
+                <a href="{{ $fl[0] }}" download>Download File</a>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <hr>
             {!! Form::close() !!}
         @endforeach
       </div>
