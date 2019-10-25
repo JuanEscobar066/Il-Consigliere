@@ -28,7 +28,7 @@
      En el fondo, es el mismo del login, pero ubicado en la ruta que se necesita.
  -->
 <div class="modal fade modal-slide-in-right" aria-hidden="false" role="dialog" id="modal-firma">
-    
+
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: rgb(247, 247, 247);">
@@ -52,7 +52,7 @@
                         <input id="pin" name="pin" type="password" class="form-control" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
                     </div>
                     <div class="form-group">
-                        <button id="validar" name="validar" onclick="firmarPDF();" type="submit" class="btn btn-primary mr-2">Validar</button>
+                        <button id="validar" name="validar" onclick="firmarPDF({{ $sesion->id }});" type="submit" class="btn btn-primary mr-2">Validar</button>
                         <button id="cerrar" data-dismiss="modal" class="btn btn-light">Cerrar</button>
                     </div>
                 </div>

@@ -307,10 +307,10 @@ function getCookie(cname) {
 }
 
 // Función que permite hacer la firma digital en un archivo PDF.
-async function firmarPDF(){
+async function firmarPDF(sesionID){
 
     // Obtenemos la cookie con el archivo codificado en base 64.
-    var b64 = getCookie("archivoBase64");
+    var b64 = document.getElementById(sesionID.toString()).value;
 
     // Obtenemos el pin del usuario.
     var pin = document.getElementById("pin").value;
@@ -352,6 +352,7 @@ async function firmarPDF(){
 
     // Se parsea la información recibida.
     var resultado = JSON.parse(resolve.data);
+    console.log(resultado);
 
     // Obtenemos el error y la descripción.
     var errorCode   = resultado.ErrorCode;
@@ -364,14 +365,36 @@ async function firmarPDF(){
         overlay();
 
         // Este sería el archivo ya firmado, en base 64.
-        var signedFile = resultado.SignedFile;
-        console.log(signedFile.base64File);
+        var signedFile = resultado.SignedFile.base64File;
+        console.log(signedFile);
+        document.getElementById(sesionID.toString()).value = signedFile;
+
+        ver(sesionID);
 
     }else{
         //mostrar mensaje de error
         alert(description);
     }
 
+    function ver(sesionID){
+
+        var base64str = document.getElementById(sesionID.toString()).value;
+
+        // decode base64 string, remove space for IE compatibility
+        var binary = atob(base64str.replace(/\s/g, ''));
+        var len = binary.length;
+        var buffer = new ArrayBuffer(len);
+        var view = new Uint8Array(buffer);
+        for (var i = 0; i < len; i++) {
+            view[i] = binary.charCodeAt(i);
+        }
+
+        // create the blob object with content-type "application/pdf"
+        var blob = new Blob( [view], { type: "application/pdf" });
+        var url = URL.createObjectURL(blob);
+
+        window.open(url);
+    }
 
 }
 
