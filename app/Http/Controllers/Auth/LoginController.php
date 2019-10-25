@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Miembro;
 use App\Model\Roles;
+use Storage;
 use Illuminate\Support\Facades\Redirect;
 class LoginController extends Controller
 {

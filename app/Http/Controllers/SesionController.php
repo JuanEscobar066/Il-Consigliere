@@ -162,7 +162,6 @@ class SesionController extends Controller
     {
         if($this->acceso($request))
         {
-            //return "Hola: " . $id;
             $ma = new sendMail('nada','na');
             $correos = $ma->obtenerTodosCorreos($id);
             $a = new PuntoAgenda();
@@ -171,10 +170,6 @@ class SesionController extends Controller
             $ma->listaPuntos = $puntos;
             Mail::to($correos)->send($ma->enviarCorreoPuntos());
             return Redirect::to('sesion');
-            //$puntos =
-            //Mail::to($correo)->send($ma->contrasenna());
-            //$ma->enviarPuntosAceptados($id);
-            //Mail::to($correo)->send($ma->contrasenna());
         }
         else
         {
@@ -224,7 +219,7 @@ class SesionController extends Controller
 
             $sesion = new Sesion;
             $listaMiembros = $sesion->obtenerMiembrosConvocados($id);
-            $lista = [];//Va a estar todos los que están convocados, los que no no hay problema.
+            $lista = [];//Va a estar todos los que están convocados y los que no, no hay problema.
             foreach ($request->get('values') as $value) {
                 array_push($lista,(int)$value);
                 echo $value . ", ";
@@ -237,9 +232,7 @@ class SesionController extends Controller
 
             $sesion->actualizarTodosMiembrosConvocados($id);//Pasa todos a no convocados
             $sesion->actualizarMiembrosConvocadosSi($id,$lista);//Pasa todos a convocados
-           // echo $request->get('values');
             $sesion->actualizar($id, $request->get('tipo_sesion'), $request->get('fecha'),$request->get('hora'),$request->get('lugar'));
-    		//return Redirect::to('/sesion');
 
             $listaSesiones= $sesion->mostrar();
             return view ('sesion.index',['sesiones'=>$listaSesiones], compact('calendar'));
@@ -277,11 +270,7 @@ class SesionController extends Controller
             $calendar = Calendar::addEvents($events);
         	$sesion = Sesion::findOrFail($id);
             $sesion->delete();
-            //Mejorar redirect
-            // $sesion = new Sesion();
-            // $listaSesiones= $sesion->mostrar();
             return redirect::to("sesion");
-            //return view ('sesion.index',['sesiones'=>$listaSesiones], compact('calendar'));
         }
         else
         {
@@ -938,5 +927,10 @@ class SesionController extends Controller
         $usuario = (int)$request->id_usuario;
         $obPuntos->votoAbstinencia_Miembro($idPunto,$usuario);
     }
-
+    
+    public function showFiles()
+    {
+        return Storage::url('prueba.txt');
+    }
+    
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -119,7 +118,7 @@ Route::get('/solicitud_puntos', function () {return view('puntoAgenda.solicitud_
 //Route::name('pdf')->get('/crearPDFSolicitud', 'PuntoAgendaController@crearSolicitudPuntos');
 Route::name('doc')->get('/descargar', 'PuntoAgendaController@download');
 
-//Route::get('miembroVisualizar', 'MiembroController@show');
+Route::get('miembroVisualizar', 'MiembroController@show');
 //Route::get('miembroCrear', 'MiembroController@create');
 Route::get('miembroEliminar', 'MiembroController@delete');
 Route::post('miembroInsertarDatos', 'MiembroController@store');
@@ -127,6 +126,9 @@ Route::post('miembroInsertarDatos', 'MiembroController@store');
 Route::post('miembroEliminarDatos', 'MiembroController@deleteData');
 Route::post('miembroActualizarDatos', 'MiembroController@update');
 Route::get('logOut','Auth\LoginController@logOut');
+Route::get('showFiles', 'MostrarArchivosController@index');
+Route::get('download/{fileName}', 'MostrarArchivosController@download')->name('download'); 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
