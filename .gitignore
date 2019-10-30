@@ -13,7 +13,9 @@ yarn-error.log
 .phpunit.result.cache
 .env
 composer.json
+composer.lock
 config/database.php
 config/app.php
 .env
 config/database.php
+storage/helloWorld.docx

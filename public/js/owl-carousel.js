@@ -2,7 +2,7 @@
   'use strict';
   $.fn.andSelf = function() {
     return this.addBack.apply(this, arguments);
-  }
+  };
 
   if ($('.example-1').length) {
     $('.example-1').owlCarousel({

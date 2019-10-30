@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Model\Sesion;
@@ -16,6 +17,7 @@ use Mail;
 
 use Calendar;
 use Illuminate\Support\Facades\Redirect;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class SesionController extends Controller
 {
@@ -37,11 +39,11 @@ class SesionController extends Controller
         }
     }
 
-    
+
 
 
     public function index(Request $request){
-        
+
         if($this->acceso($request))
         {
             $events = [];
@@ -56,11 +58,11 @@ class SesionController extends Controller
                     $events[] = Calendar::event(
                         $tipo_sesion[0]->nombre,
                         false,
-                        new \DateTime($value->fecha.$value->hora),
-                        new \DateTime($value->fecha),
+                        new DateTime($value->fecha.$value->hora),
+                        new DateTime($value->fecha),
                         $value->id,
                         [
-                          'url' => 'http://127.0.0.1:8080/puntoAgenda',
+                          'url' => 'http://localhost:8000/puntoAgenda',
                           //any other full-calendar supported parameters
 	                ]
                     );
@@ -124,8 +126,8 @@ class SesionController extends Controller
                     $events[] = Calendar::event(
                         $tipo_sesion[0]->nombre,
                         false,
-                        new \DateTime($value->fecha.$value->hora),
-                        new \DateTime($value->fecha),
+                        new DateTime($value->fecha.$value->hora),
+                        new DateTime($value->fecha),
                         $value->id
                     );
                 }
@@ -182,8 +184,7 @@ class SesionController extends Controller
             $sesion = $sesion->buscar($id);
             $tipo_sesion = new Tipo_sesion();
             $tipo_sesion = $tipo_sesion->mostrar();
-            $listaMiembros = $sesion->obtenerMiembrosConvocados((int)$id);
-            $miembrosConvocados = $listaMiembros;
+            $listaMiembros = $sesion->obtenerMiembrosConvocados((int)$id);            
 
         	return view("sesion.edit",["sesion"=>$sesion, 'tipo_sesion'=>$tipo_sesion, "listaMiembros"=>$listaMiembros]);
         }
@@ -208,8 +209,8 @@ class SesionController extends Controller
                     $events[] = Calendar::event(
                         $tipo_sesion[0]->nombre,
                         false,
-                        new \DateTime($value->fecha.$value->hora),
-                        new \DateTime($value->fecha),
+                        new DateTime($value->fecha.$value->hora),
+                        new DateTime($value->fecha),
                         $value->id
                     );
                 }
@@ -257,8 +258,8 @@ class SesionController extends Controller
                     $events[] = Calendar::event(
                         $tipo_sesion[0]->nombre,
                         false,
-                        new \DateTime($value->fecha.$value->hora),
-                        new \DateTime($value->fecha),
+                        new DateTime($value->fecha.$value->hora),
+                        new DateTime($value->fecha),
                         $value->id
                     );
                 }
@@ -345,7 +346,7 @@ class SesionController extends Controller
         $i=0;
         $cambios = [];
         for ($i=0; $i < sizeof($antes); $i++)
-        { 
+        {
             if((int)$antes[$i]->estado != (int)$despues[$i]->estado)
             {
                 array_push($cambios,$despues[$i]);
@@ -357,16 +358,16 @@ class SesionController extends Controller
             if ((int)$cambios[$i]->estado==0)
             {
                 //Salió
-                array_push($lista,['descripcion'=> 'El usuario ' . $cambios[$i]->nombremiembro . ' ' . $cambios[$i]->apellido1miembro . ' ' .  $cambios[$i]->apellido2miembro . ' salio del evento con id ' . $idEvento, 
+                array_push($lista,['descripcion'=> 'El usuario ' . $cambios[$i]->nombremiembro . ' ' . $cambios[$i]->apellido1miembro . ' ' .  $cambios[$i]->apellido2miembro . ' salio del evento con id ' . $idEvento,
                     'identificadorusuario' => (int)$request->session()->get('id'), 'hora'=>'NOW()']);
             }
             else
             {
                 //Entró
-                array_push($lista,['descripcion'=> 'El usuario ' . $cambios[$i]->nombremiembro . ' ' . $cambios[$i]->apellido1miembro . ' ' . $cambios[$i]->apellido2miembro . ' entro al evento con id ' . $idEvento, 
+                array_push($lista,['descripcion'=> 'El usuario ' . $cambios[$i]->nombremiembro . ' ' . $cambios[$i]->apellido1miembro . ' ' . $cambios[$i]->apellido2miembro . ' entro al evento con id ' . $idEvento,
                     'identificadorusuario' => (int)$request->session()->get('id'), 'hora'=>'NOW()']);
             }
-            
+
         }
 
         $sesion = new Sesion();
@@ -380,7 +381,7 @@ class SesionController extends Controller
         // $lista = [];//Va a estar todos los que están convocados, los que no no hay problema.
         // foreach ($request->get('values') as $value) {
         //     array_push($lista,(int)$value);
-            
+
         // }
         // return $lista;
         $sesion = new Sesion();
@@ -388,7 +389,7 @@ class SesionController extends Controller
         $cameraVideo = $request->input('values');//Las que están en check
         $asistentes = $sesion->asistenciaPorEvento($idEvento);
 
-        
+
         $sesion->actualizarMiembrosPresentesNo((int)$idEvento);
         $sesion->actualizarMiembrosPresentesSi((int)$idEvento,$cameraVideo);
 
@@ -412,8 +413,8 @@ class SesionController extends Controller
             $puntos = $obPuntos->obtenerPuntosPorEvento($id);
             //$listaMiembrosConvocados = $sesion->obtenerMiembrosConvocados((int)$id);
 
-            
-            
+
+
             $asistentes = $sesion->asistenciaPorEvento($id);
             if(sizeof($asistentes)==0)
             {
@@ -451,7 +452,7 @@ class SesionController extends Controller
                     }
                 }
 
-                
+
 
                 $idPunto = (int)$puntos[$puntoActivo]->id_punto;
                 $idMiembro = (int)$request->session()->get('id');
@@ -493,13 +494,13 @@ class SesionController extends Controller
 
         //Con una plantilla
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('files/Templates/Template.docx');
+        $templateProcessor = new TemplateProcessor('files/Templates/Template.docx');
 
 
         $templateProcessor->setValue('HoraFinalizaSesion', (string)date('h:i a',strtotime($horas[0]->horafin)));
         $templateProcessor->setValue('horaInicioSesion', (string)date('h:i a',strtotime($horas[0]->horainicio)));
 
-         
+
         $templateProcessor->setValue('dia', (string)date('d',strtotime($sesion->fecha)));
         $templateProcessor->setValue('mes', (string)date('M',strtotime($sesion->fecha)));
         $templateProcessor->setValue('hora', (string)date('h:i a',strtotime($sesion->hora)));
@@ -517,14 +518,14 @@ class SesionController extends Controller
         $estudiantes = [];
 
         $profesores2 = "";
-        $estudiantes2 = "";        
+        $estudiantes2 = "";
 
         foreach ($asistentes as $asistente)
         {
             if((int)$asistente->idrole == 1)
             {
                 //Presidente
-                
+
                 $templateProcessor->setValue('Presidente', "$asistente->nombremiembro $asistente->apellido1miembro $asistente->apellido2miembro");
 
 
@@ -532,7 +533,7 @@ class SesionController extends Controller
             else if ((int)$asistente->idrole == 2)
             {
                 //Secretario
-                
+
                 $templateProcessor->setValue('Secretaria', "$asistente->nombremiembro $asistente->apellido1miembro $asistente->apellido2miembro");
             }
             else if ((int)$asistente->idrole == 3)
@@ -540,7 +541,7 @@ class SesionController extends Controller
                 //Profesor
 
                 array_push($profesores,$asistente);
-                
+
                 $profesores2 = $profesores2 . "$asistente->nombremiembro $asistente->apellido1miembro $asistente->apellido2miembro, ";
             }
             else if ((int)$asistente->idrole == 4)
@@ -552,7 +553,7 @@ class SesionController extends Controller
             }
         }
         $templateProcessor->cloneBlock('BDocentes',sizeof($profesores), true, true);
-        
+
         $numero = 1;
         foreach ($profesores as $profesor)
         {
@@ -566,7 +567,7 @@ class SesionController extends Controller
             $templateProcessor->setValue('Estudiantes#'.(string)$numero,"$numero. $estudiante->nombremiembro $estudiante->apellido1miembro $estudiante->apellido2miembro");
             $numero++;
         }
-        
+
 
         $templateProcessor->cloneBlock('BPuntoAgendaAgenda',sizeof($puntos), true, true);
         $contadorPuntos = 1;
@@ -576,7 +577,7 @@ class SesionController extends Controller
             $contadorPuntos++;
         }
 
-        
+
 
         $templateProcessor->setValue('cantidadPersonasPresentes', sizeof($asistentes));
 
@@ -617,7 +618,7 @@ class SesionController extends Controller
         $nombreArchivo = 'files/'.$elemento[0]->tipo.'__'.(string)date('M-d-Y__',strtotime($sesion->fecha)) . (string)date('h-i',strtotime($sesion->hora)) . '.docx';
 
         $sesion->modificarNombreArchivo($idSesion,$nombreArchivo);
-         
+
         $templateProcessor->saveAs($nombreArchivo);
 
 
@@ -627,7 +628,7 @@ class SesionController extends Controller
     {
         if($this->acceso($request))
         {
-            
+
             $sesion = new Sesion();
             $sesion->sesionFinHoraActualizar($idSesion);
             $this->crearFile($idSesion);
@@ -647,7 +648,7 @@ class SesionController extends Controller
     {
         if($this->acceso($request))
         {
-        
+
             $sesion = new Sesion;
             $sesion = $sesion->buscar($idSesion);
             $obPuntos = new PuntoAgenda();
@@ -758,7 +759,7 @@ class SesionController extends Controller
             $puntoActivo = (int)$sesion->punto_activo;
             $largoPuntos = sizeof($puntos);
             $idPunto = (int)$puntos[$puntoActivo]->id_punto;
-            
+
             $obPuntos->votoAbstinencia($idPunto);
             $usuario = (int)$request->session()->get('id');
             $obPuntos->votoAbstinencia_Miembro($idPunto,$usuario);
@@ -841,7 +842,7 @@ class SesionController extends Controller
             $puntoActivo = (int)$sesion->punto_activo;
             $largoPuntos = sizeof($puntos);
             $idPunto = (int)$puntos[$puntoActivo]->id_punto;
-            
+
             $obPuntos->votoAbstinencia($idPunto);
             $usuario = (int)$request->session()->get('id');
             $obPuntos->votoPrivado_Miembro($idPunto,$usuario);
@@ -883,7 +884,7 @@ class SesionController extends Controller
             $largoPuntos = sizeof($puntos);
             $idPunto = (int)$puntos[$puntoActivo]->id_punto;
             $obPuntos->reiniciarVotacion($idPunto);
-            
+
 
             return redirect::to("sesion/iniciar/" . $idSesion);
         }
@@ -893,33 +894,33 @@ class SesionController extends Controller
         }
     }
 
-    
+
     public function favorPuntoApp(Request $request)
     {
         $obPuntos = new PuntoAgenda();
-        
+
         $idPunto = (int)$request->id_punto;
         $obPuntos->votoFavor($idPunto);
 
         $usuario = (int)$request->id_usuario;
         $obPuntos->votoFavor_Miembro($idPunto,$usuario);
     }
-    
+
     public function contraPuntoApp(Request $request)
     {
         $obPuntos = new PuntoAgenda();
-        
+
         $idPunto = (int)$request->id_punto;
         $obPuntos->votoContra($idPunto);
 
         $usuario = (int)$request->id_usuario;
         $obPuntos->votoContra_Miembro($idPunto,$usuario);
     }
-    
+
     public function abstenerPuntoApp(Request $request)
     {
         $obPuntos = new PuntoAgenda();
-        
+
         $idPunto = (int)$request->id_punto;
         $obPuntos->votoAbstinencia($idPunto);
 

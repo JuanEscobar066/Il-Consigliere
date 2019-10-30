@@ -97,7 +97,12 @@ Route::get('sesion/iniciar/votacion/iniciar/{sesion}', ['as'=>'iniciarvotacion',
 Route::get('sesion/iniciar/votacion/cerrar/{sesion}', ['as'=>'cerrarvotacion', 'uses'=>'SesionController@cerrarVotacion']);
 Route::get('sesion/iniciar/votacion/reiniciar/{sesion}', ['as'=>'reiniciarvotacion', 'uses'=>'SesionController@reiniciarVotacion']);
 
+Route::get('sesion/obtenerPuntosUsuario/{sesion}', ['as'=>'obtenerPuntosUsuario', 'uses'=>'PuntoAgendaController@solicitudPuntos']);
+Route::get('sesion/firmarPuntosUsuario/{sesion}', ['as'=>'firmarPuntosUsuario', 'uses'=>'PuntoAgendaController@firmaSolicitudPuntos']);
+Route::get('sesion/obtenerPuntos/{sesion}', ['as'=>'obtenerPuntos', 'uses'=>'PuntoAgendaController@crearActa']);
 
+Route::get('sesion/documentoSolicitudPuntos/{sesion}', ['as'=>'documentoSolicitudPuntos', 'uses'=>'PuntoAgendaController@crearDocSolicitudPuntos']);
+Route::get('sesion/documentoActa/{sesion}', ['as'=>'documentoActa', 'uses'=>'PuntoAgendaController@crearDocumentoActa']);
 
 Route::resource('sesion', 'SesionController');
 Route::resource('puntoAgenda','PuntoAgendaController');
@@ -108,6 +113,11 @@ Route::get('puntoAgenda/download/{ruta}', 'PuntoAgendaController@download')->nam
 Route::get('indexAdmin','PuntoAgendaController@indexAdmin');
 Route::get('indexAdmin/{punto}/accept','PuntoAgendaController@accept');
 Route::get('indexAdmin/{punto}/deny','PuntoAgendaController@deny');
+Route::get('/acta', function () {return view('puntoAgenda.acta');});
+Route::get('/solicitud_puntos', function () {return view('puntoAgenda.solicitud_puntos');});
+//Route::name('pdf')->get('/crearPDF', 'PuntoAgendaController@crearActa');
+//Route::name('pdf')->get('/crearPDFSolicitud', 'PuntoAgendaController@crearSolicitudPuntos');
+Route::name('doc')->get('/descargar', 'PuntoAgendaController@download');
 
 Route::get('miembroVisualizar', 'MiembroController@show');
 //Route::get('miembroCrear', 'MiembroController@create');
@@ -124,3 +134,39 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('events', 'SesionController@index');
+
+
+// Ruta del login como tal, el .blade.
+Route::get('form', function(){
+    return View::make('login');
+});
+
+Route::post('form-loginWithDigitalSignature', array('before'=>'csrf',function(){
+    return view('\auth\loginWithDigitalSignature.blade.php');
+}));
+
+
+Route::any('login/firmaDigital', ['as'=>'firmaDigital', 'uses'=>'Auth\LoginController@loginFirmaDigital']);
+
+
+// Aquí se supone que se agrega el web service en las rutas para ser aceptado.
+Route::post('/js/FirmaDigital/componente.js', ['middleware' => 'cors',function(){
+
+    return ['status'=>'success'];
+}]);
+
+
+Route::group(['middleware' => 'cors'], function() {
+    Route::post('/js/FirmaDigital/componente.js', function () {
+        return ['status'=>'success'];
+    });
+});
+
+Route::group(['middleware' => 'cors'], function() {
+    Route::post('/js/FirmaDigital/componente.js','LoginController@loginFirmaDigital');
+
+});
+
+
+
+

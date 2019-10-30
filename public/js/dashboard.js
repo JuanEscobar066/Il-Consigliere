@@ -89,7 +89,7 @@
             radius: 0
           }
         }
-      }
+      };
       var growthRateChartCanvas = $("#growth-rate-chart").get(0).getContext("2d");
       var growthRateChart = new Chart(growthRateChartCanvas, {
         type: 'line',
@@ -186,7 +186,7 @@
             radius: 0
           }
         }
-      }
+      };
       var growthRateChartDarkCanvas = $("#growth-rate-chart-dark").get(0).getContext("2d");
       var growthRateChartDark = new Chart(growthRateChartDarkCanvas, {
         type: 'line',
@@ -262,7 +262,7 @@
             radius: 0
           }
         }
-      }
+      };
       var revenueChartCanvas = $("#revenue-chart").get(0).getContext("2d");
       var revenueChart = new Chart(revenueChartCanvas, {
         type: 'line',
@@ -338,7 +338,7 @@
             radius: 0
           }
         }
-      }
+      };
       var revenueChartBCanvas = $("#revenue-chart-b").get(0).getContext("2d");
       var revenueChartB = new Chart(revenueChartBCanvas, {
         type: 'line',
@@ -552,7 +552,7 @@
             radius: 0
           }
         }
-      }
+      };
       var usersChartCanvas = $("#users-chart").get(0).getContext("2d");
       var usersChart = new Chart(usersChartCanvas, {
         type: 'line',
@@ -628,7 +628,7 @@
             radius: 0
           }
         }
-      }
+      };
       var usersChartCanvas = $("#users-chart-dark").get(0).getContext("2d");
       var usersChart = new Chart(usersChartCanvas, {
         type: 'line',
@@ -704,7 +704,7 @@
             radius: 0
           }
         }
-      }
+      };
       var customersChartCanvas = $("#customers-chart").get(0).getContext("2d");
       var customersChart = new Chart(customersChartCanvas, {
         type: 'line',
@@ -1248,7 +1248,7 @@
             radius: 0
           }
         }
-      }
+      };
       var ordersDownloadsChartCanvas = $("#orders-downloads-chart").get(0).getContext("2d");
       var ordersDownloadsChart = new Chart(ordersDownloadsChartCanvas, {
         type: 'line',
@@ -1336,7 +1336,7 @@
             radius: 0
           }
         }
-      }
+      };
       var ordersDownloadsChartDarkCanvas = $("#orders-downloads-chart-dark").get(0).getContext("2d");
       var ordersDownloadsChartDark = new Chart(ordersDownloadsChartDarkCanvas, {
         type: 'line',
@@ -1366,14 +1366,14 @@
           arc: {
               borderWidth: 4
           }
-        },      
+        },
         legend: {
           display: false
         },
         tooltips: {
           enabled: true
         },
-        legendCallback: function(chart) { 
+        legendCallback: function(chart) {
           var text = [];
           text.push('<div class="report-chart">');
             text.push('<div class="d-flex justify-content-between mx-3 mt-2 pb-2 border-bottom"><div class="d-flex align-items-center"><div class="mr-3" style="width:14px; height:14px; background-color: ' + chart.data.datasets[0].backgroundColor[0] + '"></div><p class="mb-0">Week 1</p></div>');
@@ -1391,7 +1391,7 @@
           text.push('</div>');
           return text.join("");
         },
-      }
+      };
       var weeklySalesChartCanvas = $("#weekly-sales-chart").get(0).getContext("2d");
       var weeklySalesChart = new Chart(weeklySalesChartCanvas, {
         type: 'doughnut',

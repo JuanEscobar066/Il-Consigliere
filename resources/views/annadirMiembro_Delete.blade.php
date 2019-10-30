@@ -10,7 +10,7 @@
 	<body>
 		<div class="container-scroller">
 	    <!-- partial:../../partials/_navbar.html -->
-	    
+
 	    <!-- partial -->
 	    	<div class="container-fluid page-body-wrapper">
 				<div class="banner"></div>
@@ -69,7 +69,7 @@
 
 													?>
 
-												
+
 
 												</select>
 
@@ -86,6 +86,6 @@
 				</div>
 			</div>
 		</div>
-    <script src="js/script.js">
+    <script src="js/script.js"> </script>
 	</body>
-</html>
+</html>;

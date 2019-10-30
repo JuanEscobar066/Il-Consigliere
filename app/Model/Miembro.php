@@ -174,4 +174,9 @@ class Miembro extends Model
     {
         DB::table('correos_registrados')->where('id_correo_registrado', '=', $idCorreo)->delete();
     }
+
+    // Esta función permite hacer una búsqueda en la base de datos haciendo uso del like.
+    public function obtenerUsuarioConFuncionLike(){
+
+    }
 }

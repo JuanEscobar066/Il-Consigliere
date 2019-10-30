@@ -25,7 +25,7 @@
           <a class="navbar-brand brand-logo" href="{{url('/home')}}"><img src="{{ asset('images/logo.jpeg')}}" alt="logo"/></a>
           <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}"><img src="{{ asset('images/logo-mini.png')}}" alt="logo"/></a>
         </div>
-        
+
     </nav>
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -42,7 +42,7 @@
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Dirección E-Mail') }}</label>
-                            
+
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
 
@@ -52,11 +52,11 @@
                                     </span>
                                 @endif
 
-                                @if (\Session::has('email'))
+                                @if (Session::has('email'))
                                     <div class="alert alert-danger">
-                                        
+
                                           El correo no es el mismo con el que solicitó el cambio.
-                                        
+
                                     </div>
                                 @endif
 
@@ -66,7 +66,7 @@
 
                         <div class="form-group row">
                             <label for="emailnew" class="col-md-4 col-form-label text-md-right">{{ __('Nueva dirección E-Mail') }}</label>
-                            
+
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="emailnew" value="{{ $email ?? old('email') }}" placeholder="Opcional" autofocus>
 
@@ -76,7 +76,7 @@
                                     </span>
                                 @endif
 
-                                
+
 
                             </div>
                         </div>
@@ -100,13 +100,13 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                                @if (\Session::has('password'))
+                                @if (Session::has('password'))
                                     <div class="alert alert-danger">
                                           Las contraseñas no son iguales.
                                     </div>
                                 @endif
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row mb-0">
