@@ -74,13 +74,6 @@ class PuntoAgendaController extends Controller
         $contenidoPDF = $pdf->download()->getOriginalContent();
         $documentoEnBase64 = chunk_split(base64_encode($contenidoPDF));
 
-        // Seteamos la cookie con el archivo.
-        //$_COOKIE["archivoBase64"] = $documentoEnBase64;
-
-        // Ahora, se hace un llamado a las funciones de firmado en javascript.
-        //dd($documentoEnBase64);
-
-        //return Redirect::back()->with(['pdfBase64' => $documentoEnBase64]);
         return $documentoEnBase64;
     }
 
@@ -167,6 +160,35 @@ class PuntoAgendaController extends Controller
         return view('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
                               'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
                               'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
+    }
+
+    // Esta función permite crear el acta de consejo y firmarla. Esta función solo la usa el
+    // coordinador.
+    public function firmarActaDeConsejo(Request $request, $idEvento){
+
+        // Se hace un llamado a la información de la solicitud de puntos.
+        $datos = $this->obtenerDatosActa($idEvento);
+
+        // Se obtiene toda la información del acta en un arreglo.
+        $puntosPropuestos   = $datos[0];
+        $sesion             = $datos[1];
+        $miembros           = $datos[2];
+        $estudiantes        = $datos[3];
+        $ausentes           = $datos[4];
+        $presidentes        = $datos[5];
+        $secretarios        = $datos[6];
+
+        // Se forma el PDF.
+        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
+            'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
+            'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
+
+        // Aquí se obtiene el contenido del PDF y luego se convierte a base64, esto para efectuar el proceso de firma digital
+        // para el documento en cuestión.
+        $contenidoPDF = $pdf->download()->getOriginalContent();
+        $documentoEnBase64 = chunk_split(base64_encode($contenidoPDF));
+
+        return $documentoEnBase64;
     }
 
     public function obtenerDatosActa($idEvento){

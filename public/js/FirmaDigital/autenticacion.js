@@ -161,8 +161,6 @@ function saveFile(text, fileName, type) {
 
 }
 
-
-
 // Resuelve la petición del Usuario e imprime la información del Usuario.
 async function getDN(){
 
@@ -238,6 +236,7 @@ async function getDN(){
         alert(description);
     }
 }
+
 // Estas 5 funciones son particularmente útiles para parsear la información del lector y poder utilizarla
 // de forma más clara.
 // Se le brinda el DN, es decir, la información del Usuario y la parsea para retornarla.
