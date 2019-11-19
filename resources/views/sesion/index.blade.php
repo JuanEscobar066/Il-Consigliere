@@ -97,7 +97,6 @@
                                                 <input  class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmaSolicitudPuntos(request(), $sesion->id) }}"/>
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firmar PDF</a>
-
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
@@ -109,8 +108,11 @@
                                                 <strong>Acta de Consejo</strong>
                                             </a>
 
+
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <input  class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmarActaDeConsejo(request(), $sesion->id) }}"/>
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@crearActa',$sesion->id)}}" target="_blank">PDF</a>
+                                                <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firmar PDF</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta', 'documentoActa/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
@@ -144,6 +146,7 @@
 
     </div>
 
+    <!-- Aquí está el puente entre PHP y JavaScript para poder usar la misma variable -->
     <div class="acta" style="display: none;" id="acta"></div>
     <div class="solicitud_puntos" style="display: none;" id="solicitud_puntos"></div>
     <input  class="pdfBase64" style="display: none;" id="pdfBase64" value="{{session('pdfBase64')}}"/>
@@ -228,29 +231,6 @@
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-
-        // function miFuncion() {
-        //     var pdfBase64 = document.getElementById('15').value;
-        //     alert(pdfBase64);
-        // }
-
-        // window.onload=miFuncion;
-
-        // function ajustarTamaño() {
-        //     var anchoContenedor = document.getElementById("contenedorPDF").offsetWidth - 23;
-        //     //alert(anchoContenedor);
-
-        //     var elementoPDF = document.getElementById("pdf");
-        //     Object.assign(elementoPDF.style, {
-        //         width: anchoContenedor + "px",
-        //         height: "1100px"
-        //     });
-        //     // alert(document.getElementById("pdf").offsetWidth)
-        // }
-
-        // $(window).resize(function() {
-        //     ajustarTamaño();
-        // });
     </script>
 </body>
 
