@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Model\Miembro;
 use App\Model\Roles;
 use Storage;
+use Hash;
 use Illuminate\Support\Facades\Redirect;
 class LoginController extends Controller
 {
@@ -179,8 +180,8 @@ class LoginController extends Controller
                 // echo "Nombre: " . $member->nombremiembro;
                 // echo "</br>Correo: " . $member->correo;
                 if ($member->correo == $usuario)
-                {
-                    if ($member->contrasenna == $contrasenna)
+                {                                        
+                    if (Hash::check($contrasenna, $member->contrasenna))
                         // idmiembro
                     {
                         // echo "</br></br>Logueado xD</br></br>";

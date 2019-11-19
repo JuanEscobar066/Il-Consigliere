@@ -63,7 +63,7 @@ class MiembroController extends Controller
             if ($contrasenna==$contrasenna2 and $contrasenna!="" and $nombre != "" and $primerApellido != "" and $segundoApellido != "")
             {
                 //El correo es válido y las contraseñas son iguales
-                $miembro->insertar($nombre,$primerApellido,$segundoApellido,$correo,$contrasenna,$ocupacion);
+                $miembro->insertar($nombre,$primerApellido,$segundoApellido,$correo,bcrypt($contrasenna),$ocupacion);
                 $miembro = new Miembro();
                 $listaMiembros = $miembro->mostrar();
                 // return view ('members.index',['miembros'=>$listaMiembros]);

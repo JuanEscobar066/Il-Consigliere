@@ -47,7 +47,7 @@
 												<select name="ocupacionS" class="etrInsertar">
 													<option value="11">Administrador</option>
 													<option value="22">Presidente</option>
-													<option value="33">Secretaria</option>
+													<option value="33">Administrativo</option>
 													<option value="44">Miembro</option>
 													<?php
 														/*$host='localhost';
