@@ -109,6 +109,7 @@ class Miembro extends Model
         $ausencias = $au->obtenerAusenciasDentroFecha($fecha);
 
         $listaAsiste = [];
+        $listaNoAsiste = [];
         foreach ($miembros as $miembro)
         {
             $member = $miembro->idmiembro;
@@ -125,8 +126,15 @@ class Miembro extends Model
             {
                 array_push($listaAsiste,$miembro);
             }
+            else if(!in_array($member, $listaMiembros)){
+                array_push($listaNoAsiste, $miembro);
+            }
         }
-        return $listaAsiste;
+        $personas = array();
+        $personas[0] = $listaAsiste;
+        $personas[1] = $listaNoAsiste;
+
+        return $personas;
 
     }
 
