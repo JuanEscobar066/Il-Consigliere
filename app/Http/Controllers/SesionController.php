@@ -93,8 +93,11 @@ class SesionController extends Controller
         if($this->acceso($request))
         {
             $tipo_sesion = new Tipo_sesion();
-            $tipo_sesion = $tipo_sesion->mostrar();
-            return view('sesion.create', ['tipo_sesion'=>$tipo_sesion]);
+            $tipo_sesion = $tipo_sesion->mostrar();            
+            $miembro = new Miembro();
+            $listaMiembros = $miembro->mostrar();            
+
+        	return view("sesion.create",['tipo_sesion'=>$tipo_sesion, "listaMiembros"=>$listaMiembros]);
         }
         else
         {
@@ -106,7 +109,7 @@ class SesionController extends Controller
 
     public function store(Request $request){
         if($this->acceso($request))
-        {
+        {            
             $events = [];
             $data = Event::all();
 

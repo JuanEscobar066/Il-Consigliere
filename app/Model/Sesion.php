@@ -52,7 +52,16 @@ class Sesion extends Model
 
         $sesion->save();
 
-        $this->ConvocarMiembros($sesion->fecha);
+        $miembrosConvocados = $_POST["values"];
+        
+        $listaMiembros = array();
+
+        foreach($miembrosConvocados as $m){
+            array_push($listaMiembros, (int)$m);
+        }        
+
+        //$this->ConvocarMiembros($sesion->fecha);
+        $this->convocarMiembros2($sesion->fecha, $listaMiembros);
     }
 
     public function insertarAsistencia($lista)
@@ -239,6 +248,17 @@ class Sesion extends Model
         DB::table('miembrosconvocados')->insert($listaInsertar);
         //echo $listaMiembros;
         //return $listaInsertar;
+    }
+
+    public function convocarMiembros2($fecha, $listaMiembros)
+    {
+        $idSesion = $this->obtenerUltimoIdSesion();
+        $miembro = new Miembro();
+
+        $listaMiembros = $miembro->convocar($fecha, $listaMiembros);
+        $listaInsertar = $this->crearListaInsertar($listaMiembros,$idSesion);
+
+        DB::table('miembrosconvocados')->insert($listaInsertar);
     }
 
 
