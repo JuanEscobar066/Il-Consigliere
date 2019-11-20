@@ -109,8 +109,8 @@
                                             </a>
 
 
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <input  class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmarActaDeConsejo(request(), $sesion->id) }}"/>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
+                                                <input  class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmarActaDeConsejo($sesion->id) }}"/>
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@crearActa',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firmar PDF</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('acta', 'documentoActa/',{{$sesion->id}})">Editable</a>
