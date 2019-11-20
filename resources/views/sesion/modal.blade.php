@@ -27,7 +27,7 @@
 <!-- Este otro modal es el de la firma digital, es importante notar eso.
      En el fondo, es el mismo del login, pero ubicado en la ruta que se necesita.
  -->
-<div class="modal fade modal-slide-in-right" aria-hidden="false" role="dialog" id="modal-firma">
+<div class="modal fade modal-slide-in-right" aria-hidden="false" role="dialog" id="modal-firma-{{$sesion->id}}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: rgb(247, 247, 247);">
@@ -42,13 +42,13 @@
                 <div id="overlay" class="modalDialog">
                     <div class="form-group">
                         <h3>Autenticación</h3>
-                        <div id="divSmartCard">
+                        <div id="divSmartCard-{{ $sesion->id }}">
                             Por favor seleccione el certificado:
-                            <div id="divSmartCardCerts"></div>
+                            <div id="divSmartCardCerts-{{ $sesion->id }}"></div>
                         </div>
                         <br><br>
                         <label>Pin:</label>
-                        <input id="pin" name="pin" type="password" class="form-control" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
+                        <input id="pin-{{ $sesion->id }}" name="pin" type="password" class="form-control" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
                     </div>
                     <div class="form-group">
                         <button id="validar" name="validar" onclick="firmarPDF({{ $sesion->id }});" type="submit" class="btn btn-primary mr-2">Firmar</button>

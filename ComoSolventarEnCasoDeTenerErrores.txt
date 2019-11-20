@@ -1,16 +1,16 @@
-1. Para el key no specified: 
+1. Para el key no specified:
 	falta el .env
 
-2. Si discover no se que pichas: 
+2. Si discover no se que pichas:
 	falta el App.php
 
 3. Si Internal Error 500:
 	falta el .env
 
 4. The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths. Even though my app.php file in config directory specify
-'cipher' => 'AES-128-CBC': 
+'cipher' => 'AES-128-CBC':
 	Primero tener el .env
-	y luego correr: 	
+	y luego correr:
 	composer install
 	composer update
 	php artisan key:generate
@@ -18,3 +18,7 @@
 	php artisan config:cache
 
 * Revisar con Wamp la configuración de PHP
+
+5. Si falta el Barrydv no se que:
+
+composer require barryvdh/laravel-cors

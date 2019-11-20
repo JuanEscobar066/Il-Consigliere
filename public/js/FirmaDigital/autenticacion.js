@@ -306,7 +306,7 @@ function getCookie(cname) {
 }
 
 // Función que permite hacer la firma digital en un archivo PDF.
-async function firmarPDF(sesionID){
+async function firmarPDF(sesionID, tipoDeDocumento){
 
     // Obtenemos la cookie con el archivo codificado en base 64.
     var b64 = document.getElementById(sesionID.toString()).value;

@@ -72,25 +72,46 @@ function varificarResultado(codigo){
     }
 }
 
-async function smartCardCertificates(){
+// Carga los certificados de la firma de la persona.
+async function smartCardCertificates(idModal){
+
+    // Configuración de la tarjeta.
     var jsonParams = {"cmd":"smartCardCertificates"};
-    var resolve = await service(jsonParams);
-    var resultado = JSON.parse(resolve.data);
-    var errorCode = resultado.ErrorCode;
+
+    // Llama al componente para obtener los resultados.
+    var resolve     = await service(jsonParams);
+    var resultado   = JSON.parse(resolve.data);
+
+    // Parsea la información del componente.
+    var errorCode   = resultado.ErrorCode;
     var description = resultado.Description;
+
+    // Si no hubo errores.
     if(errorCode === 0){
-       var divCerts = document.getElementById("divSmartCardCerts");
-       var objCerts = resultado.Certificados;
-       var htmlCerts = "<select id='idSelectCerts'>";
-       if(objCerts.length >= 1){
-           if(objCerts.length > 1){
-               htmlCerts += "<option value='-1' disabled selected hidden>Seleccione su certificado </option>";
+
+        // Calcula el id del modal.
+        let itGo = 'divSmartCardCerts-' + idModal;
+
+        // Busca el modal con ese id.
+        var divCerts = document.getElementById(itGo);
+
+        // Obtiene los certificados.
+        var objCerts = resultado.Certificados;
+
+        // Busca el HTML con ese id.
+        let itRip       = 'idSelectCerts-' + idModal;
+        var htmlCerts   = "<select id=itRip>";
+
+        // Finalmente, carga todas las opciones con los certificados.
+        if(objCerts.length >= 1){
+            if(objCerts.length > 1){
+                htmlCerts += "<option value='-1' disabled selected hidden>Seleccione su certificado </option>";
            }
            for (var i = 0; i < objCerts.length; i++) {
                htmlCerts += "<option value='"+objCerts[i].slot+"'>"+objCerts[i].titularCertificado+"</option>";
            }
-       }else{
-           htmlCerts += "<option value='-1' disabled selected hidden>No se han detectado tarjetas conectadas</option>";
+        }else{
+            htmlCerts += "<option value='-1' disabled selected hidden>No se han detectado tarjetas conectadas</option>";
        }
        htmlCerts += "</select>";
        divCerts.innerHTML = htmlCerts;
