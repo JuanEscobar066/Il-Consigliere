@@ -65,8 +65,8 @@
                                     </td>
                                     @if(Auth::permisoIniciarSesion())
                                     @if($sesion->estaactivo==0)
-                                    <td class="center">
-                                        <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}"><strong>Iniciar</strong></a>
+                                    <td class="center">                                        
+                                        <a href="" data-target="#modal-iniciar-{{$sesion->id}}" data-toggle="modal"><strong>Iniciar</strong></a>
                                     </td>
                                     @else
                                     <td class="center">
@@ -81,8 +81,8 @@
                                     <td class="center">
                                         <a href="" data-target="#modal-delete-{{$sesion->id}}" data-toggle="modal"><strong style="color:red">Eliminar</strong></a>
                                     </td>
-                                    <td class="center">
-                                        <a href="{{action('SesionController@enviarPuntos',$sesion->id)}}"><strong>Convocar</strong></a>
+                                    <td class="center">                                        
+                                        <a href="" data-target="#modal-convocar-{{$sesion->id}}" data-toggle="modal"><strong>Convocar</strong></a>
                                     </td>
                                     @else
                                     <td>
