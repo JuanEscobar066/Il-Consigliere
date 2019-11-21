@@ -73,7 +73,9 @@ function varificarResultado(codigo){
 }
 
 // Carga los certificados de la firma de la persona.
-async function smartCardCertificates(idModal){
+async function smartCardCertificates(idModal, tipoDeDocumento){
+
+    console.log("lo que recibi" + tipoDeDocumento);
 
     // Configuración de la tarjeta.
     var jsonParams = {"cmd":"smartCardCertificates"};
@@ -90,7 +92,8 @@ async function smartCardCertificates(idModal){
     if(errorCode === 0){
 
         // Calcula el id del modal.
-        let itGo = 'divSmartCardCerts-' + idModal;
+        var tipoCerts   = (tipoDeDocumento === "puntos") ? "solicitudPuntos-" : "acta-";
+        let itGo        = 'divSmartCardCerts-' + tipoCerts + idModal;
 
         // Busca el modal con ese id.
         var divCerts = document.getElementById(itGo);
@@ -99,8 +102,11 @@ async function smartCardCertificates(idModal){
         var objCerts = resultado.Certificados;
 
         // Busca el HTML con ese id.
-        let itRip       = 'idSelectCerts-' + idModal;
-        var htmlCerts   = "<select id=itRip>";
+        var tipoCert    = (tipoDeDocumento === "puntos") ? "solicitudPuntos-" : "acta-";
+        let itRip       = 'idSelectCerts-' + tipoCert + idModal;
+        var htmlCerts   = "<select id=" + itRip + ">";
+
+        console.log("El del modal" + htmlCerts);
 
         // Finalmente, carga todas las opciones con los certificados.
         if(objCerts.length >= 1){

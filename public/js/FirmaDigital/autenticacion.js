@@ -308,11 +308,13 @@ function getCookie(cname) {
 // Función que permite hacer la firma digital en un archivo PDF.
 async function firmarPDF(sesionID, tipoDeDocumento){
 
-    // Obtenemos la cookie con el archivo codificado en base 64.
-    var b64 = document.getElementById(sesionID.toString()).value;
+    // Preguntamos si viene del acta o de la solicitud de puntos y obtenemos el archivo a firmar.
+    let tipoArchivo = (tipoDeDocumento === "puntos") ? "solicitudPuntos-" : "actaConsejo-";
+    var b64 = document.getElementById(tipoArchivo + sesionID.toString()).value;
 
     // Obtenemos el pin del usuario.
-    var pin = document.getElementById("pin").value;
+    let tipoPin = (tipoDeDocumento === "puntos") ? "pinSolicitudPuntos-" : "pinActa-";
+    const pin = document.getElementById(tipoPin + sesionID.toString()).value;
 
     // El filename que le vamos a pasar a la lectora para que lo firme.
     var fileName;
@@ -322,7 +324,11 @@ async function firmarPDF(sesionID, tipoDeDocumento){
     var slotSelected;
 
     // Obtenemos el certificado que el usuario seleccionó.
-    var selectCerts = document.getElementById("idSelectCerts");
+    var tipoSelect = (tipoDeDocumento === "puntos") ? "solicitudPuntos-" : "actaConsejo-";
+    var selectCerts = document.getElementById("idSelectCerts-" + tipoSelect + sesionID.toString());
+
+    console.log("el que leo en la funcion" + selectCerts);
+
     slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
     if(slotSelected === '-1'){
        alert(selectCerts.options[selectCerts.selectedIndex].text);
