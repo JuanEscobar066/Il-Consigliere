@@ -39,7 +39,7 @@
                      No hay llamadas a los forms de Laravel porque se hace el llamado en el mismo JS.
                      Importante: las funciones de abajo, son funciones definidas en los 5 archivos
                      de JavaScript. -->
-                <div id="overlay" class="modalDialog">
+                <div id="overlay-solicitudPuntos-{{ $sesion->id }}" class="modalDialog">
                     <div class="form-group">
                         <h3>Autenticación</h3>
                         <div id="divSmartCard-solicitudPuntos{{ $sesion->id }}">
@@ -51,7 +51,7 @@
                         <input id="pinSolicitudPuntos-{{ $sesion->id }}" name="pin" type="password" class="form-control" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
                     </div>
                     <div class="form-group">
-                        <button id="validar" name="validar" onclick="firmarPDF( {{ $sesion->id , "puntos"}} );" type="submit" class="btn btn-primary mr-2">Firmar</button>
+                        <button id="validar" name="validar" onclick="firmarPDF( {{ $sesion->id }}, 'puntos');" type="submit" class="btn btn-primary mr-2">Firmar</button>
                         <button id="cerrar" data-dismiss="modal" class="btn btn-light">Cerrar</button>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                      No hay llamadas a los forms de Laravel porque se hace el llamado en el mismo JS.
                      Importante: las funciones de abajo, son funciones definidas en los 5 archivos
                      de JavaScript. -->
-                <div id="overlay" class="modalDialog">
+                <div id="overlay-acta-{{ $sesion->id }}" class="modalDialog">
                     <div class="form-group">
                         <h3>Autenticación</h3>
                         <div id="divSmartCard-acta{{ $sesion->id }}">
@@ -84,7 +84,7 @@
                         <input id="pinActa-{{ $sesion->id }}" name="pin" type="password" class="form-control" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
                     </div>
                     <div class="form-group">
-                        <button id="validar" name="validar" onclick="firmarPDF( {{ $sesion->id , "acta"}} );" type="submit" class="btn btn-primary mr-2">Firmar</button>
+                        <button id="validar" name="validar" onclick="firmarPDF( {{ $sesion->id }}, 'acta' );" type="submit" class="btn btn-primary mr-2">Firmar</button>
                         <button id="cerrar" data-dismiss="modal" class="btn btn-light">Cerrar</button>
                     </div>
                 </div>

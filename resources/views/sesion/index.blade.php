@@ -97,7 +97,7 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <input  class="pdfBase64" style="display: none;" id="solicitudPuntos-{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmaSolicitudPuntos(request(), $sesion->id) }}"/>
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
-                                                <a class="dropdown-item" data-toggle="modal" href="#modal-firmaSolicitudPuntos-{{ $sesion->id }}" onclick="smartCardCertificates({{ $sesion->id, "puntos" }});">Firmar PDF</a>
+                                                <a class="dropdown-item" data-toggle="modal" href="#modal-firmaSolicitudPuntos-{{ $sesion->id }}" onclick="smartCardCertificates({{ $sesion->id}}, 'puntos');">Firmar PDF</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
                                             </div>
                                         </div>
@@ -154,8 +154,6 @@
 
 
         <p>{{session('pdfBase64')}}</p>
-
-
 
     <script>
         var tags = document.getElementsByClassName('fc-day');
@@ -244,6 +242,5 @@
 </html>
 
 @endsection
-
 
 <!doctype html>
