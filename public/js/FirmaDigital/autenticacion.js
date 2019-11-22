@@ -41,7 +41,7 @@ async function getDN(){
 
     // Verificamos que no haya error.
     if(errorCode === 0){
-        overlay();  // Cerrar modal.
+        overlayLogin();  // Cerrar modal.
         var name;
         var dt_start;
         var dt_expire;
@@ -88,7 +88,7 @@ function extraerNombre(DN){
     while ((myArray = myRe.exec(str)) !== null) {
         nombre = str.slice(myRe.lastIndex,index);
     }
-    overlay();
+    overlayLogin();
     return nombre;
 }
 

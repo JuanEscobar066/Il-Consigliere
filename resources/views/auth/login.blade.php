@@ -103,7 +103,7 @@
                                     {{ __('Ingresar') }}
                                 </button>
 
-                                <a class="btn btn-primary" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
+                                <a class="btn btn-primary" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificatesLogin();">Firma Digital</a>
                             </div>
                         </div>
 

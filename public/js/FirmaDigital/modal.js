@@ -62,3 +62,54 @@ async function smartCardCertificates(idModal, tipoDeDocumento){
         alert(description);
     }
 }
+
+// Permite cargar el modal pero sin parámetros, es solo para el login.
+async function smartCardCertificatesLogin(){
+
+    // Configuración de la tarjeta.
+    var jsonParams = {"cmd":"smartCardCertificates"};
+
+    // Llama al componente para obtener los resultados.
+    var resolve     = await service(jsonParams);
+    var resultado   = JSON.parse(resolve.data);
+
+    // Parsea la información del componente.
+    var errorCode   = resultado.ErrorCode;
+    var description = resultado.Description;
+
+    // Si no hubo errores.
+    if(errorCode === 0){
+
+        // Carga los certificados del componente.
+        var divCerts = document.getElementById("divSmartCardCerts");
+        var objCerts = resultado.Certificados;
+        var htmlCerts = "<select id='idSelectCerts'>";
+        if(objCerts.length >= 1){
+            if(objCerts.length > 1){
+                htmlCerts += "<option value='-1' disabled selected hidden>Seleccione su certificado </option>";
+            }
+            for (var i = 0; i < objCerts.length; i++) {
+                htmlCerts += "<option value='"+objCerts[i].slot+"'>"+objCerts[i].titularCertificado+"</option>";
+            }
+        }else{
+            htmlCerts += "<option value='-1' disabled selected hidden>No se han detectado tarjetas conectadas</option>";
+        }
+        htmlCerts += "</select>";
+        divCerts.innerHTML = htmlCerts;
+    }else{
+        alert(description);
+    }
+}
+
+// Es la función que permite "obtener" focus del Usuario para pedirle el PIN, pero en el login.
+function overlayLogin() {
+    var el = document.getElementById("overlay");
+
+    // Es un if-else.
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
+    // Obtiene el pin.
+    var pin     = document.getElementById("pin");
+    pin.value   = "";
+    pin.focus();
+}
