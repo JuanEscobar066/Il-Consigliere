@@ -88,22 +88,22 @@
                                     <td>
                                         <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}" style="color:green"><strong>Ingresar</strong></a>
                                     </td>
-{{--                                    @foreach($puntosPropuestos as $p)--}}
+                                    @foreach($puntosPropuestos as $p)
                                     <td>
                                         <div class="dropdown show">
                                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <strong>Solicitud puntos</strong>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <input class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmaSolicitudPuntos(request(), $sesion->id) }}"/>
-                                                <a href="" data-target="#modal-show-punto-{{$p->id_punto}}" data-toggle="modal"><strong>Ver más</strong></a>
+                                                <input class="pdfBase64" style="display: none;" id="{{ $sesion->id }}" value="{{ (new App\Http\Controllers\PuntoAgendaController)->firmaSolicitudPuntos(request(), $sesion->id) }}"/>                                                                                           
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a class="dropdown-item" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firmar PDF</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
+                                                <a class=" dropdown-item" data-target="#modal-show-punto-{{$p->id_punto}}" data-toggle="modal">Ver más</a>     
                                             </div>
                                         </div>
                                     </td>
-{{--                                    @endforeach--}}
+                                    @endforeach
                                     @endif
                                     <td>
                                         <div class="dropdown show">
@@ -123,11 +123,8 @@
 
                                     </tr>
                                     @endif
-                                    @include('sesion.modal')
-                                    @include('puntoAgenda.modalShow')
+                                    @include('sesion.modal')                                    
                                     @endforeach
-
-
                             </tbody>
                         </table>
 
