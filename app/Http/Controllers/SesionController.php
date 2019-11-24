@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
+// Todas las bibliotecas a utilizar.
 use DateTime;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Model\Sesion;
 use App\Model\Tipo_sesion;
-use App\Http\Requests\SesionFormRequest;
 use App\Event;
 use App\Model\Miembro;
-
 use App\Mail\sendMail;
 use App\Model\PuntoAgenda;
-use Mail;
-
+use Illuminate\Support\Facades\Mail;
 use Calendar;
 use Illuminate\Support\Facades\Redirect;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -84,6 +81,27 @@ class SesionController extends Controller
         }
     }
 
+    // Función que permite devolver todos los puntos propuestos por un Usuario.
+    public function traerLosPuntosPropuestos(){
+
+        // Primero, hace una consulta a la base y trae los puntos necesarios.
+        $puntos = PuntoAgenda::all();
+
+        // Luego, por cada punto
+        foreach ($puntos as $punto) {
+
+            // Busca el miembro al que pertenece.
+            $miembro = Miembro::find($punto->miembro);
+
+            // Obtiene el nombre del punto.
+            $nombre = "$miembro->nombremiembro $miembro->apellido1miembro";
+
+            // Asigna el nombre al punto.
+            $punto->miembro = $nombre;
+        }
+        return view('sesion.index',['puntosPropuestos' => $puntos]);
+    }
+
     public function crearConFecha(Request $request, $fecha)
     {
         return $fecha;
@@ -93,9 +111,9 @@ class SesionController extends Controller
         if($this->acceso($request))
         {
             $tipo_sesion = new Tipo_sesion();
-            $tipo_sesion = $tipo_sesion->mostrar();            
+            $tipo_sesion = $tipo_sesion->mostrar();
             $miembro = new Miembro();
-            $listaMiembros = $miembro->mostrar();            
+            $listaMiembros = $miembro->mostrar();
 
         	return view("sesion.create",['tipo_sesion'=>$tipo_sesion, "listaMiembros"=>$listaMiembros]);
         }
@@ -109,7 +127,7 @@ class SesionController extends Controller
 
     public function store(Request $request){
         if($this->acceso($request))
-        {            
+        {
             $events = [];
             $data = Event::all();
 
@@ -187,7 +205,7 @@ class SesionController extends Controller
             $sesion = $sesion->buscar($id);
             $tipo_sesion = new Tipo_sesion();
             $tipo_sesion = $tipo_sesion->mostrar();
-            $listaMiembros = $sesion->obtenerMiembrosConvocados((int)$id);            
+            $listaMiembros = $sesion->obtenerMiembrosConvocados((int)$id);
 
         	return view("sesion.edit",["sesion"=>$sesion, 'tipo_sesion'=>$tipo_sesion, "listaMiembros"=>$listaMiembros]);
         }
@@ -930,10 +948,10 @@ class SesionController extends Controller
         $usuario = (int)$request->id_usuario;
         $obPuntos->votoAbstinencia_Miembro($idPunto,$usuario);
     }
-    
+
     public function showFiles()
     {
         return Storage::url('prueba.txt');
     }
-    
+
 }
