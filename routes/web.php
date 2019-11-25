@@ -103,6 +103,7 @@ Route::get('sesion/obtenerPuntos/{sesion}', ['as'=>'obtenerPuntos', 'uses'=>'Pun
 
 Route::get('sesion/documentoSolicitudPuntos/{sesion}', ['as'=>'documentoSolicitudPuntos', 'uses'=>'PuntoAgendaController@crearDocSolicitudPuntos']);
 Route::get('sesion/documentoActa/{sesion}', ['as'=>'documentoActa', 'uses'=>'PuntoAgendaController@crearDocumentoActa']);
+Route::get('sesion/firmarActaConsejo/{sesion}', ['as'=>'firmarActa', 'uses'=>'PuntoAgendaController@firmarActaDeConsejo']);
 
 Route::resource('sesion', 'SesionController');
 Route::resource('puntoAgenda','PuntoAgendaController');
@@ -141,13 +142,8 @@ Route::get('form', function(){
     return View::make('login');
 });
 
-Route::post('form-loginWithDigitalSignature', array('before'=>'csrf',function(){
-    return view('\auth\loginWithDigitalSignature.blade.php');
-}));
-
-
+// La ruta de la función de login con firma digital.
 Route::any('login/firmaDigital', ['as'=>'firmaDigital', 'uses'=>'Auth\LoginController@loginFirmaDigital']);
-
 
 // Aquí se supone que se agrega el web service en las rutas para ser aceptado.
 Route::post('/js/FirmaDigital/componente.js', ['middleware' => 'cors',function(){

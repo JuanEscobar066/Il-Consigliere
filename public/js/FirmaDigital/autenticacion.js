@@ -1,166 +1,3 @@
-//Funciones de autenticacion en Mer-link
-async function inicioSesion(){
-
-    var pin = document.getElementById("pin").value;
-    var certificateType = document.querySelector('input[name=tipoCertificado]:checked').value;
-    var fileName;
-    var slotSelected;
-
-    if(certificateType === "CARD"){
-        var selectCerts = document.getElementById("idSelectCerts");
-        slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
-        if(slotSelected === '-1'){
-            alert(selectCerts.options[selectCerts.selectedIndex].text);
-            return;
-        }
-     }else{ //FILE
-        var selectFiles = document.getElementById("idSelectFiles");
-        fileName = selectFiles.options[selectFiles.selectedIndex].value;
-        if(fileName === '-1'){
-            alert(selectFiles.options[selectFiles.selectedIndex].text);
-            return;
-        }
-     }
-
-    var jsonParams = {"cmd":"getAuthValues",
-                      "password":pin,
-                      "signType":TYPE_AUTH,
-                      "certificateType":certificateType,
-                      "certificatePath":fileName,
-                      "validationType":VALIDATION_TYPE,
-                      "certificate":CERTIFICATE,
-                      "slot":slotSelected};
-
-    var resultado = await service(jsonParams);
-
-    var errorCode = resultado.ErrorCode;
-    var description = resultado.Description;
-
-    if(errorCode === 0){
-        overlay(); //cerrar modal
-
-        var auth = resultado.Authentication;
-        var result = "";
-            result += "Fecha Inicio " + auth.validityStart;
-            result += "\n\nFecha Expira " + auth.validityExpire;
-            result += "\n\nCN " + auth.userCn;
-            result += "\n\nDN sin CN " + auth.userDnWithoutCn;
-            result += "\n\nLlave de encripcion cookie " + auth.keyEnc;
-
-        document.getElementById("texto").value = result;
-
-    }else{
-        //mostrar mensaje de error
-        alert(errorCode);
-    }
-}
-
-async function getCertificadoBase64(){
-    var pin = document.getElementById("pin").value;
-    var certificateType = document.querySelector('input[name=tipoCertificado]:checked').value;
-    var fileName;
-    var slotSelected;
-
-    if(certificateType === "CARD"){
-        var selectCerts = document.getElementById("idSelectCerts");
-        slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
-        if(slotSelected === '-1'){
-            alert(selectCerts.options[selectCerts.selectedIndex].text);
-            return;
-        }
-     }else{ //FILE
-        var selectFiles = document.getElementById("idSelectFiles");
-        fileName = selectFiles.options[selectFiles.selectedIndex].value;
-        if(fileName === '-1'){
-            alert(selectFiles.options[selectFiles.selectedIndex].text);
-            return;
-        }
-     }
-
-     var jsonParams = {"cmd":"certificateBase64",
-                      "password":pin,
-                      "signType":TYPE_AUTH,
-                      "certificateType":certificateType,
-                      "certificatePath":fileName,
-                      "validationType":VALIDATION_TYPE,
-                      "slot":slotSelected};
-
-    var resolve = await service(jsonParams);
-    var resultado = JSON.parse(resolve.data);
-
-
-    var errorCode = resultado.ErrorCode;
-    var description = resultado.Description;
-
-    if(errorCode === 0){
-        overlay(); //cerrar modal
-
-        var obj = resultado.Certificado;
-        document.getElementById("texto").value = obj.certificateBase64;
-    }else{
-        //mostrar mensaje de error
-        alert(description);
-    }
-}
-
-function generarLlaves(){
-    var pin = document.getElementById("pin").value;
-    var certificateType = document.querySelector('input[name=tipoCertificado]:checked').value;
-    var fileName;
-    var slotSelected;
-    if(certificateType === "CARD"){
-        var selectCerts = document.getElementById("idSelectCerts");
-        slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
-        if(slotSelected === '-1'){
-            alert(selectCerts.options[selectCerts.selectedIndex].text);
-            return;
-        }
-     }else{ //FILE
-        var selectFiles = document.getElementById("idSelectFiles");
-        fileName = selectFiles.options[selectFiles.selectedIndex].value;
-        if(fileName === '-1'){
-            alert(selectFiles.options[selectFiles.selectedIndex].text);
-            return;
-        }
-     }
-     var jsonParams = {"cmd":"generarLlaves",
-                      "password":pin,
-                      "signType":TYPE_KEY_GENERATOR,
-                      "certificateType":certificateType,
-                      "certificatePath":fileName,
-                      "validationType":VALIDATION_TYPE,
-                      "keyName": "CR_102313231237127381",
-                      "slot":slotSelected};
-    var resultado = service(jsonParams);
-    var errorCode = resultado.ErrorCode;
-    var description = resultado.Description;
-    if(errorCode === 0){
-        overlay(); //cerrar modal
-        var obj = resultado.Llaves;
-        var llaves = "Llave Publica en base64: \n" + obj.publicKey +"\n\n" + "Llave Privada en base64: \n" + obj.privateKey;
-        var divKeys = document.getElementById("keys");
-        divKeys.value = llaves;
-        //guardar en archivo
-        saveFile(llaves, 'userenc.dat', 'text/plain');
-    }else{
-        //mostrar mensaje de error
-        alert(description);
-    }
-}
-
-function saveFile(text, fileName, type) {
-    var link = document.createElement("a");
-    var file = new Blob([text], {type: type});
-    link.download = fileName;
-    link.href = URL.createObjectURL(file);
-    document.body.appendChild(link);
-    link.click();
-      // Cleanup the DOM
-    document.body.removeChild(link);
-    delete link;
-
-}
-
 // Resuelve la petición del Usuario e imprime la información del Usuario.
 async function getDN(){
 
@@ -288,31 +125,16 @@ function FechaExpirValidacion(DN){
     document.getElementById('emision_dt').value = date2;
 }
 
-// Permite leer una cookie del arreglo de las cookies.
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
 // Función que permite hacer la firma digital en un archivo PDF.
-async function firmarPDF(sesionID){
+async function firmarPDF(sesionID, tipoDeDocumento){
 
-    // Obtenemos la cookie con el archivo codificado en base 64.
-    var b64 = document.getElementById(sesionID.toString()).value;
+    // Preguntamos si viene del acta o de la solicitud de puntos y obtenemos el archivo a firmar.
+    let tipoArchivo = (tipoDeDocumento === 'puntos') ? 'solicitudPuntos-' : 'actaConsejo-';
+    var b64 = document.getElementById(tipoArchivo + sesionID.toString()).value;
 
     // Obtenemos el pin del usuario.
-    var pin = document.getElementById("pin").value;
+    let tipoPin = (tipoDeDocumento === "puntos") ? 'pinSolicitudPuntos-' : 'pinActa-';
+    const pin = document.getElementById(tipoPin + sesionID.toString()).value;
 
     // El filename que le vamos a pasar a la lectora para que lo firme.
     var fileName;
@@ -322,7 +144,9 @@ async function firmarPDF(sesionID){
     var slotSelected;
 
     // Obtenemos el certificado que el usuario seleccionó.
-    var selectCerts = document.getElementById("idSelectCerts");
+    var tipoSelect = (tipoDeDocumento === 'puntos') ? 'solicitudPuntos-' : 'acta-';
+    var selectCerts = document.getElementById("idSelectCerts-" + tipoSelect + sesionID.toString());
+
     slotSelected = selectCerts.options[selectCerts.selectedIndex].value;
     if(slotSelected === '-1'){
        alert(selectCerts.options[selectCerts.selectedIndex].text);
@@ -351,7 +175,6 @@ async function firmarPDF(sesionID){
 
     // Se parsea la información recibida.
     var resultado = JSON.parse(resolve.data);
-    console.log(resultado);
 
     // Obtenemos el error y la descripción.
     var errorCode   = resultado.ErrorCode;
@@ -361,36 +184,38 @@ async function firmarPDF(sesionID){
     if(errorCode === 0){
 
         // Se cierra el modal.
-        overlay();
+        overlay(sesionID, tipoDeDocumento);
 
         // Este sería el archivo ya firmado, en base 64.
         var signedFile = resultado.SignedFile.base64File;
-        console.log(signedFile);
-        document.getElementById(sesionID.toString()).value = signedFile;
+        document.getElementById(tipoArchivo + sesionID.toString()).value = signedFile;
 
-        ver(sesionID);
+        ver(sesionID, tipoDeDocumento);
 
     }else{
         //mostrar mensaje de error
         alert(description);
     }
 
-    function ver(sesionID){
+    // Permite ver PDFs en nuevas pestañas.
+    function ver(sesionID, tipoDeDocumento){
 
-        var base64str = document.getElementById(sesionID.toString()).value;
+        // Se obtiene el archivo del HTML.
+        var tipoDocumento   = (tipoDeDocumento === 'puntos') ? 'solicitudPuntos-' : 'actaConsejo-';
+        var base64str       = document.getElementById(tipoDocumento + sesionID.toString()).value;
 
-        // decode base64 string, remove space for IE compatibility
-        var binary = atob(base64str.replace(/\s/g, ''));
-        var len = binary.length;
-        var buffer = new ArrayBuffer(len);
-        var view = new Uint8Array(buffer);
+        // Decode base64 string, remove space for IE compatibility.
+        var binary  = atob(base64str.replace(/\s/g, ''));
+        var len     = binary.length;
+        var buffer  = new ArrayBuffer(len);
+        var view    = new Uint8Array(buffer);
         for (var i = 0; i < len; i++) {
             view[i] = binary.charCodeAt(i);
         }
 
-        // create the blob object with content-type "application/pdf"
-        var blob = new Blob( [view], { type: "application/pdf" });
-        var url = URL.createObjectURL(blob);
+        // Create the blob object with content-type "application/pdf".
+        var blob    = new Blob( [view], { type: "application/pdf" });
+        var url     = URL.createObjectURL(blob);
 
         window.open(url);
     }

@@ -131,22 +131,6 @@ class PuntoAgendaController extends Controller
         }
     }
 
-    public function crearActa($idEvento){
-        $datos = $this->obtenerDatosActa($idEvento);
-        $puntosPropuestos = $datos[0];
-        $sesion = $datos[1];
-        $miembros = $datos[2];
-        $estudiantes = $datos[3];
-        $ausentes = $datos[4];
-        $presidentes = $datos[5];
-        $secretarios = $datos[6];
-
-        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
-                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
-                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
-        return $pdf->stream('Acta de Consejo.pdf');
-    }
-
     public function crearDocumentoActa($idEvento){
         $datos = $this->obtenerDatosActa($idEvento);
         $puntosPropuestos = $datos[0];
@@ -162,9 +146,25 @@ class PuntoAgendaController extends Controller
                               'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
     }
 
+    public function crearActa($idEvento){
+        $datos = $this->obtenerDatosActa($idEvento);
+        $puntosPropuestos = $datos[0];
+        $sesion = $datos[1];
+        $miembros = $datos[2];
+        $estudiantes = $datos[3];
+        $ausentes = $datos[4];
+        $presidentes = $datos[5];
+        $secretarios = $datos[6];
+
+        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
+            'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
+            'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
+        return $pdf->stream('Acta de Consejo.pdf');
+    }
+
     // Esta función permite crear el acta de consejo y firmarla. Esta función solo la usa el
     // coordinador.
-    public function firmarActaDeConsejo(Request $request, $idEvento){
+    public function firmarActaDeConsejo($idEvento){
 
         // Se hace un llamado a la información de la solicitud de puntos.
         $datos = $this->obtenerDatosActa($idEvento);
