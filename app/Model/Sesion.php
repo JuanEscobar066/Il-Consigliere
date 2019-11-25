@@ -52,7 +52,16 @@ class Sesion extends Model
 
         $sesion->save();
 
-        $this->ConvocarMiembros($sesion->fecha);
+        $miembrosConvocados = $_POST["values"];
+        
+        $listaMiembros = array();
+
+        foreach($miembrosConvocados as $m){
+            array_push($listaMiembros, (int)$m);
+        }        
+
+        //$this->ConvocarMiembros($sesion->fecha);
+        $this->convocarMiembros2($sesion->fecha, $listaMiembros);
     }
 
     public function insertarAsistencia($lista)
@@ -175,6 +184,18 @@ class Sesion extends Model
         }
         return $listaRetorno;
     }
+    public function crearListaInsertar2($listaMiembros,$idSesion)
+    {   //return $listaMiembros;
+        $listaRetorno = [];
+        foreach($listaMiembros as $miembro)
+        {
+            $listaRetorno2 = ['ideventoconvocado' => $idSesion, 'idmiembroconvocado' => (int)$miembro->idmiembro, 'convocado' => 0];
+            array_push($listaRetorno,$listaRetorno2);
+            //$listaRetorno = ['ideventoconvocado' => (int)$miembro->idmiembro];
+        }
+        return $listaRetorno;
+    }
+
     public function obtenerMiembrosConvocadosCorreo($idEvento)
     {
         // $miembro = new Miembro();
@@ -239,6 +260,21 @@ class Sesion extends Model
         DB::table('miembrosconvocados')->insert($listaInsertar);
         //echo $listaMiembros;
         //return $listaInsertar;
+    }
+
+    public function convocarMiembros2($fecha, $listaMiembros)
+    {
+        $idSesion = $this->obtenerUltimoIdSesion();
+        $miembro = new Miembro();
+        $personas = $miembro->convocar($fecha, $listaMiembros);
+        $listaMiembros = $personas[0];
+        $listaInsertar1 = $this->crearListaInsertar($listaMiembros,$idSesion);
+
+        $listaNoAsiste = $personas[1];
+        $listaInsertar2 = $this->crearListaInsertar2($listaNoAsiste,$idSesion);
+        
+        DB::table('miembrosconvocados')->insert($listaInsertar1);
+        DB::table('miembrosconvocados')->insert($listaInsertar2);
     }
 
 

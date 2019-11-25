@@ -67,7 +67,7 @@
                                     @if(Auth::permisoIniciarSesion())
                                     @if($sesion->estaactivo==0)
                                     <td class="center">
-                                        <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}"><strong>Iniciar</strong></a>
+                                        <a href="" data-target="#modal-iniciar-{{$sesion->id}}" data-toggle="modal"><strong>Iniciar</strong></a>
                                     </td>
                                     @else
                                     <td class="center">
@@ -83,12 +83,13 @@
                                         <a href="" data-target="#modal-delete-{{$sesion->id}}" data-toggle="modal"><strong style="color:red">Eliminar</strong></a>
                                     </td>
                                     <td class="center">
-                                        <a href="{{action('SesionController@enviarPuntos',$sesion->id)}}"><strong>Convocar</strong></a>
+                                        <a href="" data-target="#modal-convocar-{{$sesion->id}}" data-toggle="modal"><strong>Convocar</strong></a>
                                     </td>
                                     @else
                                     <td>
                                         <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}" style="color:green"><strong>Ingresar</strong></a>
                                     </td>
+                                    @foreach($puntosPropuestos as $p)
                                     <td>
                                         <div class="dropdown show">
                                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,9 +100,11 @@
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a class="dropdown-item" data-toggle="modal" href="#modal-firmaSolicitudPuntos-{{ $sesion->id }}" onclick="smartCardCertificates({{ $sesion->id}}, 'puntos');">Firmar PDF</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
+                                                <a class=" dropdown-item" data-target="#modal-show-punto-{{$p->id_punto}}" data-toggle="modal">Ver más</a>     
                                             </div>
                                         </div>
                                     </td>
+                                    @endforeach
                                     @endif
                                     <td>
                                         <div class="dropdown show">
@@ -118,12 +121,11 @@
                                             </div>
                                         </div>
                                     </td>
+
                                     </tr>
                                     @endif
-                                    @include('sesion.modal')
+                                    @include('sesion.modal')                                    
                                     @endforeach
-
-
                             </tbody>
                         </table>
 

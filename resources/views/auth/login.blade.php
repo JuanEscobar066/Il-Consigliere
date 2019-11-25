@@ -28,15 +28,18 @@
                 <a class="navbar-brand brand-logo" href="{{url('/home')}}"><img src="{{ asset('images/logo.jpeg')}}" alt="logo" /></a>
                 <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}"><img src="{{ asset('images/logo-mini.png')}}" alt="logo" /></a>
             </div>
+            <div class="d-flex align-items-left justify-content-center">
+                <a class="navbar-brand" href="{{url('/showFiles')}}">Documentos Públicos</a>
+            </div>
 
         </nav>
         <div class="row justify-content-center">
             <div class="col-md-8">
 
                 @if($errors->has('usuarioNoEncontrado'))
-                    <div class="alert alert-danger" role="alert">
-                        {{$errors->first('usuarioNoEncontrado')}}
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    {{$errors->first('usuarioNoEncontrado')}}
+                </div>
                 @endif
 
                 <div class="card">
@@ -122,13 +125,12 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Los componentes de la Firma Digital. -->
-    <script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
+        <!-- Los componentes de la Firma Digital. -->
+        <script type="text/javascript" src="{{ asset('js/FirmaDigital/jquery-3.2.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/FirmaDigital/componente.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
 
 </body>
 

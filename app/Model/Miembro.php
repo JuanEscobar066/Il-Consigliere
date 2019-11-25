@@ -98,6 +98,46 @@ class Miembro extends Model
 
     }
 
+    public function convocar($fecha, $listaMiembros)
+    {
+        $miembros = DB::table('miembro as m')
+            ->join('roles as r','m.rol','=','r.idrole')
+            ->select('m.idmiembro', 'm.nombremiembro', 'm.apellido1miembro', 'm.apellido2miembro', 'm.correo', 'm.contrasenna', 'm.rol', 'r.descripcionrole', 'r.agregarmiembro','r.eliminarmiembro','r.administrarpuntos','r.proponerpuntos','r.puntos_agenda')
+
+            ->get();
+        $au = new Ausencia();
+        $ausencias = $au->obtenerAusenciasDentroFecha($fecha);
+
+        $listaAsiste = [];
+        $listaNoAsiste = [];
+        foreach ($miembros as $miembro)
+        {
+            $member = $miembro->idmiembro;
+            //Para buscar si tiene una ausencia
+            $asiste = true;
+            foreach ($ausencias as $ausencia)
+            {
+                if ($ausencia->idmiembro == $member)
+                {
+                    $asiste = false;
+                }
+            }
+            if ($asiste && in_array($member, $listaMiembros))
+            {
+                array_push($listaAsiste,$miembro);
+            }
+            else if(!in_array($member, $listaMiembros)){
+                array_push($listaNoAsiste, $miembro);
+            }
+        }
+        $personas = array();
+        $personas[0] = $listaAsiste;
+        $personas[1] = $listaNoAsiste;
+
+        return $personas;
+
+    }
+
     public function buscar($id){
         $member = DB::table('miembro as m')
                 ->join('roles as r','m.rol','=','r.idrole')
