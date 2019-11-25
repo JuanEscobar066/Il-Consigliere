@@ -32,8 +32,7 @@
 						</div>
 						<div class="col-md-6">
 							<!-- <a id="firmar" class="btn btn-primary mr-2" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firmar PDF</a> -->
-							<button id="firmar" type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#modal-firma" 
-							data-role="disabled" disabled onClick="smartCardCertificates();">Firmar PDF</button>
+							<button id="firmar" type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#modal-firma" data-role="disabled" disabled onClick="smartCardCertificates();">Firmar PDF</button>
 							<button id="quitar" type="button" class="btn btn-light" disabled>Quitar archivo</button>
 						</div>
 					</div>
@@ -64,20 +63,24 @@
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/modal.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/FirmaDigital/autenticacion.js') }}"></script>
 
-<script>	
+<script>
 	$(document).ready(function() {
 		$("#files").change(function() {
 			//$("#firmar").prop("disabled", this.files.length == 0);
-			if (this.files.length != 0){
-				document.getElementById("firmar").disabled = false;				
+			if (this.files.length != 0) {
+				document.getElementById("firmar").disabled = false;
 				document.getElementById("quitar").disabled = false;
-			}			
-		});	
-		
-		$('#quitar').click(function(){
-			document.getElementById("files").value = "";		
-			document.getElementById("firmar").disabled = true;				
-			document.getElementById("quitar").disabled = true;	
+				//alert(this.files);
+				for (var i = 0; i < this.files.length; i++) {
+					console.log(this.files[i].name);
+				}
+			}
+		});
+
+		$('#quitar').click(function() {
+			document.getElementById("files").value = "";
+			document.getElementById("firmar").disabled = true;
+			document.getElementById("quitar").disabled = true;
 		});
 	});
 </script>

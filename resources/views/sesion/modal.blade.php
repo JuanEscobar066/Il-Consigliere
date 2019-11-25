@@ -109,7 +109,7 @@
 
     {{Form::Close()}}
 </div>
-
+@if(isset($p))
 <div class="modal fade modal-slide-in-right" id="modal-show-punto-{{$p->id_punto}}" aria-hidden="true" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -157,3 +157,4 @@
     </div>
   </div>
 </div>
+@endif
