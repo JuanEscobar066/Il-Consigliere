@@ -68,7 +68,7 @@ function overlaySinParametros() {
     var el = document.getElementById("overlay");
 
     // Es un if-else.
-    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    el.style.visibility = (el.style.visibility === "visible") ? "hidden" : "visible";
     var pin = document.getElementById("pin");
     pin.value = "";
     pin.focus();
