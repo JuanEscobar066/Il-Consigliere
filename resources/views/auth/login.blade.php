@@ -28,9 +28,11 @@
                 <a class="navbar-brand brand-logo" href="{{url('/home')}}"><img src="{{ asset('images/logo.jpeg')}}" alt="logo" /></a>
                 <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}"><img src="{{ asset('images/logo-mini.png')}}" alt="logo" /></a>
             </div>
+            <!--
             <div class="d-flex align-items-left justify-content-center">
-                <a class="navbar-brand" href="{{url('/showFiles')}}">Documentos Públicos</a>
+{{--                <a class="navbar-brand" href="{{url('/showFiles')}}">Documentos Públicos</a>--}}
             </div>
+            -->
 
         </nav>
         <div class="row justify-content-center">
@@ -108,7 +110,7 @@
                                     {{ __('Ingresar') }}
                                 </button>
 
-                                <a class="btn btn-primary" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firma Digital</a>
+                                <a class="btn btn-primary" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificatesSinParametros();">Firma Digital</a>
                             </div>
                         </div>
 
@@ -122,7 +124,7 @@
 {{--                                @endif--}}
                             </div>
                         </div>
-                        --
+                        -->
                         {!! Form::close() !!}
                         @include('auth.modal')
                     </div>
