@@ -21,12 +21,15 @@
                             Miembro
                           </th>
                           <th>
+                            Sesión
+                          </th>
+                          <th>
                             Acciones
                           </th>
                         </tr>
                       </thead>
                         <tbody>
-                            @foreach($puntosPropuestos as $p)
+                            @foreach($puntosPropuestos as $p) 
                                 <tr>
                                     <td>
                                       <?php
@@ -43,6 +46,9 @@
                                     </td>
                                     <td>
                                         {{$p->miembro}}
+                                    </td>
+                                    <td>
+                                        {{$p->punto_para_agenda}}
                                     </td>
                                     <td class = "center">
                                         <a href="" data-target="#modal-show-punto-{{$p->id_punto}}" data-toggle="modal"><strong>Ver más</strong></a>

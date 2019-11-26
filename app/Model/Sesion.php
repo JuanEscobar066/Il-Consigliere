@@ -306,7 +306,7 @@ class Sesion extends Model
             ->select('s.id', 's.lugar', 's.fecha', 's.hora', 'ts.nombre as tipo', 's.estaactivo')
             ->orderBy('s.fecha', 'asc')
             ->where('s.id',$id)
-            ->get();
+            ->get()->toArray();
         return $sesion;
     }
 

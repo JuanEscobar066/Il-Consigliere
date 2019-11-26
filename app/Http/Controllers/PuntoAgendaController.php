@@ -25,38 +25,43 @@ class PuntoAgendaController extends Controller
     {
         //
         $puntos = PuntoAgenda::all();
-        foreach ($puntos as $p){
-          $m = Miembro::find($p->miembro);
-          $nombre = "$m->nombremiembro $m->apellido1miembro";
-          $p->miembro = $nombre;
+        foreach ($puntos as $p) {
+            $m = Miembro::find($p->miembro);
+            $nombre = "$m->nombremiembro $m->apellido1miembro";
+            $p->miembro = $nombre;
+            $sesion = new Sesion();
+            $infoSesion = $sesion->mostrarFiltrado($p->punto_para_agenda);
+            $a = (array) $infoSesion[0];
+            $time = strtotime($a["fecha"]);
+            $newformat = date('d/m/Y', $time);
+            $p->punto_para_agenda = $newformat;
         }
-        return view('puntoAgenda.index',['puntosPropuestos' => $puntos]);
+        return view('puntoAgenda.index', ['puntosPropuestos' => $puntos]);
     }
 
     private function acceso(Request $request)
     {
-        if (($request->session()->has('id')) and ((int)$request->session()->get('id')!=0))
-        {
+        if (($request->session()->has('id')) and ((int) $request->session()->get('id') != 0)) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    public function solicitudPuntos(Request $request, $idEvento){
+    public function solicitudPuntos(Request $request, $idEvento)
+    {
         $datos = $this->obtenerDatos($request, $idEvento);
         $puntosPropuestos = $datos[0];
         $nombre = $datos[1];
         $sesion = $datos[2];
 
-        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
+        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre, 'sesion' => $sesion]);
         return $pdf->stream('Solicitud de puntos ' . $sesion->fecha . '.pdf');
     }
 
     // Esta función permite firmar la solicitud de puntos.
-    public function firmaSolicitudPuntos(Request $request, $idEvento){
+    public function firmaSolicitudPuntos(Request $request, $idEvento)
+    {
 
         // Se hace un llamado a la información de la solicitud de puntos.
         $datos = $this->obtenerDatos($request, $idEvento);
@@ -67,7 +72,7 @@ class PuntoAgendaController extends Controller
         $sesion = $datos[2];
 
         // Se forma el PDF como tal.
-        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
+        $pdf = \PDF::loadView('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre, 'sesion' => $sesion]);
 
         // Aquí se obtiene el contenido del PDF y luego se convierte a base64, esto para efectuar el proceso de firma digital
         // para el documento en cuestión.
@@ -77,26 +82,27 @@ class PuntoAgendaController extends Controller
         return $documentoEnBase64;
     }
 
-    public function crearDocSolicitudPuntos(Request $request, $idEvento){
+    public function crearDocSolicitudPuntos(Request $request, $idEvento)
+    {
         $datos = $this->obtenerDatos($request, $idEvento);
         $puntosPropuestos = $datos[0];
         $nombre = $datos[1];
         $sesion = $datos[2];
 
-        return view('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre,'sesion' => $sesion]);
+        return view('puntoAgenda.solicitud_puntos', ['puntosPropuestos' => $puntosPropuestos, 'miembro' => $nombre, 'sesion' => $sesion]);
     }
 
-    public function obtenerDatos(Request $request, $idEvento){
-        $idMiembro = (int)$request->session()->get('id'); // Obtiene el id del usuario que está logueado en el momento.
+    public function obtenerDatos(Request $request, $idEvento)
+    {
+        $idMiembro = (int) $request->session()->get('id'); // Obtiene el id del usuario que está logueado en el momento.
         $sesion = new Sesion();
         $sesion = $sesion->buscar($idEvento);
         $fecha = $sesion->fecha;
         $sesion->fecha = date("d-m-Y", strtotime($fecha));
 
-        if($sesion->tipo_sesion == 1){
+        if ($sesion->tipo_sesion == 1) {
             $sesion->tipo_sesion = "ordinaria";
-        }
-        else{
+        } else {
             $sesion->tipo_sesion = "extraordinaria";
         }
 
@@ -105,7 +111,7 @@ class PuntoAgendaController extends Controller
         $miembro = Miembro::find($idMiembro);
         $nombre = "$miembro->nombremiembro $miembro->apellido1miembro $miembro->apellido2miembro";
 
-        foreach ($puntosPropuestos as $p){
+        foreach ($puntosPropuestos as $p) {
             $p->miembro = $nombre;
         }
 
@@ -117,21 +123,19 @@ class PuntoAgendaController extends Controller
 
     public function indexAdmin(Request $request)
     {
-    //    $pun = new PuntoAgenda();
-    //    $puntos = $pun->obtenerPuntosTodos();
+        //    $pun = new PuntoAgenda();
+        //    $puntos = $pun->obtenerPuntosTodos();
         //
-        if($this->acceso($request))
-        {
-        	$puntos = PuntoAgenda::all();
-        	return view('puntoAgenda.indexAdmin',['puntosPropuestos' => $puntos]);
-        }
-        else
-        {
+        if ($this->acceso($request)) {
+            $puntos = PuntoAgenda::all();
+            return view('puntoAgenda.indexAdmin', ['puntosPropuestos' => $puntos]);
+        } else {
             return redirect::to('/login');
         }
     }
 
-    public function crearDocumentoActa($idEvento){
+    public function crearDocumentoActa($idEvento)
+    {
         $datos = $this->obtenerDatosActa($idEvento);
         $puntosPropuestos = $datos[0];
         $sesion = $datos[1];
@@ -141,12 +145,15 @@ class PuntoAgendaController extends Controller
         $presidentes = $datos[5];
         $secretarios = $datos[6];
 
-        return view('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
-                              'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
-                              'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
+        return view('puntoAgenda.acta', [
+            'puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
+            'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
+            'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios
+        ]);
     }
 
-    public function crearActa($idEvento){
+    public function crearActa($idEvento)
+    {
         $datos = $this->obtenerDatosActa($idEvento);
         $puntosPropuestos = $datos[0];
         $sesion = $datos[1];
@@ -156,15 +163,18 @@ class PuntoAgendaController extends Controller
         $presidentes = $datos[5];
         $secretarios = $datos[6];
 
-        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
+        $pdf = \PDF::loadView('puntoAgenda.acta', [
+            'puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
             'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
-            'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
+            'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios
+        ]);
         return $pdf->stream('Acta de Consejo.pdf');
     }
 
     // Esta función permite crear el acta de consejo y firmarla. Esta función solo la usa el
     // coordinador.
-    public function firmarActaDeConsejo($idEvento){
+    public function firmarActaDeConsejo($idEvento)
+    {
 
         // Se hace un llamado a la información de la solicitud de puntos.
         $datos = $this->obtenerDatosActa($idEvento);
@@ -179,9 +189,11 @@ class PuntoAgendaController extends Controller
         $secretarios        = $datos[6];
 
         // Se forma el PDF.
-        $pdf = \PDF::loadView('puntoAgenda.acta', ['puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
+        $pdf = \PDF::loadView('puntoAgenda.acta', [
+            'puntosPropuestos' => $puntosPropuestos, 'sesion' => $sesion,
             'miembrosPresentes' =>  $miembros, 'estudiantesPresentes' =>  $estudiantes,
-            'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios]);
+            'miembrosAusentes' =>  $ausentes, 'presidentes' => $presidentes, 'secretarios' => $secretarios
+        ]);
 
         // Aquí se obtiene el contenido del PDF y luego se convierte a base64, esto para efectuar el proceso de firma digital
         // para el documento en cuestión.
@@ -191,7 +203,8 @@ class PuntoAgendaController extends Controller
         return $documentoEnBase64;
     }
 
-    public function obtenerDatosActa($idEvento){
+    public function obtenerDatosActa($idEvento)
+    {
         $sesion = new Sesion();
         $sesion = $sesion->buscar($idEvento);
         $fecha = $sesion->fecha;
@@ -199,10 +212,9 @@ class PuntoAgendaController extends Controller
         $miembrosAusentes = $ausencia->buscarAusenciaPorRango($fecha, "Miembro");
         $sesion->fecha = date("d-m-Y", strtotime($fecha));
 
-        if($sesion->tipo_sesion == 1){
+        if ($sesion->tipo_sesion == 1) {
             $sesion->tipo_sesion = "ordinaria";
-        }
-        else{
+        } else {
             $sesion->tipo_sesion = "extraordinaria";
         }
         $puntos = new PuntoAgenda();
@@ -217,19 +229,19 @@ class PuntoAgendaController extends Controller
         $secretarios = array();
         $ausentes = array();
 
-        foreach ($presidente as $p){
+        foreach ($presidente as $p) {
             array_push($presidentes, $p->nombremiembro . ' ' . $p->apellido1miembro . ' ' . $p->apellido2miembro);
         }
-        foreach ($miembrosPresentes as $m){
+        foreach ($miembrosPresentes as $m) {
             array_push($miembros, $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro);
         }
-        foreach ($estudiantesPresentes as $e){
+        foreach ($estudiantesPresentes as $e) {
             array_push($estudiantes, $e->nombremiembro . ' ' . $e->apellido1miembro . ' ' . $e->apellido2miembro);
         }
-        foreach ($secretario as $s){
+        foreach ($secretario as $s) {
             array_push($secretarios, $s->nombremiembro . ' ' . $s->apellido1miembro . ' ' . $s->apellido2miembro);
         }
-        foreach ($miembrosAusentes as $m){
+        foreach ($miembrosAusentes as $m) {
             $nombreCompleto = $m->nombremiembro . ' ' . $m->apellido1miembro . ' ' . $m->apellido2miembro;
             array_push($ausentes, $nombreCompleto);
             $miembros = array_diff($miembros, array($nombreCompleto));
@@ -242,18 +254,20 @@ class PuntoAgendaController extends Controller
         return $datos;
     }
 
-    public function accept($id){
-    	$punto = PuntoAgenda::find($id);
-    	$punto->estado = true;
-    	$punto->save();
-    	return redirect('indexAdmin');
+    public function accept($id)
+    {
+        $punto = PuntoAgenda::find($id);
+        $punto->estado = true;
+        $punto->save();
+        return redirect('indexAdmin');
     }
 
-    public function deny($id){
-    	$punto = PuntoAgenda::find($id);
-    	$punto->estado = false;
-    	$punto->save();
-    	return redirect('indexAdmin');
+    public function deny($id)
+    {
+        $punto = PuntoAgenda::find($id);
+        $punto->estado = false;
+        $punto->save();
+        return redirect('indexAdmin');
     }
 
     /**
@@ -265,7 +279,7 @@ class PuntoAgendaController extends Controller
     {
         $sesion = new Sesion;
         $listaAgendas = $sesion->mostrar();
-       return view('puntoAgenda.create',['agendas'=>$listaAgendas]);
+        return view('puntoAgenda.create', ['agendas' => $listaAgendas]);
     }
 
     /**
@@ -274,38 +288,37 @@ class PuntoAgendaController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request){
-        if($this->acceso($request)){
-    	    $punto = new PuntoAgenda;
-    	    $punto->titulo = $request->titulo_punto;
-    	    $punto->considerando = $request->considerando_punto;
-    	    $punto->acuerda = $request->se_acuerda_punto;
+    public function store(Request $request)
+    {
+        if ($this->acceso($request)) {
+            $punto = new PuntoAgenda;
+            $punto->titulo = $request->titulo_punto;
+            $punto->considerando = $request->considerando_punto;
+            $punto->acuerda = $request->se_acuerda_punto;
 
             //$user = Auth::user();
-    	    $punto->miembro = (int)$request->session()->get('id');//Para obtener el id de la persona que está loggeada
-            $punto->punto_para_agenda = (int)$request->post('agenda');
-    	    $punto->save();
-    	    $key = $punto->getKey();
+            $punto->miembro = (int) $request->session()->get('id'); //Para obtener el id de la persona que está loggeada
+            $punto->punto_para_agenda = (int) $request->post('agenda');
+            $punto->save();
+            $key = $punto->getKey();
 
-    	    if(!empty($request->file('files'))){
-    		    foreach($request->file('files') as $file){
-    			    $name = $file->getClientOriginalName();
-    			    if($file->move("{$key}/", $name)){
-    				    $adjunto = new AdjuntosPunto;
-    				    $adjunto->nombre = $name;
-    				    $adjunto->id_punto = $key;
-    				    $adjunto->ruta = "public/{$key}/{$name}";
-    				    $adjunto->save();
+            if (!empty($request->file('files'))) {
+                foreach ($request->file('files') as $file) {
+                    $name = $file->getClientOriginalName();
+                    if ($file->move("{$key}/", $name)) {
+                        $adjunto = new AdjuntosPunto;
+                        $adjunto->nombre = $name;
+                        $adjunto->id_punto = $key;
+                        $adjunto->ruta = "public/{$key}/{$name}";
+                        $adjunto->save();
+                    }
+                }
+            }
 
-    			    }
-    		    }
-    	    }
-
-    	    // Hay que darle tiempo al JavaScript, por eso los 10 segundos.
+            // Hay que darle tiempo al JavaScript, por eso los 10 segundos.
             sleep(10);
-    	    return redirect('puntoAgenda')->with('success', 'Punto solicitado exitosamente');
-        }
-        else {
+            return redirect('puntoAgenda')->with('success', 'Punto solicitado exitosamente');
+        } else {
             return redirect::to('/login');
         }
     }
@@ -317,8 +330,7 @@ class PuntoAgendaController extends Controller
      * @return Response
      */
     public function show(PuntoAgenda $puntoAgenda)
-    {
-    }
+    { }
 
     /**
      * Show the form for editing the specified resource.
@@ -327,13 +339,12 @@ class PuntoAgendaController extends Controller
      * @return Response
      */
     public function edit(PuntoAgenda $puntoAgenda)
-    {
-    }
+    { }
 
     public function download($ruta)
     {
-	    $r = substr($ruta,7);
-	    return response()->download($r);
+        $r = substr($ruta, 7);
+        return response()->download($r);
     }
 
     /**
@@ -348,41 +359,37 @@ class PuntoAgendaController extends Controller
     // Esta le hace "requests" al HTML de la vista para poder obtener los datos que necesita.
     public function update(Request $request, $id)
     {
-        if($this->acceso($request))
-        {
+        if ($this->acceso($request)) {
             // Esta sección le solicita al HTML todos esos valores mediante las etiquetas.
             // En cada input:  <input type="text" name="NOMBRE_QUE_SE_QUIERE".
-        	$punto = PuntoAgenda::find($id);
-        	$punto->titulo = $request->titulo_punto;
-        	$punto->considerando = $request->considerando_punto;
-        	$punto->acuerda = $request->se_acuerda_punto;
+            $punto = PuntoAgenda::find($id);
+            $punto->titulo = $request->titulo_punto;
+            $punto->considerando = $request->considerando_punto;
+            $punto->acuerda = $request->se_acuerda_punto;
 
             // Se obtiene su ID.
-        	$punto->miembro = (int)$request->session()->get('id');
+            $punto->miembro = (int) $request->session()->get('id');
 
-        	// Se guarda la información.
-        	$punto->save();
+            // Se guarda la información.
+            $punto->save();
 
-        	$key = $punto->getKey();
+            $key = $punto->getKey();
 
-        	if(!empty($request->file('files'))){
-        		foreach($request->file('files') as $file){
-        			$name = $file->getClientOriginalName();
-        			if($file->move("{$key}/", $name)){
-        				$adjunto = new AdjuntosPunto;
-        				$adjunto->nombre = $name;
-        				$adjunto->id_punto = $key;
-        				$adjunto->ruta = "public/{$key}/{$name}";
-        				$adjunto->save();
-        			}
+            if (!empty($request->file('files'))) {
+                foreach ($request->file('files') as $file) {
+                    $name = $file->getClientOriginalName();
+                    if ($file->move("{$key}/", $name)) {
+                        $adjunto = new AdjuntosPunto;
+                        $adjunto->nombre = $name;
+                        $adjunto->id_punto = $key;
+                        $adjunto->ruta = "public/{$key}/{$name}";
+                        $adjunto->save();
+                    }
+                }
+            }
 
-        		}
-        	}
-
-        	return redirect('puntoAgenda')->with('success', 'Punto solicitado exitosamente');
-        }
-        else
-        {
+            return redirect('puntoAgenda')->with('success', 'Punto solicitado exitosamente');
+        } else {
             return redirect::to('/login');
         }
     }
@@ -395,7 +402,7 @@ class PuntoAgendaController extends Controller
      */
     public function destroy($id)
     {
-     	PuntoAgenda::destroy($id);
-    	return redirect('puntoAgenda')->with('message', 'Punto eliminado exitosamente');
+        PuntoAgenda::destroy($id);
+        return redirect('puntoAgenda')->with('message', 'Punto eliminado exitosamente');
     }
 }
