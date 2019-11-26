@@ -274,10 +274,8 @@ class PuntoAgendaController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
-    {
-        if($this->acceso($request))
-        {
+    public function store(Request $request){
+        if($this->acceso($request)){
     	    $punto = new PuntoAgenda;
     	    $punto->titulo = $request->titulo_punto;
     	    $punto->considerando = $request->considerando_punto;
@@ -298,14 +296,16 @@ class PuntoAgendaController extends Controller
     				    $adjunto->id_punto = $key;
     				    $adjunto->ruta = "public/{$key}/{$name}";
     				    $adjunto->save();
+
     			    }
     		    }
     	    }
 
+    	    // Hay que darle tiempo al JavaScript, por eso los 10 segundos.
+            sleep(10);
     	    return redirect('puntoAgenda')->with('success', 'Punto solicitado exitosamente');
         }
-        else
-        {
+        else {
             return redirect::to('/login');
         }
     }

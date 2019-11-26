@@ -22,8 +22,7 @@
                         <input id="pin" name="pin" type="password" class="form-control" onkeypress="Javascript: if (event.which == 13 || event.keyCode == 13) getDN();" />
                     </div>
                     <div class="form-group">
-                        <!--Cambiar esta funcion firmarPDF(1)-->
-                        <button id="validar" name="validar" onclick="firmarPDF(1);" type="submit" class="btn btn-primary mr-2">Firmar</button>
+                        <button id="validar" name="validar" onclick="firmarPDFAdjunto();" class="btn btn-primary mr-2">Firmar</button>
                         <button id="cerrar" data-dismiss="modal" class="btn btn-light">Cerrar</button>
                     </div>
                 </div>

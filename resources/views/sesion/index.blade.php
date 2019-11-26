@@ -49,6 +49,7 @@
                             </thead>
                             <tbody>
                                 @foreach($sesiones as $sesion)
+                                    @foreach($puntosPropuestos as $p)
 
                                 @if($sesion->estaactivo < 2) <tr>
 
@@ -89,8 +90,9 @@
                                     <td>
                                         <a href="{{action('SesionController@iniciarSesion',$sesion->id)}}" style="color:green"><strong>Ingresar</strong></a>
                                     </td>
-                                    @foreach($puntosPropuestos as $p)
+
                                     <td>
+
                                         <div class="dropdown show">
                                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <strong>Solicitud puntos</strong>
@@ -100,11 +102,12 @@
                                                 <a class="dropdown-item" href="{{action('PuntoAgendaController@solicitudPuntos',$sesion->id)}}" target="_blank">PDF</a>
                                                 <a class="dropdown-item" data-toggle="modal" href="#modal-firmaSolicitudPuntos-{{ $sesion->id }}" onclick="smartCardCertificates({{ $sesion->id}}, 'puntos');">Firmar PDF</a>
                                                 <a id="descargar-acta" class="dropdown-item" href="javascript:void(0)" onclick="load('solicitud_puntos', 'documentoSolicitudPuntos/',{{$sesion->id}})">Editable</a>
-                                                <a class=" dropdown-item" data-target="#modal-show-punto-{{$p->id_punto}}" data-toggle="modal">Ver más</a>     
+                                                <a class=" dropdown-item" data-target="#modal-show-punto-{{$p->id_punto}}" data-toggle="modal">Ver más</a>
                                             </div>
                                         </div>
+
                                     </td>
-                                    @endforeach
+
                                     @endif
                                     <td>
                                         <div class="dropdown show">
@@ -124,7 +127,8 @@
 
                                     </tr>
                                     @endif
-                                    @include('sesion.modal')                                    
+                                    @include('sesion.modal')
+                                    @endforeach
                                     @endforeach
                             </tbody>
                         </table>

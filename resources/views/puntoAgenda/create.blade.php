@@ -28,11 +28,14 @@
 
 					<div class="form-group row">
 						<div class="col-md-6">
-							<input type="file" id="files" name="files[]" accept="application/pdf" multiple class="form-control" style="height: 45px;" />
+
+                            <!-- Aquí lo carga, pero en el textarea se usa como "puente". -->
+							<input type="file" id="files" name="files" accept="application/pdf" multiple class="form-control" style="height: 45px;" />
+                            <textarea id="base64" rows="5" style="display:none;"></textarea>
 						</div>
 						<div class="col-md-6">
-							<!-- <a id="firmar" class="btn btn-primary mr-2" data-toggle="modal" href="#modal-firma" onclick="smartCardCertificates();">Firmar PDF</a> -->
-							<button id="firmar" type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#modal-firma" data-role="disabled" disabled onClick="smartCardCertificates();">Firmar PDF</button>
+
+							<button id="firmar" type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#modal-firma" data-role="disabled" disabled onClick="smartCardCertificatesSinParametros(); convertToBase64();">Firmar PDF</button>
 							<button id="quitar" type="button" class="btn btn-light" disabled>Quitar archivo</button>
 						</div>
 					</div>

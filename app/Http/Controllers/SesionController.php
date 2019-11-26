@@ -35,8 +35,7 @@ class SesionController extends Controller
 
 
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
 
         if ($this->acceso($request)) {
             $events = [];
@@ -83,13 +82,13 @@ class SesionController extends Controller
                     // Asigna el nombre al punto.
                     $punto->miembro = $nombre;
                 }
-                
+
                 return view('sesion.index', ['sesiones' => $listaSesiones, 'puntosPropuestos' => $puntos], compact('calendar'));
             }
         } else {
             return redirect::to('/login');
         }
-    }    
+    }
 
     public function crearConFecha(Request $request, $fecha)
     {
